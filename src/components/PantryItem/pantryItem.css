@@ -1,0 +1,19 @@
+.pantry-item {
+	display: flex;
+	gap: 1rem;
+	align-items: center;
+	padding: 10px 0;
+	/* border-bottom: 1px solid #e0e0e0; */
+}
+
+.pantry-item--label {
+	display: flex;
+	flex-direction: column;
+}
+
+.pantry-item--heading {
+}
+
+.pantry-item--subheading {
+	font-size: 0.75rem;
+}
