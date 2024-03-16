@@ -1,7 +1,6 @@
 import React from "react";
 import Icon from "./Icon";
 import { faXmarkCircle } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
 
 // tag--${label.replace(" ", "-").toLowerCase()}
 

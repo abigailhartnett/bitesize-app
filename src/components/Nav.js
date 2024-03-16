@@ -5,11 +5,11 @@ import IconButton from "./buttons/IconButton";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 
 const Nav = ({ sortType }) => {
-	const [isClicked, setIsClicked] = useState(false);
+	// const [isClicked, setIsClicked] = useState(false);
 
-	const handleClick = ({ sort }) => {
-		setIsClicked(!isClicked);
-	};
+	// const handleClick = ({ sort }) => {
+	// 	setIsClicked(!isClicked);
+	// };
 
 	return (
 		<div className="flex p-4 justify-between">

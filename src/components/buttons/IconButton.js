@@ -1,5 +1,5 @@
 import React from "react";
-import { FontAwesomeIcon, fontAwesome } from "@fortawesome/react-fontawesome";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const IconButton = ({ icon }) => {
 	return (
