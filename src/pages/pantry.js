@@ -5,16 +5,16 @@ import Filter from "../components/Filter";
 import Footer from "../components/Footer";
 
 const PantryPage = () => {
-	return (
-		<div>
-			<Nav />
-			<Filter />
-			<div className="mt-4">
-				<PantryItem />
-			</div>
-			<Footer />
-		</div>
-	);
+  return (
+    <div>
+      <Nav />
+      <Filter />
+      <div className="mt-4">
+        <PantryItem />
+      </div>
+      <Footer />
+    </div>
+  );
 };
 
 export default PantryPage;
