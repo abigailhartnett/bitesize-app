@@ -1,5 +1,4 @@
 import React from "react";
-import { useState } from "react";
 import Sort from "./Sort";
 import IconButton from "./buttons/IconButton";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
