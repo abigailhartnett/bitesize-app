@@ -14,7 +14,15 @@ const Nav = ({ sortType }) => {
 		<div className="flex p-4 justify-between">
 			<div className="flex items-center gap-4">
 				<IconButton icon={faChevronLeft} />
-				{window.location.pathname === "/pantry" ? "Pantry" : ""}
+				{window.location.pathname === "/meal-plan"
+					? "Meal Plan"
+					: window.location.pathname === "/pantry"
+						? "Pantry"
+						: window.location.pathname === "/recipe-box"
+							? "Recipe Box"
+							: window.location.pathname === "/shopping-list"
+								? "Shopping List"
+								: ""}
 			</div>
 		</div>
 	);
