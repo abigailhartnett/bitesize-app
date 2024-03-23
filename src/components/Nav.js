@@ -16,7 +16,6 @@ const Nav = ({ sortType }) => {
 				<IconButton icon={faChevronLeft} />
 				{window.location.pathname === "/pantry" ? "Pantry" : ""}
 			</div>
-			<Sort sortType="Pantry" />
 		</div>
 	);
 };

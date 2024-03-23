@@ -1,6 +1,6 @@
 import React from "react";
 
-const Sort = ({ sortType }) => {
+const Sort = ({ sortType, data }) => {
 	return (
 		<div className="flex">
 			{sortType === "Pantry" ? (
@@ -9,7 +9,12 @@ const Sort = ({ sortType }) => {
 						Sort by
 					</label>
 					<select className="flex items-center gap-4 text-sm" id="sort">
-						<option className="sortOption text-sm font-semibold">Aisle</option>
+						<option
+							className="sortOption text-sm font-semibold"
+							onSelect={() => data.sort()}
+						>
+							Aisle
+						</option>
 						<option className="sortOption text-sm font-semibold">Status</option>
 						<option className="sortOption text-sm font-semibold">
 							Expiration
