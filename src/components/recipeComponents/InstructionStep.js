@@ -9,28 +9,27 @@ const InstructionStep = ({ id }) => {
 		return (
 			<div
 				key={step.id}
-				className="pt-8 border-2 border-solid border-black p-4 my-4"
+				className="border-2 border-solid border-gray-100 p-4 my-8"
 			>
-				<div className="font-semibold pb-4">Step {step.id}</div>
+				{/* <div className="font-semibold pb-4">Step {step.id}</div> */}
 
-				<div className="flex">
-					<div className="w-1/2">
+				<div>
+					<div className="font-semibold">{step.instruction}</div>
+					<div className="grid-flow-row grid grid-cols-2 gap-2 pt-4">
 						{step.ingredients.map((ingredient) => {
 							return (
 								<div key={ingredient.id}>
-									<div className="flex items-center">
+									<div className="flex my-1 items-end">
 										<CheckBox />
 										<div>
 											<div className="text-xs">{ingredient.quantity}</div>
-											<div className="pb-2">{ingredient.name}</div>
+											<div className="">{ingredient.name}</div>
 										</div>
 									</div>
 								</div>
 							);
 						})}
 					</div>
-
-					<div>{step.instruction}</div>
 				</div>
 			</div>
 		);
