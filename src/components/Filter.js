@@ -5,7 +5,7 @@ import { faFilter } from "@fortawesome/free-solid-svg-icons";
 
 const Filter = () => {
 	return (
-		<div className="flex items-center gap-2 pl-1 pb-4 border-solid border-black border-2 border-t-0 border-x-0">
+		<div className="flex items-center gap-2 pl-1 pb-4">
 			<IconButton icon={faFilter} />
 			<Tag label="in stock" type="close" />
 			<Tag label="out" type="close" />

@@ -1,5 +1,5 @@
 import React from "react";
-import Sort from "./Sort";
+import { Link } from "react-router-dom";
 import IconButton from "./buttons/IconButton";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 
@@ -11,19 +11,23 @@ const Nav = ({ sortType }) => {
 	// };
 
 	return (
-		<div className="flex p-4 justify-between">
-			<div className="flex items-center gap-4">
-				<IconButton icon={faChevronLeft} />
-				{window.location.pathname === "/meal-plan"
-					? "Meal Plan"
-					: window.location.pathname === "/pantry"
-						? "Pantry"
-						: window.location.pathname === "/recipe-box"
-							? "Recipe Box"
-							: window.location.pathname === "/shopping-list"
-								? "Shopping List"
-								: ""}
-			</div>
+		<div className="flex py-4 justify-between">
+			<Link to="/">
+				<div className="flex items-center gap-4">
+					<IconButton icon={faChevronLeft} />
+					{window.location.pathname === "/meal-plan" ? (
+						<h1>Meal Plan</h1>
+					) : window.location.pathname === "/pantry" ? (
+						<h1>Pantry</h1>
+					) : window.location.pathname === "/recipe-box" ? (
+						<h1>Recipe Box</h1>
+					) : window.location.pathname === "/shopping-list" ? (
+						<h1>Shopping List</h1>
+					) : (
+						""
+					)}
+				</div>
+			</Link>
 		</div>
 	);
 };
