@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import IconButton from "./buttons/IconButton";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 
@@ -9,8 +9,6 @@ const Nav = ({ sortType, pageTitle }) => {
 	// const handleClick = ({ sort }) => {
 	// 	setIsClicked(!isClicked);
 	// };
-
-	const history = useNavigate();
 
 	return (
 		<div className="flex py-4 justify-between">
