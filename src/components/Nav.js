@@ -14,7 +14,7 @@ const Nav = ({ sortType }) => {
 		<div className="flex py-4 justify-between">
 			<Link to="/">
 				<div className="flex items-center gap-4">
-					<IconButton icon={faChevronLeft} />
+					<IconButton icon={faChevronLeft} to="/" />
 					{window.location.pathname === "/meal-plan" ? (
 						<h1>Meal Plan</h1>
 					) : window.location.pathname === "/pantry" ? (

@@ -33,11 +33,9 @@ const Sort = ({ sortType, data }) => {
 						>
 							Readiness
 						</option>
-						<option className="sortOption text-sm font-semibold">Meal</option>
 						<option className="sortOption text-sm font-semibold">
-							Favorites
+							Cook time
 						</option>
-						<option className="sortOption text-sm font-semibold">Tag</option>
 					</select>
 				</div>
 			)}

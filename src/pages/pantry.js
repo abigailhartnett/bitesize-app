@@ -2,13 +2,17 @@ import React from "react";
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 import PantryList from "../components/PantryList";
+import Filter from "../components/Filter";
+import Sort from "../components/Sort";
 
 const PantryPage = () => {
 	return (
 		<div>
 			<Nav />
+			<Sort sortType="Pantry" />
+			<Filter filterBy="pantry" />
 			<PantryList />
-			<Footer />
+			<Footer searchPlaceholder="Search for pantry item" />
 		</div>
 	);
 };

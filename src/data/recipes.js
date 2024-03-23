@@ -3,6 +3,8 @@ export const recipes = [
 		id: 1,
 		name: "Spaghetti Bolognese",
 		readiness: "45%",
+		cookTime: "45 mins",
+		favorite: true,
 		link: "/recipe/1",
 	},
 	{

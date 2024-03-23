@@ -5,7 +5,7 @@ const BigButton = ({ text, link }) => {
 	return (
 		<div className="m-4">
 			<Link to={link}>
-				<div className="bg-blue-500 text-white p-4 rounded-lg text-center">
+				<div className="bg-gray-500 text-white p-4 rounded-lg text-center">
 					{text}
 				</div>
 			</Link>

@@ -1,14 +1,20 @@
 import React from "react";
-import TextButton from "./buttons/TextButton";
+import IconButton from "./buttons/IconButton";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 const RecipeItem = ({ name, readiness }) => {
 	return (
-		<div className="flex justify-between items-center">
-			<div>
-				<h2>{name}</h2>
-				<span>{readiness}</span>
+		<div className="flex justify-between grow hover:bg-gray-100 active:bg-gray-500">
+			<div className="flex items-center pl-4">
+				<div className="flex flex-col">
+					<h2>{name}</h2>
+					<span className="text-xs">{readiness}</span>
+				</div>
 			</div>
-			<TextButton text="View recipe" />
+			{/* This icon-button styling below is weird */}
+			<div className="icon-button">
+				<IconButton icon={faPlus} />
+			</div>
 		</div>
 	);
 };
