@@ -8,7 +8,7 @@ import Filter from "../components/Filter";
 const RecipeBoxPage = () => {
 	return (
 		<div>
-			<Nav />
+			<Nav pageTitle="Recipe Box" />
 			<Sort sortType="Recipes" />
 			<Filter filterBy="recipes" />
 			<RecipeList />

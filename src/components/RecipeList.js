@@ -4,7 +4,13 @@ import RecipeItem from "./RecipeItem";
 
 const RecipeList = () => {
 	const recipeItems = recipes.map((item) => {
-		return <RecipeItem name={item.name} readiness={item.readiness} />;
+		return (
+			<RecipeItem
+				name={item.name}
+				readiness={item.readiness}
+				link={item.link}
+			/>
+		);
 	});
 
 	return (

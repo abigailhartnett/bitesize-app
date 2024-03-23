@@ -4,7 +4,7 @@ import Nav from "../components/Nav";
 const MealPlanPage = () => {
 	return (
 		<div>
-			<Nav />
+			<Nav pageTitle="Meal Plan" />
 		</div>
 	);
 };

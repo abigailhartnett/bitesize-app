@@ -8,7 +8,7 @@ import Sort from "../components/Sort";
 const PantryPage = () => {
 	return (
 		<div>
-			<Nav />
+			<Nav pageTitle="Pantry" />
 			<Sort sortType="Pantry" />
 			<Filter filterBy="pantry" />
 			<PantryList />
