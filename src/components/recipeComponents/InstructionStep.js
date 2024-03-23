@@ -15,21 +15,23 @@ const InstructionStep = ({ id }) => {
 
 				<div>
 					<div className="font-semibold">{step.instruction}</div>
-					<div className="grid-flow-row grid grid-cols-2 gap-2 pt-4">
-						{step.ingredients.map((ingredient) => {
-							return (
-								<div key={ingredient.id}>
-									<div className="flex my-1 items-end">
-										<CheckBox />
-										<div>
-											<div className="text-xs">{ingredient.quantity}</div>
-											<div className="">{ingredient.name}</div>
+					{step.ingredients.length > 0 && (
+						<div className="grid-flow-row grid grid-cols-2 gap-2 pt-4">
+							{step.ingredients.map((ingredient) => {
+								return (
+									<div key={ingredient.id}>
+										<div className="flex my-1 items-top">
+											<CheckBox />
+											<div>
+												<div className="">{ingredient.name}</div>
+												<div className="text-xs">{ingredient.quantity}</div>
+											</div>
 										</div>
 									</div>
-								</div>
-							);
-						})}
-					</div>
+								);
+							})}
+						</div>
+					)}
 				</div>
 			</div>
 		);

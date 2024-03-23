@@ -39,7 +39,11 @@ export const recipes = [
 		id: "2",
 		name: "Middle East Fall Thai Surprise",
 		readiness: "60%",
+		cookTime: "45 mins",
+		favorite: true,
 		link: "/recipes/2",
+		lastCooked: "2021-09-01",
+		servings: "4",
 		steps: [
 			{
 				id: "1",

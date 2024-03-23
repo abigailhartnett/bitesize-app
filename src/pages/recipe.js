@@ -13,11 +13,11 @@ const RecipePage = () => {
 		<div>
 			<Nav pageTitle={recipe.name} />
 			<div>Servings: {recipe.servings}</div>
-			<div className="pt-4">{recipe.readiness} ready</div>
+			<div>{recipe.readiness} ready</div>
 
 			<InstructionStep id={id} />
 
-			<div className="pt-10">Cook time: {recipe.cookTime}</div>
+			<div>Cook time: {recipe.cookTime}</div>
 			<div>Notes:</div>
 		</div>
 	) : (
