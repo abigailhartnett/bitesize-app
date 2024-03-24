@@ -145,7 +145,7 @@ export const recipes = [
 					{ name: "Powdered sugar", quantity: "60g" },
 					{ name: "Cream cheese", quantity: "8 oz" },
 				],
-				instruction: `Mix room temperature cream cheese, powdered sugar, and vanilla. Chill 1 tbsp balls in the freezer.`,
+				instruction: `Preheat oven to 350. Mix room temperature cream cheese, powdered sugar, and vanilla. Chill 1 tbsp balls in the freezer.`,
 			},
 			{
 				id: "2",
@@ -163,7 +163,7 @@ export const recipes = [
 					{ name: "Vanilla extract", quantity: "6g" },
 					{ name: "Egg", quantity: "1 large" },
 				],
-				instruction: "Add egg and vanilla",
+				instruction: "Add egg and vanilla. Beat until fluffy.",
 				time: "",
 			},
 			{
@@ -191,14 +191,14 @@ export const recipes = [
 				id: "5",
 				ingredients: [{ name: "Sugar, granulated", quantity: "" }],
 				instruction:
-					"Scoop 1/3 cup dough and slightly fold in 2 tsp brown sugar mixture. Flatten in palm and add chilled cream cheese to the center. Fold cookie around the cream cheese and roll in granulated sugar.",
+					"Scoop 1/3 cup (66g) dough and slightly fold in 1 tsp (3g) brown sugar mixture. Flatten in palm and add chilled cream cheese to the center. Fold cookie around the cream cheese and roll in granulated sugar.",
 				time: "",
 			},
 			{
 				id: "6",
 				ingredients: [],
 				instruction:
-					"Place on lined tray. Bake for `12-13 minutes`. *For perfect cookies, swirl cookie cutter around fresh cookie to clean edges. Let sit `10 minutes` before removing.",
+					"Place on lined tray. Bake for 12-13 minutes. Let sit 10 minutes before removing.",
 				time: "",
 			},
 		],
