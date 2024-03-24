@@ -135,7 +135,7 @@ export const recipes = [
 		favorite: true,
 		link: "/recipes/cinnamon-roll-cookies",
 		lastCooked: "2021-09-01",
-		servings: "14",
+		servings: "12",
 		planned: true,
 		steps: [
 			{
@@ -145,7 +145,7 @@ export const recipes = [
 					{ name: "Powdered sugar", quantity: "60g" },
 					{ name: "Cream cheese", quantity: "8 oz" },
 				],
-				instruction: `Preheat oven to 350. Mix room temperature cream cheese, powdered sugar, and vanilla. Chill 1 tbsp balls in the freezer.`,
+				instruction: `Preheat oven to 350. Mix room temperature cream cheese, powdered sugar, and vanilla. Chill 12 20g (1 tbsp) balls in the freezer.`,
 			},
 			{
 				id: "2",
