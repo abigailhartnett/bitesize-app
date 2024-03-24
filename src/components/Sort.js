@@ -2,7 +2,7 @@ import React from "react";
 
 const Sort = ({ sortType, data }) => {
 	return (
-		<div className="flex pb-4 pl-1">
+		<div className="flex pl-1">
 			{sortType === "Pantry" ? (
 				<div className="flex items-center gap-2 font-semibold">
 					<label for="sort" className="text-xs">

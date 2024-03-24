@@ -5,20 +5,21 @@ import { Link } from "react-router-dom";
 
 const RecipeItem = ({ name, readiness, link }) => {
 	return (
-		<Link to={link}>
-			<div className="flex justify-between grow hover:bg-gray-100 active:bg-gray-500">
-				<div className="flex items-center pl-4">
-					<div className="flex flex-col">
-						<h2>{name}</h2>
-						<span className="text-xs">{readiness}</span>
+		<div className="flex py-1 justify-between">
+			<Link to={link} className="flex-grow">
+				<div className="hover:bg-gray-100 active:bg-gray-500 px-4">
+					<div className="gap-4 items-center">
+						<div className="flex flex-col">
+							<h2>{name}</h2>
+							<span className="text-xs">{readiness}</span>
+						</div>
 					</div>
 				</div>
-				{/* This icon-button styling below is weird */}
-				<div className="icon-button">
-					<IconButton icon={faPlus} />
-				</div>
+			</Link>
+			<div>
+				<IconButton icon={faPlus} />
 			</div>
-		</Link>
+		</div>
 	);
 };
 

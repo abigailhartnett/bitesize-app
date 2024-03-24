@@ -15,9 +15,7 @@ const RecipeList = () => {
 
 	return (
 		<div>
-			<div className="border-solid border-black border-2 border-b-0 border-x-0 pt-4">
-				{recipeItems}
-			</div>
+			<div>{recipeItems}</div>
 		</div>
 	);
 };

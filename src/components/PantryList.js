@@ -14,13 +14,7 @@ const PantryList = () => {
 		);
 	});
 
-	return (
-		<div>
-			<div className="border-solid border-black border-2 border-b-0 border-x-0 pt-4">
-				{pantryItems}
-			</div>
-		</div>
-	);
+	return <div>{pantryItems}</div>;
 };
 
 export default PantryList;

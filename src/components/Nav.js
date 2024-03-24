@@ -10,7 +10,7 @@ const Nav = ({ sortType, pageTitle }) => {
 	// };
 
 	return (
-		<div className="flex py-4 justify-between">
+		<div className="flex justify-between">
 			<div className="flex items-center gap-4">
 				<IconButton icon={faChevronLeft} onClick={-1} />
 				<h1>{pageTitle}</h1>

@@ -8,7 +8,7 @@ import RecipePage from "./pages/recipe";
 
 function App() {
 	return (
-		<div className="App">
+		<div>
 			<Router>
 				<Routes>
 					<Route path="/" element={<HomePage />} />
