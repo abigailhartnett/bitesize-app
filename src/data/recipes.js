@@ -8,6 +8,7 @@ export const recipes = [
 		link: "/recipes/1",
 		lastCooked: "2021-09-01",
 		servings: "4",
+		planned: true,
 		steps: [
 			{
 				id: "1",

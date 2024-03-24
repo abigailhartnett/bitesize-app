@@ -5,6 +5,7 @@ export const pantry = [
 		aisle: "Bakery",
 		status: "in stock",
 		expiration: "12-01-2021",
+		onList: false,
 	},
 	{
 		name: "Milk",
@@ -12,6 +13,7 @@ export const pantry = [
 		aisle: "Dairy",
 		status: "in stock",
 		expiration: "12-13-2021",
+		onList: false,
 	},
 	{
 		name: "Eggs",
@@ -19,6 +21,7 @@ export const pantry = [
 		aisle: "Dairy",
 		status: "out",
 		expiration: "05-01-2021",
+		onList: true,
 	},
 	{
 		name: "Rice",
@@ -26,6 +29,7 @@ export const pantry = [
 		aisle: "Grains",
 		status: "low",
 		expiration: "08-01-2021",
+		onList: true,
 	},
 	{
 		name: "Sugar",
@@ -33,6 +37,7 @@ export const pantry = [
 		aisle: "Baking",
 		status: "in stock",
 		expiration: "04-01-2021",
+		onList: false,
 	},
 	{
 		name: "Flour",
@@ -40,6 +45,7 @@ export const pantry = [
 		aisle: "Baking",
 		status: "low",
 		expiration: "06-01-2021",
+		onList: true,
 	},
 	{
 		name: "Salt",
@@ -47,6 +53,7 @@ export const pantry = [
 		aisle: "Spices",
 		status: "in stock",
 		expiration: "12-01-2021",
+		onList: false,
 	},
 	{
 		name: "Olive Oil",
@@ -54,6 +61,7 @@ export const pantry = [
 		aisle: "Condiments",
 		status: "in stock",
 		expiration: "07-01-2021",
+		onList: false,
 	},
 	{
 		name: "Canned Tomatoes",
@@ -61,6 +69,7 @@ export const pantry = [
 		aisle: "Canned Goods",
 		status: "in stock",
 		expiration: "01-01-2022",
+		onList: false,
 	},
 	{
 		name: "Pasta",
@@ -68,6 +77,7 @@ export const pantry = [
 		aisle: "Pasta",
 		status: "in stock",
 		expiration: "02-01-2022",
+		onList: false,
 	},
 	{
 		name: "Coffee",
@@ -75,6 +85,7 @@ export const pantry = [
 		aisle: "Beverages",
 		status: "in stock",
 		expiration: "09-01-2021",
+		onList: false,
 	},
 	{
 		name: "Tea",
@@ -82,5 +93,6 @@ export const pantry = [
 		aisle: "Beverages",
 		status: "in stock",
 		expiration: "10-01-2021",
+		onList: false,
 	},
 ];

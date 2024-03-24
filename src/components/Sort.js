@@ -21,7 +21,7 @@ const Sort = ({ sortType, data }) => {
 						</option>
 					</select>
 				</div>
-			) : (
+			) : sortType === "Recipes" ? (
 				<div className="flex items-center gap-2 font-semibold">
 					<label for="sort" className="text-xs">
 						Sort by
@@ -38,6 +38,8 @@ const Sort = ({ sortType, data }) => {
 						</option>
 					</select>
 				</div>
+			) : (
+				""
 			)}
 		</div>
 	);

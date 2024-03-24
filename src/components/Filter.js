@@ -19,6 +19,10 @@ const Filter = ({ filterBy }) => {
 					<Tag label="dinner" type="close" />
 					<Tag label="cook time: < 30min" type="close" />
 				</div>
+			) : filterBy === "store" ? (
+				<div className="flex gap-2">
+					<Tag label="Costco" type="close" />
+				</div>
 			) : (
 				""
 			)}
