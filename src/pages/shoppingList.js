@@ -1,9 +1,7 @@
 import React from "react";
 import Nav from "../components/Nav";
-import Sort from "../components/Sort";
 import Filter from "../components/Filter";
 import ShoppingList from "../components/ShoppingList";
-import Footer from "../components/Footer";
 import Button from "../components/buttons/Button";
 
 const ShoppingListPage = () => {
