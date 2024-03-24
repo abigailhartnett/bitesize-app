@@ -50,10 +50,10 @@ export const recipes = [
 			{
 				id: "1",
 				ingredients: [
-					{ name: "Ginger, grated", quantity: "4 tsp" },
-					{ name: "Basil leaves", quantity: "1/2 cup" },
+					{ name: "Ginger, fresh", quantity: "4 tsp" },
+					{ name: "Basil, fresh", quantity: "1/2 cup" },
 					{ name: "Red bell pepper", quantity: "2 medium" },
-					{ name: "Garlic, fresh", quantity: "2 tsp" },
+					{ name: "Garlic", quantity: "2 tsp" },
 					{ name: "Onion", quantity: "2 medium" },
 				],
 				instruction: `Chop butternut squash. Store in fridge up to 7 days. Chop red bell pepper, garlic, and onion. Combine. Chop basil leaves.`,
@@ -61,7 +61,7 @@ export const recipes = [
 			{
 				id: "2",
 				ingredients: [
-					{ name: "Ginger, grated", quantity: "4 tsp" },
+					{ name: "Ginger, fresh", quantity: "4 tsp" },
 					{ name: "Red bell pepper", quantity: "2 medium" },
 					{ name: "Garlic, fresh", quantity: "2 tbsp" },
 					{ name: "Onion", quantity: "2 medium" },
@@ -84,8 +84,7 @@ export const recipes = [
 			{
 				id: "4",
 				ingredients: [
-					{ name: "Lime zest", quantity: "2 lime" },
-					{ name: "Lime juice", quantity: "2 lime" },
+					{ name: "Lime", quantity: "2 lime" },
 					{ name: "Fish sauce", quantity: "2 tbsp" },
 					{ name: "Coconut milk", quantity: "26 oz" },
 				],
@@ -96,7 +95,7 @@ export const recipes = [
 			{
 				id: "5",
 				ingredients: [
-					{ name: "Basil leaves", quantity: "1/2 cup" },
+					{ name: "Basil, fresh", quantity: "1/2 cup" },
 					{ name: "Chickpeas", quantity: "28 oz can" },
 				],
 				instruction:

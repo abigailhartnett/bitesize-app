@@ -1,9 +1,11 @@
 import React from "react";
 import { recipes } from "../../data/recipes";
+import { pantry } from "../../data/pantry";
 import CheckBox from "../CheckBox";
 
 const InstructionStep = ({ id }) => {
 	const recipe = recipes.find((recipe) => recipe.id === id);
+	const ingredient = pantry.find((ingredient) => ingredient);
 
 	const contents = recipe.steps.map((step) => {
 		return (
@@ -18,17 +20,23 @@ const InstructionStep = ({ id }) => {
 					{step.ingredients.length > 0 && (
 						<div className="grid-flow-row grid grid-cols-2 gap-2 pt-4">
 							{step.ingredients.map((ingredient) => {
-								return (
-									<div key={ingredient.id}>
-										<div className="flex my-1 items-top">
-											<CheckBox />
-											<div>
-												<div className="">{ingredient.name}</div>
-												<div className="text-xs">{ingredient.quantity}</div>
+								const pantryItem = pantry.find(
+									(item) => item.name === ingredient.name
+								);
+								if (pantryItem) {
+									return (
+										<div key={ingredient.id}>
+											<div className="flex my-1 items-top">
+												<CheckBox />
+												<div>
+													<div className="">{ingredient.name}</div>
+													<div className="text-xs">{ingredient.quantity}</div>
+												</div>
 											</div>
 										</div>
-									</div>
-								);
+									);
+								}
+								return;
 							})}
 						</div>
 					)}
