@@ -2,7 +2,6 @@ export const recipes = [
 	{
 		id: "1",
 		name: "Spaghetti Bolognese",
-		readiness: "45%",
 		cookTime: "45 mins",
 		favorite: true,
 		link: "/recipes/1",
@@ -39,7 +38,6 @@ export const recipes = [
 	{
 		id: "2",
 		name: "Middle East Fall Thai Surprise",
-		readiness: "60%",
 		cookTime: "45 mins",
 		favorite: true,
 		link: "/recipes/2",
@@ -113,7 +111,6 @@ export const recipes = [
 	{
 		id: "3",
 		name: "Caesar Salad",
-		readiness: "30%",
 		link: "/recipes/3",
 		planned: false,
 		steps: [
@@ -131,17 +128,90 @@ export const recipes = [
 			},
 		],
 	},
+	{
+		id: "cinnamon-roll-cookies",
+		name: "Cinnamon Roll Cookies",
+		cookTime: "30 mins",
+		favorite: true,
+		link: "/recipes/cinnamon-roll-cookies",
+		lastCooked: "2021-09-01",
+		servings: "14",
+		planned: true,
+		steps: [
+			{
+				id: "1",
+				ingredients: [
+					{ name: "Vanilla extract", quantity: "6g" },
+					{ name: "Powdered sugar", quantity: "60g" },
+					{ name: "Cream cheese", quantity: "8 oz" },
+				],
+				instruction: `Mix room temperature cream cheese, powdered sugar, and vanilla. Chill 1 tbsp balls in the freezer.`,
+			},
+			{
+				id: "2",
+				ingredients: [
+					{ name: "Sugar, granulated", quantity: "200g" },
+					{ name: "Butter", quantity: "226g" },
+				],
+				instruction:
+					"With room temp butter, beat until mixture turns off-white (1-2 minutes).",
+				time: "1-2 minutes",
+			},
+			{
+				id: "3",
+				ingredients: [
+					{ name: "Vanilla extract", quantity: "6g" },
+					{ name: "Egg", quantity: "1 large" },
+				],
+				instruction: "Add egg and vanilla",
+				time: "",
+			},
+			{
+				id: "4",
+				ingredients: [
+					{ name: "Baking powder", quantity: "2g" },
+					{ name: "Baking soda", quantity: "4g" },
+					{ name: "Flour, all purpose", quantity: "330g" },
+				],
+				instruction: "Fold in dry ingredients.",
+				time: "",
+			},
+			{
+				id: "5",
+				ingredients: [
+					{ name: "Butter", quantity: "30g" },
+					{ name: "Cinnamon", quantity: "4g" },
+					{ name: "Brown sugar", quantity: "100g" },
+				],
+				instruction:
+					"When butter is room temp, mix together. Chill slightly before swirling into cookies.",
+				time: "",
+			},
+			{
+				id: "5",
+				ingredients: [{ name: "Sugar, granulated", quantity: "" }],
+				instruction:
+					"Scoop 1/3 cup dough and slightly fold in 2 tsp brown sugar mixture. Flatten in palm and add chilled cream cheese to the center. Fold cookie around the cream cheese and roll in granulated sugar.",
+				time: "",
+			},
+			{
+				id: "6",
+				ingredients: [],
+				instruction:
+					"Place on lined tray. Bake for `12-13 minutes`. *For perfect cookies, swirl cookie cutter around fresh cookie to clean edges. Let sit `10 minutes` before removing.",
+				time: "",
+			},
+		],
+	},
 	// {
 	// 	id: "4",
 	// 	name: "Chocolate Chip Cookies",
-	// 	readiness: "75%",
 	// 	link: "/recipes/4",
 	// 	steps: [],
 	// },
 	// {
 	// 	id: "5",
 	// 	name: "Mushroom Risotto",
-	// 	readiness: "50%",
 	// 	link: "/recipes/5",
 	// 	steps: [],
 	// },
