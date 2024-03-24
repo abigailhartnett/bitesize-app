@@ -4,7 +4,6 @@ import Filter from "../components/Filter";
 import ShoppingList from "../components/ShoppingList";
 import Footer from "../components/Footer";
 import Sort from "../components/Sort";
-import PantryList from "../components/PantryList";
 
 const ShoppingListPage = () => {
 	return (
