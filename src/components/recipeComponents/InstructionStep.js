@@ -5,7 +5,7 @@ import CheckBox from "../CheckBox";
 
 const InstructionStep = ({ id }) => {
 	const recipe = recipes.find((recipe) => recipe.id === id);
-	const ingredient = pantry.find((ingredient) => ingredient);
+	// const ingredient = pantry.find((ingredient) => ingredient);
 
 	const contents = recipe.steps.map((step) => {
 		return (
@@ -36,7 +36,7 @@ const InstructionStep = ({ id }) => {
 										</div>
 									);
 								}
-								return;
+								return <></>;
 							})}
 						</div>
 					)}

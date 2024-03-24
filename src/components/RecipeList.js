@@ -1,6 +1,5 @@
 import React from "react";
 import { recipes } from "../data/recipes";
-import { pantry } from "../data/pantry";
 import RecipeItem from "./RecipeItem";
 
 const RecipeList = () => {
@@ -10,6 +9,7 @@ const RecipeList = () => {
 				name={item.name}
 				readiness={item.readiness}
 				link={item.link}
+				id={item.id}
 			/>
 		);
 	});
