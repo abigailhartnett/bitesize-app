@@ -45,6 +45,7 @@ export const recipes = [
 		link: "/recipes/2",
 		lastCooked: "2021-09-01",
 		servings: "4",
+		planned: true,
 		steps: [
 			{
 				id: "1",
@@ -115,6 +116,7 @@ export const recipes = [
 		name: "Caesar Salad",
 		readiness: "30%",
 		link: "/recipes/3",
+		planned: false,
 		steps: [
 			{
 				id: "1",
