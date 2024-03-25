@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { recipes } from "../data/recipes";
 import InstructionStep from "../components/recipeComponents/InstructionStep";
 import Nav from "../components/Nav";
+import ReadinessCalculation from "../components/calculations/readinessCalculation";
 
 const RecipePage = () => {
 	const { id } = useParams();
@@ -13,7 +14,7 @@ const RecipePage = () => {
 		<div>
 			<Nav pageTitle={recipe.name} />
 			<div>Servings: {recipe.servings}</div>
-			<div>{recipe.readiness} ready</div>
+			<ReadinessCalculation id={id} />
 
 			<InstructionStep id={id} />
 

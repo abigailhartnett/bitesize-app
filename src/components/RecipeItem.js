@@ -2,8 +2,9 @@ import React from "react";
 import IconButton from "./buttons/IconButton";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import ReadinessCalculation from "./calculations/readinessCalculation";
 
-const RecipeItem = ({ name, readiness, link }) => {
+const RecipeItem = ({ name, readiness, link, id }) => {
 	return (
 		<div className="flex py-1 justify-between">
 			<Link to={link} className="flex-grow">
@@ -11,7 +12,9 @@ const RecipeItem = ({ name, readiness, link }) => {
 					<div className="gap-4 items-center">
 						<div className="flex flex-col">
 							<h2>{name}</h2>
-							<span className="text-xs">{readiness}</span>
+							<span className="text-xs">
+								<ReadinessCalculation id={id} />
+							</span>
 						</div>
 					</div>
 				</div>
