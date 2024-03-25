@@ -12,11 +12,16 @@ const RecipePage = () => {
 
 	return recipe ? (
 		<div>
-			<Nav pageTitle={recipe.name} />
-			<div>Servings: {recipe.servings}</div>
-			<ReadinessCalculation id={id} />
+			<div className="fixed inset-x-0 top-0 flex justify-between bg-salt">
+				<Nav pageTitle={recipe.name} />
+				<div>
+					<div className="pr-4">{recipe.servings} servings</div>
+				</div>
+			</div>
 
-			<InstructionStep id={id} />
+			<div className="pt-8">
+				<InstructionStep id={id} />
+			</div>
 
 			<div>Cook time: {recipe.cookTime}</div>
 			<div>Notes:</div>

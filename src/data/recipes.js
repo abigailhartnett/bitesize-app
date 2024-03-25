@@ -140,6 +140,7 @@ export const recipes = [
 		steps: [
 			{
 				id: "1",
+				summary: "Prep filling",
 				ingredients: [
 					{ name: "Vanilla extract", quantity: "6g" },
 					{ name: "Powdered sugar", quantity: "60g" },
@@ -149,6 +150,7 @@ export const recipes = [
 			},
 			{
 				id: "2",
+				summary: "Fluff butter",
 				ingredients: [
 					{ name: "Sugar, granulated", quantity: "200g" },
 					{ name: "Butter", quantity: "226g" },
@@ -159,6 +161,7 @@ export const recipes = [
 			},
 			{
 				id: "3",
+				summary: "Add liquids",
 				ingredients: [
 					{ name: "Vanilla extract", quantity: "6g" },
 					{ name: "Egg", quantity: "1 large" },
@@ -168,6 +171,7 @@ export const recipes = [
 			},
 			{
 				id: "4",
+				summary: "Add dry ingredients",
 				ingredients: [
 					{ name: "Baking powder", quantity: "2g" },
 					{ name: "Baking soda", quantity: "4g" },
@@ -178,6 +182,7 @@ export const recipes = [
 			},
 			{
 				id: "5",
+				summary: "Create cinnamon swirl",
 				ingredients: [
 					{ name: "Butter", quantity: "30g" },
 					{ name: "Cinnamon", quantity: "4g" },
@@ -188,14 +193,16 @@ export const recipes = [
 				time: "",
 			},
 			{
-				id: "5",
+				id: "6",
+				summary: "Mold cookies",
 				ingredients: [{ name: "Sugar, granulated", quantity: "" }],
 				instruction:
 					"Scoop 1/3 cup (66g) dough and slightly fold in 1 tsp (3g) brown sugar mixture. Flatten in palm and add chilled cream cheese to the center. Fold cookie around the cream cheese and roll in granulated sugar.",
 				time: "",
 			},
 			{
-				id: "6",
+				id: "7",
+				summary: "Bake",
 				ingredients: [],
 				instruction:
 					"Place on lined tray. Bake for 12-13 minutes. Let sit 10 minutes before removing.",

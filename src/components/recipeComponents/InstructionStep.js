@@ -9,37 +9,43 @@ const InstructionStep = ({ id }) => {
 
 	const contents = recipe.steps.map((step) => {
 		return (
-			<div
-				key={step.id}
-				className="border-2 border-solid border-gray-100 p-4 my-8"
-			>
-				{/* <div className="font-semibold pb-4">Step {step.id}</div> */}
+			<div className="mt-4">
+				<span class="font-dancingscript text-2xl font-bold">
+					{step.summary}
+				</span>
+				<div
+					key={step.id}
+					className="border border-solid border-pepper p-4 mb-8 bg-white"
+				>
+					{/* <div className="font-semibold pb-4">Step {step.id}</div> */}
 
-				<div>
-					<div className="font-semibold">{step.instruction}</div>
-					{step.ingredients.length > 0 && (
-						<div className="grid-flow-row grid grid-cols-2 gap-2 pt-4">
-							{step.ingredients.map((ingredient) => {
-								const pantryItem = pantry.find(
-									(item) => item.name === ingredient.name
-								);
-								if (pantryItem) {
-									return (
-										<div key={ingredient.id}>
-											<div className="flex my-1 items-top">
-												<CheckBox />
-												<div>
-													<div className="">{ingredient.name}</div>
-													<div className="text-xs">{ingredient.quantity}</div>
+					<div>
+						<div className="pb-4">{step.instruction}</div>
+						<hr className="border-b border-t-0 border-solid border-pepper border-opacity-10" />
+						{step.ingredients.length > 0 && (
+							<div className="grid-flow-row grid grid-cols-2 gap-2 pt-4">
+								{step.ingredients.map((ingredient) => {
+									const pantryItem = pantry.find(
+										(item) => item.name === ingredient.name
+									);
+									if (pantryItem) {
+										return (
+											<div key={ingredient.id}>
+												<div className="flex flex-col">
+													<CheckBox
+														label={ingredient.name}
+														id={ingredient.name}
+													/>
+													<div className="text-sm">{ingredient.quantity}</div>
 												</div>
 											</div>
-										</div>
-									);
-								}
-								return <></>;
-							})}
-						</div>
-					)}
+										);
+									}
+									return <></>;
+								})}
+							</div>
+						)}
+					</div>
 				</div>
 			</div>
 		);

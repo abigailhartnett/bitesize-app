@@ -11,7 +11,7 @@ const Nav = ({ sortType, pageTitle }) => {
 
 	return (
 		<div className="flex justify-between">
-			<div className="flex items-center gap-4">
+			<div className="flex items-center gap-4 font-medium">
 				<IconButton icon={faChevronLeft} onClick={-1} />
 				<h1>{pageTitle}</h1>
 			</div>
