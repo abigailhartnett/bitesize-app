@@ -22,12 +22,6 @@ const ReadinessCalculation = ({ id }) => {
 		);
 	});
 
-	setReadiness(
-		Math.floor(
-			(recipeIngredientsInStock.length / recipeIngredients.length) * 100
-		)
-	);
-
 	useEffect(() => {
 		setReadiness(
 			Math.floor(
