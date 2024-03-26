@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { recipes } from "../data/recipes";
 import InstructionStep from "../components/recipeComponents/InstructionStep";
 import Nav from "../components/Nav";
-import ReadinessCalculation from "../components/calculations/readinessCalculation";
+// import ReadinessCalculation from "../components/calculations/readinessCalculation";
 
 const RecipePage = () => {
 	const { id } = useParams();

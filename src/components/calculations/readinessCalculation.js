@@ -28,7 +28,7 @@ const ReadinessCalculation = ({ id }) => {
 				(recipeIngredientsInStock.length / recipeIngredients.length) * 100
 			)
 		);
-	}, []);
+	}, [recipeIngredientsInStock.length, recipeIngredients.length, readiness]);
 
 	return (
 		<div>
