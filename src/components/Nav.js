@@ -1,18 +1,18 @@
 import React from "react";
 import IconButton from "./buttons/IconButton";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
 
-const Nav = ({ sortType, pageTitle }) => {
-	// const [isClicked, setIsClicked] = useState(false);
-
-	// const handleClick = ({ sort }) => {
-	// 	setIsClicked(!isClicked);
-	// };
+const Nav = ({ pageTitle }) => {
+	const navigate = useNavigate();
+	const handleClick = () => {
+		navigate(-1);
+	};
 
 	return (
 		<div className="flex justify-between">
 			<div className="flex items-center gap-4 font-medium">
-				<IconButton icon={faChevronLeft} onClick={-1} />
+				<IconButton icon={faChevronLeft} onClick={handleClick} />
 				<h1>{pageTitle}</h1>
 			</div>
 		</div>

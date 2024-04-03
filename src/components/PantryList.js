@@ -2,8 +2,8 @@ import React from "react";
 import { pantry } from "../data/pantry";
 import PantryItem from "./PantryItem";
 
-const PantryList = () => {
-	const pantryItems = pantry.map((item) => {
+const PantryList = ({ pantryOptions }) => {
+	const pantryItems = pantryOptions.map((item) => {
 		return (
 			<PantryItem
 				icon={item.icon}
@@ -13,7 +13,6 @@ const PantryList = () => {
 			/>
 		);
 	});
-
 	return <div>{pantryItems}</div>;
 };
 
