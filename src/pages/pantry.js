@@ -6,8 +6,20 @@ import Filter from "../components/Filter";
 import Sort from "../components/Sort";
 import { pantry } from "../data/pantry";
 
-const PantryPage = () => {
+const PantryPage = ({
+	filter,
+	setFilter,
+	pantryItems,
+	setPantryItems,
+	setShoppingList,
+	shoppingList,
+}) => {
 	const [pantryOptions, setPantryOptions] = useState([]);
+	// const [toggleList, setToggleList] = useState("");
+
+	useState(() => {
+		setFilter(["in stock", "low", "out"]);
+	}, []);
 
 	return (
 		<div className="fixed inset-x-0 top-0 flex flex-col justify-between min-h-screen">
@@ -22,12 +34,20 @@ const PantryPage = () => {
 					pantryOptions={pantryOptions}
 					setPantryOptions={setPantryOptions}
 					pantry={pantry}
+					filter={filter}
+					setFilter={setFilter}
+					// toggleList={toggleList}
 				/>
 			</div>
 			<div className="h-screen overflow-y-auto overflow-x-visible flex-grow pb-56">
 				<PantryList
 					pantryOptions={pantryOptions}
 					setPantryOptions={setPantryOptions}
+					filter={filter}
+					pantryItems={pantryItems}
+					setPantryItems={setPantryItems}
+					setShoppingList={setShoppingList}
+					shoppingList={shoppingList}
 				/>
 			</div>
 			<div className="fixed inset-x-0 bottom-0">

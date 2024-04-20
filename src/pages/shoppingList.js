@@ -4,8 +4,14 @@ import Filter from "../components/Filter";
 import ShoppingList from "../components/ShoppingList";
 import Footer from "../components/Footer";
 import Sort from "../components/Sort";
+import { useState, useEffect } from "react";
 
-const ShoppingListPage = () => {
+const ShoppingListPage = ({
+	filter,
+	setFilter,
+	shoppingList,
+	setShoppingList,
+}) => {
 	return (
 		<div className="fixed inset-x-0 top-0 flex flex-col justify-between min-h-screen">
 			<div class="border-solid border-black border-2 border-t-0 border-x-0 bg-white py-2">
@@ -13,10 +19,14 @@ const ShoppingListPage = () => {
 					<Nav pageTitle="Shopping List" />
 					<Sort sortType="Pantry" />
 				</div>
-				<Filter filterBy="store" />
+				<Filter filterBy="store" filter={filter} setFilter={setFilter} />
 			</div>
 			<div className="h-screen overflow-y-auto overflow-x-visible flex-grow pb-56">
-				<ShoppingList />
+				<ShoppingList
+					filter={filter}
+					shoppingList={shoppingList}
+					setShoppingList={setShoppingList}
+				/>
 			</div>
 			<div className="fixed inset-x-0 bottom-0">
 				<Footer searchPlaceholder="Add item to list" />

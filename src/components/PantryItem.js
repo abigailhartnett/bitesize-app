@@ -3,7 +3,16 @@ import IconButton from "./buttons/IconButton";
 import Tag from "./Tag";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
-const PantryItem = ({ icon, name, aisle, status }) => {
+const PantryItem = ({
+	icon,
+	name,
+	aisle,
+	status,
+	onClick,
+	setPantryItems,
+	shoppingList,
+	id,
+}) => {
 	return (
 		<div className="flex py-1">
 			<div className="flex justify-between grow hover:bg-gray-100 active:bg-gray-500 px-4">
@@ -19,7 +28,10 @@ const PantryItem = ({ icon, name, aisle, status }) => {
 				</div>
 			</div>
 			<div>
-				<IconButton icon={faPlus} />
+				<button onClick={onClick} className="text-sm font-semibold">
+					{shoppingList.some((item) => item.id === id) ? "Remove" : "Add"}
+				</button>
+				{/* <IconButton icon={faPlus} onClick={onClick} /> */}
 			</div>
 		</div>
 	);

@@ -1,14 +1,18 @@
-import React, { useState } from "react";
-import pantry from "../data/pantry";
+import React, { useState, useEffect } from "react";
 import Tag from "./Tag";
 import IconButton from "./buttons/IconButton";
 import { faFilter } from "@fortawesome/free-solid-svg-icons";
 
-const Filter = ({ pantry, filterBy, pantryOptions, setPantryOptions }) => {
-	const [recipeOptions, setRecipeOptions] = useState([]);
-	const [storeOptions, setStoreOptions] = useState([]);
-
+const Filter = ({
+	// toggleList,
+	filter,
+	setFilter,
+	onClick,
+}) => {
 	const [isOpen, setIsOpen] = useState(false);
+	// const [recipeOptions, setRecipeOptions] = useState([]);
+	// const [storeOptions, setStoreOptions] = useState([]);
+	const [tags, setTags] = useState([]);
 
 	const filterOptions = {
 		pantry: ["in stock", "low", "out"],
@@ -16,50 +20,13 @@ const Filter = ({ pantry, filterBy, pantryOptions, setPantryOptions }) => {
 		store: ["Costco", "Safeway"],
 	};
 
-	const filter =
-		filterBy === "pantry"
-			? pantryOptions
-			: filterBy === "recipe"
-				? recipeOptions
-				: filterBy === "store"
-					? storeOptions
-					: "";
-
 	const options = filterOptions.pantry.map((option) => {
 		return <option>{option}</option>;
 	});
 
-	// Note:Move this function to the Tag component?
-	let tags = [];
-
-	// filter.map((option) => {
-	// 	return <Tag label={option.status} type="close" />;
-	// });
-
-	const handleChange = (e) => {
-		setPantryOptions((currentOptions) => {
-			if (currentOptions.some((option) => option.status === e.target.value)) {
-				return currentOptions.filter(
-					(option) => option.status !== e.target.value
-				);
-			} else {
-				return [
-					...currentOptions,
-					...pantry.filter(
-						(item) =>
-							item.status === e.target.value && !currentOptions.includes(item)
-					),
-				];
-			}
-		});
-	};
-
-	const handleKeyDown = (e) => {
-		if (e.key === "Tab" && isOpen) {
-			e.preventDefault();
-		} else if (e.key === "Escape") {
-			setIsOpen(false);
-		}
+	const removeTags = (tagToRemove) => {
+		console.log(tagToRemove);
+		setFilter(filter.filter((tag) => tag !== tagToRemove));
 	};
 
 	const handleClick = () => {
@@ -70,19 +37,53 @@ const Filter = ({ pantry, filterBy, pantryOptions, setPantryOptions }) => {
 		setIsOpen(false);
 	};
 
+	const handleKeyDown = (e) => {
+		if (e.key === "Tab" && isOpen) {
+			e.preventDefault();
+		} else if (e.key === "Escape") {
+			setIsOpen(false);
+		}
+	};
+
+	const handleFilterChange = (e) => {
+		if (
+			filter &&
+			!filter.includes(e.target.value) &&
+			filterOptions.pantry.includes(e.target.value)
+		) {
+			setFilter([...filter, e.target.value]);
+		} else {
+			filter && setFilter(filter.filter((value) => value !== e.target.value));
+		}
+
+		setTags(filter);
+	};
+
+	const tagOptions = [...tags].sort().map((tag) => {
+		return (
+			<Tag type="close" label={`${tag}`} onClick={() => removeTags(tag)}>
+				{tag}
+			</Tag>
+		);
+	});
+
+	useEffect(() => {
+		setTags(filter);
+	}, [filter]);
+
 	return (
-		<div>
-			{console.log(pantryOptions)}
+		<div className="flex justify-between items-center pr-2">
+			{console.log(filter)}
 			<div className="flex items-center">
 				<IconButton icon={faFilter} onClick={handleClick} />
-				{tags}
+				<div className="flex gap-2">{tagOptions}</div>
 			</div>
 			{isOpen && (
 				<div class="absolute">
 					<select
 						multiple={true}
-						value={filter}
-						onClick={handleChange}
+						value={filterOptions}
+						onChange={handleFilterChange}
 						onKeyDown={handleKeyDown}
 						onBlur={handleClose}
 						className="bg-blue-400"
@@ -91,6 +92,9 @@ const Filter = ({ pantry, filterBy, pantryOptions, setPantryOptions }) => {
 					</select>
 				</div>
 			)}
+			<button className="font-semibold" onClick={onClick}>
+				Show Shopping List
+			</button>
 		</div>
 	);
 };

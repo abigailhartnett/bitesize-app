@@ -4,7 +4,7 @@ import { faXmarkCircle } from "@fortawesome/free-solid-svg-icons";
 
 // tag--${label.replace(" ", "-").toLowerCase()}
 
-const Tag = ({ label, type }) => {
+const Tag = ({ label, type, onClick }) => {
 	const colorClass = () => {
 		if (type === "close") {
 			return "bg-red-100";
@@ -25,7 +25,7 @@ const Tag = ({ label, type }) => {
 		>
 			{label}
 			{type === "close" && (
-				<div className="pl-2 text-xs">
+				<div className="pl-2 text-xs" onClick={onClick}>
 					<Icon icon={faXmarkCircle} />
 				</div>
 			)}
