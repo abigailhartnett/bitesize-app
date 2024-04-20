@@ -4,10 +4,10 @@ import IconButton from "./buttons/IconButton";
 import { faFilter } from "@fortawesome/free-solid-svg-icons";
 
 const Filter = ({
-	// toggleList,
+	toggleShoppingList,
+	setToggleShoppingList,
 	filter,
 	setFilter,
-	onClick,
 }) => {
 	const [isOpen, setIsOpen] = useState(false);
 	// const [recipeOptions, setRecipeOptions] = useState([]);
@@ -59,6 +59,10 @@ const Filter = ({
 		setTags(filter);
 	};
 
+	const onClick = (e) => {
+		setToggleShoppingList(!toggleShoppingList);
+	};
+
 	const tagOptions = [...tags].sort().map((tag) => {
 		return (
 			<Tag type="close" label={`${tag}`} onClick={() => removeTags(tag)}>
@@ -93,7 +97,7 @@ const Filter = ({
 				</div>
 			)}
 			<button className="font-semibold" onClick={onClick}>
-				Show Shopping List
+				{toggleShoppingList ? "Show Pantry List" : "Show Shopping List"}
 			</button>
 		</div>
 	);

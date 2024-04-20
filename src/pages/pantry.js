@@ -4,7 +4,6 @@ import Footer from "../components/Footer";
 import PantryList from "../components/PantryList";
 import Filter from "../components/Filter";
 import Sort from "../components/Sort";
-import { pantry } from "../data/pantry";
 
 const PantryPage = ({
 	filter,
@@ -15,7 +14,7 @@ const PantryPage = ({
 	shoppingList,
 }) => {
 	const [pantryOptions, setPantryOptions] = useState([]);
-	// const [toggleList, setToggleList] = useState("");
+	const [toggleShoppingList, setToggleShoppingList] = useState(true);
 
 	useState(() => {
 		setFilter(["in stock", "low", "out"]);
@@ -31,25 +30,28 @@ const PantryPage = ({
 				{/* Note: remove filterBy */}
 				<Filter
 					filterBy="pantry"
-					pantryOptions={pantryOptions}
-					setPantryOptions={setPantryOptions}
-					pantry={pantry}
+					pantryItems={pantryItems}
+					setPantryItems={setPantryItems}
+					setShoppingList={setShoppingList}
+					shoppingList={shoppingList}
 					filter={filter}
 					setFilter={setFilter}
-					// toggleList={toggleList}
+					toggleShoppingList={toggleShoppingList}
+					setToggleShoppingList={setToggleShoppingList}
 				/>
 			</div>
 			<div className="h-screen overflow-y-auto overflow-x-visible flex-grow pb-56">
 				<PantryList
-					pantryOptions={pantryOptions}
 					setPantryOptions={setPantryOptions}
 					filter={filter}
 					pantryItems={pantryItems}
 					setPantryItems={setPantryItems}
 					setShoppingList={setShoppingList}
 					shoppingList={shoppingList}
+					toggleShoppingList={toggleShoppingList}
 				/>
 			</div>
+
 			<div className="fixed inset-x-0 bottom-0">
 				<Footer searchPlaceholder="Search for pantry item" />
 			</div>
