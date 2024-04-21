@@ -24,22 +24,22 @@ const Sort = ({ sortType, pantryItems, setSort }) => {
 
 	// Line 25:14:  Assignments to the 'sortType' variable from inside React Hook useEffect will be lost after each render. To preserve the value over time, store it in a useRef Hook and keep the mutable value in the '.current' property. Otherwise, you can move this variable directly inside useEffect  react-hooks/exhaustive-deps
 
-	useEffect(() => {
-		sortType = "aisle";
-		const sortedItems =
-			pantryItems &&
-			[...pantryItems].sort((a, b) => {
-				if (a[sortType] < b[sortType]) {
-					return -1;
-				}
-				if (a[sortType] > b[sortType]) {
-					return 1;
-				}
-				return 0;
-			});
+	// useEffect(() => {
+	// 	sortType = "aisle";
+	// 	const sortedItems =
+	// 		pantryItems &&
+	// 		[...pantryItems].sort((a, b) => {
+	// 			if (a[sortType] < b[sortType]) {
+	// 				return -1;
+	// 			}
+	// 			if (a[sortType] > b[sortType]) {
+	// 				return 1;
+	// 			}
+	// 			return 0;
+	// 		});
 
-		setSort(sortedItems);
-	}, []);
+	// 	setSort(sortedItems);
+	// }, []);
 
 	return (
 		<div className="flex pl-1">

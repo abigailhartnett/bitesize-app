@@ -11,7 +11,7 @@ import { pantry } from "./data/pantry";
 
 function App() {
 	//Supabase
-	const [fetchError, setFetchError] = useState(null);
+	const [setFetchError] = useState(null);
 	const [pantryItems, setPantryItems] = useState(null);
 	const [searchFilter, setSearchFilter] = useState(null);
 	const [sort, setSort] = useState(null);
