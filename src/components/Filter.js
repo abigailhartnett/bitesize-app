@@ -89,7 +89,6 @@ const Filter = ({
 						onChange={handleFilterChange}
 						onKeyDown={handleKeyDown}
 						onBlur={handleClose}
-						className="bg-blue-400"
 					>
 						{options}
 					</select>

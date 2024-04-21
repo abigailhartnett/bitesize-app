@@ -8,6 +8,10 @@ import Sort from "../components/Sort";
 const PantryPage = ({
 	filter,
 	setFilter,
+	searchFilter,
+	setSearchFilter,
+	searchQuery,
+	setSearchQuery,
 	pantryItems,
 	setPantryItems,
 	setShoppingList,
@@ -44,6 +48,7 @@ const PantryPage = ({
 				<PantryList
 					setPantryOptions={setPantryOptions}
 					filter={filter}
+					searchFilter={searchFilter}
 					pantryItems={pantryItems}
 					setPantryItems={setPantryItems}
 					setShoppingList={setShoppingList}
@@ -53,7 +58,14 @@ const PantryPage = ({
 			</div>
 
 			<div className="fixed inset-x-0 bottom-0">
-				<Footer searchPlaceholder="Search for pantry item" />
+				<Footer
+					searchPlaceholder="Search pantry..."
+					pantryItems={pantryItems}
+					searchQuery={searchQuery}
+					setSearchQuery={setSearchQuery}
+					searchFilter={searchFilter}
+					setSearchFilter={setSearchFilter}
+				/>
 			</div>
 		</div>
 	);

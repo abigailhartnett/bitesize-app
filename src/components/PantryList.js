@@ -3,6 +3,7 @@ import PantryItem from "./PantryItem";
 
 const PantryList = ({
 	filter,
+	searchFilter,
 	pantryItems,
 	setPantryItems,
 	setShoppingList,
@@ -10,8 +11,10 @@ const PantryList = ({
 	toggleShoppingList,
 	checkbox,
 }) => {
-	const filteredPantryItems = pantryItems.filter((item) =>
-		filter.includes(item.status)
+	const filteredPantryItems = pantryItems.filter(
+		(item) =>
+			filter.includes(item.status) &&
+			searchFilter.some((searchItem) => searchItem.id === item.id)
 	);
 
 	const pantryItemList = filteredPantryItems.map((item) => {
@@ -86,6 +89,9 @@ const PantryList = ({
 	});
 
 	const clearList = () => {
+		setPantryItems((prevItems) =>
+			prevItems.map((item) => ({ ...item, onList: false }))
+		);
 		setShoppingList([]);
 	};
 
@@ -95,7 +101,10 @@ const PantryList = ({
 			{toggleShoppingList && (
 				<div className=" flex justify-center pt-4">
 					{/* Note: add a pop up that asks if you want to mark all items as in stock */}
-					<button class="bg-red-100 p-2" onClick={() => clearList()}>
+					<button
+						class="bg-gray-900 text-white font-semibold p-2"
+						onClick={() => clearList()}
+					>
 						Remove all items
 					</button>
 				</div>

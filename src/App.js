@@ -10,6 +10,8 @@ import { pantry } from "./data/pantry";
 
 function App() {
 	const [filter, setFilter] = useState(["in stock", "out", "low"]);
+	const [searchFilter, setSearchFilter] = useState(pantry);
+	const [searchQuery, setSearchQuery] = useState("");
 	const [shoppingList, setShoppingList] = useState([]);
 	const [pantryItems, setPantryItems] = useState(pantry);
 
@@ -18,9 +20,9 @@ function App() {
 		setShoppingList(itemsOnList);
 	}, []);
 
-	useEffect(() => {
-		console.log(shoppingList);
-	}, [shoppingList]);
+	// useEffect(() => {
+	// 	console.log(shoppingList);
+	// }, [shoppingList]);
 
 	return (
 		<div>
@@ -34,6 +36,10 @@ function App() {
 							<PantryPage
 								filter={filter}
 								setFilter={setFilter}
+								searchQuery={searchQuery}
+								setSearchQuery={setSearchQuery}
+								searchFilter={searchFilter}
+								setSearchFilter={setSearchFilter}
 								pantryItems={pantryItems}
 								setPantryItems={setPantryItems}
 								setShoppingList={setShoppingList}
