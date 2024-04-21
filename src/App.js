@@ -35,7 +35,7 @@ function App() {
 			}
 		};
 		fetchPantryItems();
-	}, []);
+	}, [setFetchError]);
 
 	useEffect(() => {
 		if (pantryItems) {

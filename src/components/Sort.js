@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+// import React, { useEffect } from "react";
 
 const Sort = ({ sortType, pantryItems, setSort }) => {
 	const sortItems = (sortType) => {
