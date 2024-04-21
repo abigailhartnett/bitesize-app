@@ -25,7 +25,6 @@ function App() {
 	return (
 		<div>
 			<Router>
-				{console.log(shoppingList)}
 				<Routes>
 					<Route path="/" element={<HomePage />} />
 					<Route path="/meal-plan" element={<MealPlanPage />} />
@@ -43,7 +42,7 @@ function App() {
 						}
 					/>
 					<Route path="/recipe-box" element={<RecipeBoxPage />} />
-					<Route
+					{/* <Route
 						path="/shopping-list"
 						element={
 							<ShoppingListPage
@@ -53,7 +52,7 @@ function App() {
 								setShoppingList={setShoppingList}
 							/>
 						}
-					/>
+					/> */}
 					<Route path="/recipes/:id" element={<RecipePage />} />
 				</Routes>
 			</Router>

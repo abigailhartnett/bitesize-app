@@ -36,6 +36,23 @@ const PantryList = ({
 			}
 		};
 
+		const checkOffItem = (isChecked, id) => {
+			const index = pantryItems.findIndex((item) => item.id === id);
+			if (isChecked) {
+				const updatedItem = {
+					...pantryItems[index],
+					onList: false,
+					status: "in stock",
+				};
+				setPantryItems((prevItems) => {
+					const updatedItems = [...prevItems];
+					updatedItems[index] = updatedItem;
+					return updatedItems;
+				});
+				setShoppingList(shoppingList.filter((item) => item.id !== id));
+			}
+		};
+
 		return (
 			<>
 				{toggleShoppingList ? (
@@ -49,6 +66,8 @@ const PantryList = ({
 							shoppingList={shoppingList}
 							onClick={() => addItemToShoppingList(item.id)}
 							checkbox={true}
+							toggleShoppingList={toggleShoppingList}
+							onChange={(e) => checkOffItem(e.target.checked, item.id)}
 						/>
 					)
 				) : (

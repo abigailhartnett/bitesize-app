@@ -77,7 +77,6 @@ const Filter = ({
 
 	return (
 		<div className="flex justify-between items-center pr-2">
-			{console.log(filter)}
 			<div className="flex items-center">
 				<IconButton icon={faFilter} onClick={handleClick} />
 				<div className="flex gap-2">{tagOptions}</div>
