@@ -9,7 +9,6 @@ const PantryList = ({
 	setShoppingList,
 	shoppingList,
 	toggleShoppingList,
-	checkbox,
 }) => {
 	const filteredPantryItems = pantryItems.filter(
 		(item) =>

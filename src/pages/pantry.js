@@ -17,7 +17,6 @@ const PantryPage = ({
 	setShoppingList,
 	shoppingList,
 }) => {
-	const [pantryOptions, setPantryOptions] = useState([]);
 	const [toggleShoppingList, setToggleShoppingList] = useState(true);
 
 	useState(() => {
@@ -46,7 +45,6 @@ const PantryPage = ({
 			</div>
 			<div className="h-screen overflow-y-auto overflow-x-visible flex-grow pb-56">
 				<PantryList
-					setPantryOptions={setPantryOptions}
 					filter={filter}
 					searchFilter={searchFilter}
 					pantryItems={pantryItems}
