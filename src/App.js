@@ -12,6 +12,7 @@ function App() {
 	const [filter, setFilter] = useState(["in stock", "out", "low"]);
 	const [searchFilter, setSearchFilter] = useState(pantry);
 	const [searchQuery, setSearchQuery] = useState("");
+	const [sort, setSort] = useState(pantry);
 	const [shoppingList, setShoppingList] = useState([]);
 	const [pantryItems, setPantryItems] = useState(pantry);
 
@@ -44,6 +45,8 @@ function App() {
 								setPantryItems={setPantryItems}
 								setShoppingList={setShoppingList}
 								shoppingList={shoppingList}
+								sort={sort}
+								setSort={setSort}
 							/>
 						}
 					/>

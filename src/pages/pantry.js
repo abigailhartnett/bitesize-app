@@ -11,13 +11,15 @@ const PantryPage = ({
 	searchFilter,
 	setSearchFilter,
 	searchQuery,
+	sort,
+	setSort,
 	setSearchQuery,
 	pantryItems,
 	setPantryItems,
 	setShoppingList,
 	shoppingList,
 }) => {
-	const [toggleShoppingList, setToggleShoppingList] = useState(true);
+	const [toggleShoppingList, setToggleShoppingList] = useState(false);
 
 	useState(() => {
 		setFilter(["in stock", "low", "out"]);
@@ -28,7 +30,7 @@ const PantryPage = ({
 			<div class="border-solid border-black border-2 border-t-0 border-x-0 bg-white py-2">
 				<div class="flex justify-between pb-2 mr-3">
 					<Nav pageTitle="Pantry" />
-					<Sort sortType="Pantry" />
+					<Sort sortType="Pantry" pantryItems={pantryItems} setSort={setSort} />
 				</div>
 				{/* Note: remove filterBy */}
 				<Filter
@@ -47,6 +49,7 @@ const PantryPage = ({
 				<PantryList
 					filter={filter}
 					searchFilter={searchFilter}
+					sort={sort}
 					pantryItems={pantryItems}
 					setPantryItems={setPantryItems}
 					setShoppingList={setShoppingList}

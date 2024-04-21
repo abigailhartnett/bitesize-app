@@ -4,13 +4,14 @@ import PantryItem from "./PantryItem";
 const PantryList = ({
 	filter,
 	searchFilter,
+	sort,
 	pantryItems,
 	setPantryItems,
 	setShoppingList,
 	shoppingList,
 	toggleShoppingList,
 }) => {
-	const filteredPantryItems = pantryItems.filter(
+	const filteredPantryItems = sort.filter(
 		(item) =>
 			filter.includes(item.status) &&
 			searchFilter.some((searchItem) => searchItem.id === item.id)

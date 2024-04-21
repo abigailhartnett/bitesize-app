@@ -1,6 +1,42 @@
-import React from "react";
+import React, { useEffect } from "react";
 
-const Sort = ({ sortType, data }) => {
+const Sort = ({ sortType, pantryItems, setSort }) => {
+	const sortItems = (sortType) => {
+		sortType = sortType.toLowerCase();
+		const sortedItems = [...pantryItems].sort((a, b) => {
+			if (a[sortType] < b[sortType]) {
+				return -1;
+			}
+			if (a[sortType] > b[sortType]) {
+				return 1;
+			}
+			return 0;
+		});
+
+		setSort(sortedItems);
+		console.log(sortedItems);
+	};
+
+	const handleChange = (e) => {
+		sortItems(e.target.value);
+	};
+
+	useEffect(() => {
+		sortType = "aisle";
+		const sortedItems = [...pantryItems].sort((a, b) => {
+			if (a[sortType] < b[sortType]) {
+				return -1;
+			}
+			if (a[sortType] > b[sortType]) {
+				return 1;
+			}
+			return 0;
+		});
+
+		setSort(sortedItems);
+		console.log(sortedItems);
+	}, []);
+
 	return (
 		<div className="flex pl-1">
 			{sortType === "Pantry" ? (
@@ -8,13 +44,12 @@ const Sort = ({ sortType, data }) => {
 					<label for="sort" className="text-xs">
 						Sort by
 					</label>
-					<select className="flex items-center gap-4 text-sm" id="sort">
-						<option
-							className="sortOption text-sm font-semibold"
-							onSelect={() => data.sort()}
-						>
-							Aisle
-						</option>
+					<select
+						className="flex items-center gap-4 text-sm"
+						id="sort"
+						onChange={handleChange}
+					>
+						<option className="sortOption text-sm font-semibold">Aisle</option>
 						<option className="sortOption text-sm font-semibold">Status</option>
 						<option className="sortOption text-sm font-semibold">
 							Expiration
@@ -29,7 +64,7 @@ const Sort = ({ sortType, data }) => {
 					<select className="flex items-center gap-4 text-sm" id="sort">
 						<option
 							className="sortOption text-sm font-semibold"
-							onSelect={() => data.sort()}
+							onSelect={() => pantryItems.sort()}
 						>
 							Readiness
 						</option>
@@ -44,4 +79,5 @@ const Sort = ({ sortType, data }) => {
 		</div>
 	);
 };
+
 export default Sort;
