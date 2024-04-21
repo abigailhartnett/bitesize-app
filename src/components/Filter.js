@@ -10,8 +10,6 @@ const Filter = ({
 	setFilter,
 }) => {
 	const [isOpen, setIsOpen] = useState(false);
-	// const [recipeOptions, setRecipeOptions] = useState([]);
-	// const [storeOptions, setStoreOptions] = useState([]);
 	const [tags, setTags] = useState([]);
 
 	const filterOptions = {
@@ -25,7 +23,6 @@ const Filter = ({
 	});
 
 	const removeTags = (tagToRemove) => {
-		console.log(tagToRemove);
 		setFilter(filter.filter((tag) => tag !== tagToRemove));
 	};
 

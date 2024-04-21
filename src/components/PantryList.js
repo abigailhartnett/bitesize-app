@@ -11,11 +11,13 @@ const PantryList = ({
 	shoppingList,
 	toggleShoppingList,
 }) => {
-	const filteredPantryItems = sort.filter(
-		(item) =>
-			filter.includes(item.status) &&
-			searchFilter.some((searchItem) => searchItem.id === item.id)
-	);
+	const filteredPantryItems =
+		sort &&
+		sort.filter(
+			(item) =>
+				filter.includes(item.status) &&
+				searchFilter?.some((searchItem) => searchItem.id === item.id)
+		);
 
 	const pantryItemList = filteredPantryItems.map((item) => {
 		const addItemToShoppingList = (id) => {
@@ -66,6 +68,7 @@ const PantryList = ({
 							name={item.name}
 							aisle={item.aisle}
 							status={item.status}
+							onList={item.onList}
 							shoppingList={shoppingList}
 							onClick={() => addItemToShoppingList(item.id)}
 							checkbox={true}

@@ -30,13 +30,15 @@ const PantryPage = ({
 			<div class="border-solid border-black border-2 border-t-0 border-x-0 bg-white py-2">
 				<div class="flex justify-between pb-2 mr-3">
 					<Nav pageTitle="Pantry" />
-					<Sort sortType="Pantry" pantryItems={pantryItems} setSort={setSort} />
+					{pantryItems && (
+						<Sort
+							sortType="Pantry"
+							pantryItems={pantryItems}
+							setSort={setSort}
+						/>
+					)}
 				</div>
-				{/* Note: remove filterBy */}
 				<Filter
-					filterBy="pantry"
-					pantryItems={pantryItems}
-					setPantryItems={setPantryItems}
 					setShoppingList={setShoppingList}
 					shoppingList={shoppingList}
 					filter={filter}
@@ -46,16 +48,18 @@ const PantryPage = ({
 				/>
 			</div>
 			<div className="h-screen overflow-y-auto overflow-x-visible flex-grow pb-56">
-				<PantryList
-					filter={filter}
-					searchFilter={searchFilter}
-					sort={sort}
-					pantryItems={pantryItems}
-					setPantryItems={setPantryItems}
-					setShoppingList={setShoppingList}
-					shoppingList={shoppingList}
-					toggleShoppingList={toggleShoppingList}
-				/>
+				{sort && (
+					<PantryList
+						filter={filter}
+						searchFilter={searchFilter}
+						sort={sort}
+						pantryItems={pantryItems}
+						setPantryItems={setPantryItems}
+						setShoppingList={setShoppingList}
+						shoppingList={shoppingList}
+						toggleShoppingList={toggleShoppingList}
+					/>
+				)}
 			</div>
 
 			<div className="fixed inset-x-0 bottom-0">

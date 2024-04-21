@@ -3,25 +3,19 @@ import React from "react";
 const Search = ({
 	placeholder,
 	pantryItems,
-	searchFilter,
 	setSearchFilter,
 	searchQuery,
 	setSearchQuery,
 }) => {
 	const filterItems = (searchQuery) => {
-		if (pantryItems) {
-			const filteredItems = pantryItems.filter((item) => {
-				return item.name.toLowerCase().includes(searchQuery.toLowerCase());
-			});
-			return filteredItems;
-		} else {
-			return "oops!";
-		}
+		const filteredItems = pantryItems.filter((item) => {
+			return item.name.toLowerCase().includes(searchQuery.toLowerCase());
+		});
+		return filteredItems;
 	};
 
 	const handleInputChange = (e) => {
 		setSearchQuery(e.target.value);
-
 		setSearchFilter(filterItems(e.target.value));
 	};
 

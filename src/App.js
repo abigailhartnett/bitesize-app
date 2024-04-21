@@ -1,29 +1,59 @@
+import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import supabase from "./config/supabaseClient";
 import HomePage from "./pages/home";
 import PantryPage from "./pages/pantry";
 import RecipeBoxPage from "./pages/recipeBox";
 import MealPlanPage from "./pages/mealPlan";
 // import ShoppingListPage from "./pages/shoppingList";
 import RecipePage from "./pages/recipe";
-import { useState, useEffect } from "react";
 import { pantry } from "./data/pantry";
 
 function App() {
+	//Supabase
+	const [fetchError, setFetchError] = useState(null);
+	const [pantryItems, setPantryItems] = useState(null);
+	const [searchFilter, setSearchFilter] = useState(null);
+	const [sort, setSort] = useState(null);
+
 	const [filter, setFilter] = useState(["in stock", "out", "low"]);
-	const [searchFilter, setSearchFilter] = useState(pantry);
 	const [searchQuery, setSearchQuery] = useState("");
-	const [sort, setSort] = useState(pantry);
 	const [shoppingList, setShoppingList] = useState([]);
-	const [pantryItems, setPantryItems] = useState(pantry);
 
 	useEffect(() => {
-		const itemsOnList = pantry.filter((item) => item.onList === true);
-		setShoppingList(itemsOnList);
+		const fetchPantryItems = async () => {
+			const { data, error } = await supabase.from("pantry").select();
+
+			if (error) {
+				setFetchError("Could not fetch pantry items");
+				setPantryItems(null);
+				console.log(error);
+			}
+			if (data) {
+				setPantryItems(data);
+				setFetchError(null);
+			}
+		};
+		fetchPantryItems();
 	}, []);
 
-	// useEffect(() => {
-	// 	console.log(shoppingList);
-	// }, [shoppingList]);
+	useEffect(() => {
+		if (pantryItems) {
+			setSearchFilter(pantryItems);
+			setSort(pantryItems);
+		}
+	}, [pantryItems]);
+
+	useEffect(() => {
+		if (pantryItems) {
+			const itemsOnList = pantry.filter((item) => item.onList === true);
+			setShoppingList(itemsOnList);
+		}
+	}, [pantryItems]);
+
+	if (!pantryItems) {
+		return <div>Loading...</div>;
+	}
 
 	return (
 		<div>

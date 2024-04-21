@@ -10,12 +10,10 @@ const PantryItem = ({
 	status,
 	onClick,
 	onChange,
-	// pantryItems,
-	// setPantryItems,
-	// setShoppingList,
 	shoppingList,
 	toggleShoppingList,
 	id,
+	onList,
 	checkbox,
 }) => {
 	return (
@@ -36,9 +34,7 @@ const PantryItem = ({
 						checkbox && <input type="checkbox" onChange={onChange} />
 					) : (
 						<button onClick={onClick} className="text-sm font-semibold">
-							{shoppingList && shoppingList.some((item) => item.id === id)
-								? "remove item"
-								: "Add item"}
+							{onList ? "Remove item" : "Add item"}
 						</button>
 					)}
 				</div>
