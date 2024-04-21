@@ -4,7 +4,7 @@ import Filter from "../components/Filter";
 import ShoppingList from "../components/ShoppingList";
 import Footer from "../components/Footer";
 import Sort from "../components/Sort";
-import { useState, useEffect } from "react";
+// import { useState, useEffect } from "react";
 
 const ShoppingListPage = ({
 	filter,
