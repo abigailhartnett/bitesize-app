@@ -70,6 +70,8 @@ const PantryPage = ({
 					setSearchQuery={setSearchQuery}
 					searchFilter={searchFilter}
 					setSearchFilter={setSearchFilter}
+					setToggleShoppingList={setToggleShoppingList}
+					toggleShoppingList={toggleShoppingList}
 				/>
 			</div>
 		</div>

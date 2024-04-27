@@ -63,7 +63,9 @@ const PantryList = ({
 				{toggleShoppingList ? (
 					item.onList && (
 						<PantryItem
+							item={item}
 							id={item.id}
+							key={item.id + item.onList}
 							icon={item.icon}
 							name={item.name}
 							aisle={item.aisle}
@@ -78,7 +80,9 @@ const PantryList = ({
 					)
 				) : (
 					<PantryItem
+						item={item}
 						id={item.id}
+						key={item.id + item.onList}
 						icon={item.icon}
 						name={item.name}
 						aisle={item.aisle}

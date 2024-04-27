@@ -15,11 +15,14 @@ const PantryItem = ({
 	id,
 	onList,
 	checkbox,
+	item,
 }) => {
 	return (
-		<div className="flex py-1">
+		<div
+			className={`flex py-1 ${item.onList && !toggleShoppingList ? "text-pepper/50" : ""}`}
+		>
 			<div className="flex justify-between grow hover:bg-gray-100 px-4">
-				<div className="flex gap-4 items-center">
+				<div className={`flex gap-4 items-center`}>
 					<i className={icon}></i>
 					<div className="flex flex-col">
 						<span>{name}</span>
@@ -34,7 +37,7 @@ const PantryItem = ({
 						checkbox && <input type="checkbox" onChange={onChange} />
 					) : (
 						<button onClick={onClick} className="text-sm font-semibold">
-							{onList ? "Remove item" : "Add item"}
+							{item.onList ? "Remove item" : "Add item"}
 						</button>
 					)}
 				</div>

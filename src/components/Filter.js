@@ -56,10 +56,6 @@ const Filter = ({
 		setTags(filter);
 	};
 
-	const onClick = (e) => {
-		setToggleShoppingList(!toggleShoppingList);
-	};
-
 	const tagOptions = [...tags].sort().map((tag) => {
 		return (
 			<Tag type="close" label={`${tag}`} onClick={() => removeTags(tag)}>
@@ -91,9 +87,6 @@ const Filter = ({
 					</select>
 				</div>
 			)}
-			<button className="font-semibold" onClick={onClick}>
-				{toggleShoppingList ? "Show Pantry List" : "Show Shopping List"}
-			</button>
 		</div>
 	);
 };

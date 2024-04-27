@@ -7,11 +7,10 @@ import RecipeBoxPage from "./pages/recipeBox";
 import MealPlanPage from "./pages/mealPlan";
 // import ShoppingListPage from "./pages/shoppingList";
 import RecipePage from "./pages/recipe";
-import { pantry } from "./data/pantry";
 
 function App() {
 	//Supabase
-	const [setFetchError] = useState(null);
+	const [fetchError, setFetchError] = useState(null);
 	const [pantryItems, setPantryItems] = useState(null);
 	const [searchFilter, setSearchFilter] = useState(null);
 	const [sort, setSort] = useState(null);
@@ -46,7 +45,7 @@ function App() {
 
 	useEffect(() => {
 		if (pantryItems) {
-			const itemsOnList = pantry.filter((item) => item.onList === true);
+			const itemsOnList = pantryItems.filter((item) => item.onList === true);
 			setShoppingList(itemsOnList);
 		}
 	}, [pantryItems]);
