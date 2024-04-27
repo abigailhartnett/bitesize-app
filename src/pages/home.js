@@ -1,5 +1,6 @@
 import React from "react";
 import BigButton from "../components/buttons/BigButton";
+import CreatePantryItem from "../components/createPantryItem";
 
 const HomePage = () => {
 	return (
@@ -11,6 +12,7 @@ const HomePage = () => {
 			{/* <BigButton text="Shopping List" link="/shopping-list" /> */}
 
 			<BigButton text="Meal Plan" link="/meal-plan" />
+			<CreatePantryItem />
 		</div>
 	);
 };
