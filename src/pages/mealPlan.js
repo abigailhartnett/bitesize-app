@@ -1,7 +1,7 @@
 import React from "react";
 import Nav from "../components/Nav";
 import MealPlanList from "../components/mealPlanList";
-import Footer from "../components/Footer";
+// import Footer from "../components/Footer";
 import Sort from "../components/Sort";
 import Filter from "../components/Filter";
 
@@ -19,7 +19,7 @@ const MealPlanPage = () => {
 				<MealPlanList />
 			</div>
 			<div className="fixed inset-x-0 bottom-0">
-				<Footer searchPlaceholder="Search for recipe" />
+				{/* <Footer searchPlaceholder="Search for recipe" /> */}
 			</div>
 		</div>
 	);

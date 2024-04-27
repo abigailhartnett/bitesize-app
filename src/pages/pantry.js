@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import Nav from "../components/Nav";
-import Footer from "../components/Footer";
 import Filter from "../components/Filter";
 import Sort from "../components/Sort";
 import PantryItem from "../components/PantryItem";
+import SearchBar from "../components/SearchBar";
 
 const PantryPage = ({
 	filter,
@@ -17,6 +17,10 @@ const PantryPage = ({
 	pantryItems,
 }) => {
 	const [toggleShoppingList, setToggleShoppingList] = useState(false);
+
+	const onClick = (e) => {
+		setToggleShoppingList(!toggleShoppingList);
+	};
 
 	useState(() => {
 		setFilter(["in stock", "low", "out"]);
@@ -84,16 +88,30 @@ const PantryPage = ({
 			</div>
 
 			<div className="fixed inset-x-0 bottom-0">
-				<Footer
-					searchPlaceholder="Search pantry..."
-					pantryItems={pantryItems}
-					searchQuery={searchQuery}
-					setSearchQuery={setSearchQuery}
+				<SearchBar
+					placeholder={"Search pantry..."}
 					search={search}
 					setSearch={setSearch}
-					setToggleShoppingList={setToggleShoppingList}
-					toggleShoppingList={toggleShoppingList}
+					searchQuery={searchQuery}
+					setSearchQuery={setSearchQuery}
+					pantryItems={pantryItems}
 				/>
+				<div className="bg-gray-200 p-5 mt-4">
+					<div className="flex items-center justify-between gap-1">
+						<button
+							className={`w-full p-2 ${toggleShoppingList ? "bg-gray-300 text-black/50" : "bg-white"} text-center font-semibold`}
+							onClick={onClick}
+						>
+							Pantry
+						</button>
+						<button
+							className={`w-full p-2 ${!toggleShoppingList ? "bg-gray-300 text-black/50" : "bg-white"} text-center font-semibold`}
+							onClick={onClick}
+						>
+							Shopping list
+						</button>
+					</div>
+				</div>
 			</div>
 		</div>
 	);

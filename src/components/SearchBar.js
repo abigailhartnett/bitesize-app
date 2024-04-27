@@ -1,6 +1,6 @@
 import React from "react";
 
-const Search = ({
+const SearchBar = ({
 	placeholder,
 	pantryItems,
 	setSearch,
@@ -35,4 +35,4 @@ const Search = ({
 	);
 };
 
-export default Search;
+export default SearchBar;
