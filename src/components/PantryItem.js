@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from "react";
-import supabase from "../config/supabaseClient";
-// import IconButton from "./buttons/IconButton";
 import Tag from "./Tag";
-// import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 const PantryItem = ({
 	icon,

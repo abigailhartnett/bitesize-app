@@ -10,27 +10,6 @@ const PantryList = ({
 	setPantryItems,
 	toggleShoppingList,
 }) => {
-	// const [onList, setOnList] = useState();
-
-	// const handleToggleOnList = async (id) => {
-	// 	setOnList(!onList);
-
-	// 	const { data, error } = await supabase
-	// 		.from("pantry")
-	// 		.update({ onList })
-	// 		.eq("id", id)
-	// 		.select();
-
-	// 	if (error) {
-	// 		console.log("Error:", error);
-	// 		return;
-	// 	}
-
-	// 	if (data) {
-	// 		console.log(data);
-	// 	}
-	// };
-
 	const filteredPantryItems =
 		sort &&
 		sort.filter(

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import supabase from "../config/supabaseClient";
 import Nav from "../components/Nav";
 import Filter from "../components/Filter";
 import Sort from "../components/Sort";
@@ -13,11 +14,40 @@ const PantryPage = ({
 	sort,
 	setSort,
 	pantryItems,
+	setPantryItems,
 }) => {
 	const [toggleShoppingList, setToggleShoppingList] = useState(false);
+	const [onList, setOnList] = useState();
 
 	const onClick = (e) => {
 		setToggleShoppingList(!toggleShoppingList);
+	};
+
+	const toggleOnList = async (id) => {
+		// Find the item
+		const item = pantryItems.find((item) => item.id === id);
+		if (!item) {
+			console.log(`Item with id ${id} not found`);
+			return;
+		}
+
+		// Toggle the onList property
+		const updatedItem = { ...item, onList: !item.onList };
+
+		// Update the item in the state
+		setPantryItems((prevItems) =>
+			prevItems.map((item) => (item.id === id ? updatedItem : item))
+		);
+
+		// Update the item in Supabase
+		const { error } = await supabase
+			.from("pantry")
+			.update({ onList: updatedItem.onList })
+			.eq("id", id);
+
+		if (error) {
+			console.log(error);
+		}
 	};
 
 	const filteredPantryItems = pantryItems
@@ -37,8 +67,8 @@ const PantryPage = ({
 					name={item.name}
 					aisle={item.aisle}
 					status={item.status}
-					// onList={onList}
-					// onClick={() => handleToggleOnList(item.id)}
+					onList={onList}
+					onClick={() => toggleOnList(item.id)}
 					checkbox={true}
 					toggleShoppingList={toggleShoppingList}
 					// onChange={(e) => checkOffItem(e.target.checked, item.id)}
