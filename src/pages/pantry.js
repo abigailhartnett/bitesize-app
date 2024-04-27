@@ -46,24 +46,12 @@ const PantryPage = ({
 			);
 		});
 
-	console.log(filteredPantryItems);
-
-	useState(() => {
-		setFilter(["in stock", "low", "out"]);
-	}, []);
-
 	return (
 		<div className="fixed inset-x-0 top-0 flex flex-col justify-between min-h-screen">
 			<div class="border-solid border-black border-2 border-t-0 border-x-0 bg-white py-2">
 				<div class="flex justify-between pb-2 mr-3">
 					<Nav pageTitle="Pantry" />
-					{pantryItems && (
-						<Sort
-							sortType="Pantry"
-							pantryItems={pantryItems}
-							setSort={setSort}
-						/>
-					)}
+					<Sort sortType="Pantry" pantryItems={pantryItems} setSort={setSort} />
 				</div>
 				<Filter filter={filter} setFilter={setFilter} />
 			</div>
@@ -72,6 +60,16 @@ const PantryPage = ({
 					filteredPantryItems
 				) : (
 					<div className="text-center pt-4">Whoops! No items found 😱</div>
+				)}
+				{toggleShoppingList && (
+					<div className=" flex justify-center pt-4">
+						<button
+							class="bg-pepper text-white font-semibold p-2"
+							// onClick={() => clearList()}
+						>
+							Remove all items
+						</button>
+					</div>
 				)}
 			</div>
 			<div className="fixed inset-x-0 bottom-0">
@@ -103,14 +101,3 @@ const PantryPage = ({
 };
 
 export default PantryPage;
-
-{
-	/* <div className=" flex justify-center pt-4">
-	<button
-		class="bg-gray-900 text-white font-semibold p-2"
-		// onClick={() => clearList()}
-	>
-		Remove all items
-	</button>
-</div>; */
-}
