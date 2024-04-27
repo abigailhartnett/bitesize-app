@@ -17,7 +17,6 @@ const PantryPage = ({
 	setPantryItems,
 }) => {
 	const [toggleShoppingList, setToggleShoppingList] = useState(false);
-	const [onList, setOnList] = useState();
 
 	const onClick = (e) => {
 		setToggleShoppingList(!toggleShoppingList);
@@ -50,6 +49,38 @@ const PantryPage = ({
 		}
 	};
 
+	const checkOffItem = async (isChecked, id) => {
+		if (isChecked) {
+			// Find Item
+			const item = pantryItems.find((item) => item.id === id);
+
+			// Toggle the onList and status properties
+			const updatedItem = { ...item, onList: false, status: "in stock" };
+
+			// Update the item in the state
+			setPantryItems((prevItems) =>
+				prevItems.map((item) => (item.id === id ? updatedItem : item))
+			);
+
+			// Update the item in Supabase
+			const { error } = await supabase
+				.from("pantry")
+				.update({ onList: updatedItem.onList, status: updatedItem.status })
+				.eq("id", id);
+
+			if (error) {
+				console.log(error);
+			}
+		}
+	};
+
+	// const clearList = () => {
+	// 	setPantryItems((prevItems) =>
+	// 		prevItems.map((item) => ({ ...item, onList: false }))
+	// 	);
+	// 	setShoppingList([]);
+	// };
+
 	const filteredPantryItems = pantryItems
 		.filter(
 			(item) =>
@@ -67,11 +98,11 @@ const PantryPage = ({
 					name={item.name}
 					aisle={item.aisle}
 					status={item.status}
-					onList={onList}
+					onList={item.onList}
 					onClick={() => toggleOnList(item.id)}
 					checkbox={true}
 					toggleShoppingList={toggleShoppingList}
-					// onChange={(e) => checkOffItem(e.target.checked, item.id)}
+					onChange={(e) => checkOffItem(e.target.checked, item.id)}
 				/>
 			);
 		});
@@ -97,7 +128,7 @@ const PantryPage = ({
 							class="bg-pepper text-white font-semibold p-2"
 							// onClick={() => clearList()}
 						>
-							Remove all items
+							Clear list
 						</button>
 					</div>
 				)}
