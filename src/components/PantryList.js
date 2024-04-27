@@ -8,11 +8,28 @@ const PantryList = ({
 	sort,
 	pantryItems,
 	setPantryItems,
-	setShoppingList,
-	shoppingList,
 	toggleShoppingList,
 }) => {
-	const [onList, setOnList] = useState();
+	// const [onList, setOnList] = useState();
+
+	// const handleToggleOnList = async (id) => {
+	// 	setOnList(!onList);
+
+	// 	const { data, error } = await supabase
+	// 		.from("pantry")
+	// 		.update({ onList })
+	// 		.eq("id", id)
+	// 		.select();
+
+	// 	if (error) {
+	// 		console.log("Error:", error);
+	// 		return;
+	// 	}
+
+	// 	if (data) {
+	// 		console.log(data);
+	// 	}
+	// };
 
 	const filteredPantryItems =
 		sort &&
@@ -22,106 +39,35 @@ const PantryList = ({
 				searchFilter?.some((searchItem) => searchItem.id === item.id)
 		);
 
-	const handleToggleOnList = async (id) => {
-		setOnList(!onList);
-
-		const { data, error } = await supabase
-			.from("pantry")
-			.update({ onList })
-			.eq("id", id)
-			.select();
-
-		if (error) {
-			console.log("Error:", error);
-			return;
-		}
-
-		if (data) {
-			console.log(data);
-		}
-
-		// console.log(item);
-	};
-
 	const pantryItemList = filteredPantryItems.map((item) => {
-		const checkOffItem = (isChecked, id) => {
-			const index = pantryItems.findIndex((item) => item.id === id);
-			if (isChecked) {
-				const updatedItem = {
-					...pantryItems[index],
-					onList: false,
-					status: "in stock",
-				};
-				setPantryItems((prevItems) => {
-					const updatedItems = [...prevItems];
-					updatedItems[index] = updatedItem;
-					return updatedItems;
-				});
-				setShoppingList(shoppingList.filter((item) => item.id !== id));
-			}
-		};
+		// const checkOffItem = (isChecked, id) => {
+		// 	const index = pantryItems.findIndex((item) => item.id === id);
+		// 	if (isChecked) {
+		// 		const updatedItem = {
+		// 			...pantryItems[index],
+		// 			onList: false,
+		// 			status: "in stock",
+		// 		};
+		// 		setPantryItems((prevItems) => {
+		// 			const updatedItems = [...prevItems];
+		// 			updatedItems[index] = updatedItem;
+		// 			return updatedItems;
+		// 		});
+		// 		setShoppingList(pantryItems.onList.filter((item) => item.id !== id));
+		// 	}
+		// };
 
-		return (
-			<>
-				{toggleShoppingList ? (
-					item.onList && (
-						<PantryItem
-							item={item}
-							id={item.id}
-							key={item.id + item.onList}
-							icon={item.icon}
-							name={item.name}
-							aisle={item.aisle}
-							status={item.status}
-							onList={onList}
-							shoppingList={shoppingList}
-							onClick={() => handleToggleOnList(item.id)}
-							checkbox={true}
-							toggleShoppingList={toggleShoppingList}
-							onChange={(e) => checkOffItem(e.target.checked, item.id)}
-						/>
-					)
-				) : (
-					<PantryItem
-						item={item}
-						id={item.id}
-						key={item.id + item.onList}
-						onList={onList}
-						icon={item.icon}
-						name={item.name}
-						aisle={item.aisle}
-						status={item.status}
-						shoppingList={shoppingList}
-						onClick={() => handleToggleOnList(item.id)}
-					/>
-				)}
-			</>
-		);
+		return <></>;
 	});
 
-	const clearList = () => {
-		setPantryItems((prevItems) =>
-			prevItems.map((item) => ({ ...item, onList: false }))
-		);
-		setShoppingList([]);
-	};
+	// const clearList = () => {
+	// 	setPantryItems((prevItems) =>
+	// 		prevItems.map((item) => ({ ...item, onList: false }))
+	// 	);
+	// 	setShoppingList([]);
+	// };
 
-	return (
-		<div>
-			{pantryItemList}
-			{toggleShoppingList && (
-				<div className=" flex justify-center pt-4">
-					{/* Note: add a pop up that asks if you want to mark all items as in stock */}
-					<button
-						class="bg-gray-900 text-white font-semibold p-2"
-						onClick={() => clearList()}
-					>
-						Remove all items
-					</button>
-				</div>
-			)}
-		</div>
-	);
+	return <div>{pantryItemList}</div>;
 };
 
 export default PantryList;

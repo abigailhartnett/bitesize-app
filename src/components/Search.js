@@ -3,7 +3,7 @@ import React from "react";
 const Search = ({
 	placeholder,
 	pantryItems,
-	setSearchFilter,
+	setSearch,
 	searchQuery,
 	setSearchQuery,
 }) => {
@@ -16,7 +16,7 @@ const Search = ({
 
 	const handleInputChange = (e) => {
 		setSearchQuery(e.target.value);
-		setSearchFilter(filterItems(e.target.value));
+		setSearch(filterItems(e.target.value));
 	};
 
 	return (

@@ -3,12 +3,7 @@ import Tag from "./Tag";
 import IconButton from "./buttons/IconButton";
 import { faFilter } from "@fortawesome/free-solid-svg-icons";
 
-const Filter = ({
-	toggleShoppingList,
-	setToggleShoppingList,
-	filter,
-	setFilter,
-}) => {
+const Filter = ({ filter, setFilter }) => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [tags, setTags] = useState([]);
 
@@ -32,14 +27,6 @@ const Filter = ({
 
 	const handleClose = () => {
 		setIsOpen(false);
-	};
-
-	const handleKeyDown = (e) => {
-		if (e.key === "Tab" && isOpen) {
-			e.preventDefault();
-		} else if (e.key === "Escape") {
-			setIsOpen(false);
-		}
 	};
 
 	const handleFilterChange = (e) => {
@@ -80,8 +67,6 @@ const Filter = ({
 						multiple={true}
 						value={filterOptions}
 						onChange={handleFilterChange}
-						onKeyDown={handleKeyDown}
-						onBlur={handleClose}
 					>
 						{options}
 					</select>

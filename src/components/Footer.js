@@ -4,8 +4,8 @@ import Search from "./Search";
 const Footer = ({
 	pantryItems,
 	searchPlaceholder,
-	searchFilter,
-	setSearchFilter,
+	search,
+	setSearch,
 	searchQuery,
 	setSearchQuery,
 	setToggleShoppingList,
@@ -31,16 +31,14 @@ const Footer = ({
 					Shopping list
 				</button>
 			</div>
-			<div className="flex justify-center">
-				<Search
-					placeholder={searchPlaceholder}
-					searchFilter={searchFilter}
-					setSearchFilter={setSearchFilter}
-					searchQuery={searchQuery}
-					setSearchQuery={setSearchQuery}
-					pantryItems={pantryItems}
-				/>
-			</div>
+			<Search
+				placeholder={"Search pantry..."}
+				search={search}
+				setSearch={setSearch}
+				searchQuery={searchQuery}
+				setSearchQuery={setSearchQuery}
+				pantryItems={pantryItems}
+			/>
 		</div>
 	);
 };

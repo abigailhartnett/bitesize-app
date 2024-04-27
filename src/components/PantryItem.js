@@ -11,12 +11,9 @@ const PantryItem = ({
 	status,
 	onClick,
 	onChange,
-	shoppingList,
 	toggleShoppingList,
-	id,
 	onList,
 	checkbox,
-	item,
 }) => {
 	return (
 		<div

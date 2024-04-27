@@ -1,23 +1,20 @@
 import React, { useState } from "react";
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
-import PantryList from "../components/PantryList";
 import Filter from "../components/Filter";
 import Sort from "../components/Sort";
+import PantryItem from "../components/PantryItem";
 
 const PantryPage = ({
 	filter,
 	setFilter,
-	searchFilter,
-	setSearchFilter,
+	search,
+	setSearch,
 	searchQuery,
 	sort,
 	setSort,
 	setSearchQuery,
 	pantryItems,
-	setPantryItems,
-	setShoppingList,
-	shoppingList,
 }) => {
 	const [toggleShoppingList, setToggleShoppingList] = useState(false);
 
@@ -38,28 +35,52 @@ const PantryPage = ({
 						/>
 					)}
 				</div>
-				<Filter
-					setShoppingList={setShoppingList}
-					shoppingList={shoppingList}
-					filter={filter}
-					setFilter={setFilter}
-					toggleShoppingList={toggleShoppingList}
-					setToggleShoppingList={setToggleShoppingList}
-				/>
+				<Filter filter={filter} setFilter={setFilter} />
 			</div>
 			<div className="h-screen overflow-y-auto overflow-x-visible flex-grow pb-56">
-				{sort && (
-					<PantryList
-						filter={filter}
-						searchFilter={searchFilter}
-						sort={sort}
-						pantryItems={pantryItems}
-						setPantryItems={setPantryItems}
-						setShoppingList={setShoppingList}
-						shoppingList={shoppingList}
-						toggleShoppingList={toggleShoppingList}
-					/>
-				)}
+				{toggleShoppingList
+					? pantryItems.map((item) => {
+							if (item.onList && filter.includes(item.status)) {
+								return (
+									<PantryItem
+										item={item}
+										id={item.id}
+										key={item.id + item.onList}
+										icon={item.icon}
+										name={item.name}
+										aisle={item.aisle}
+										status={item.status}
+										// onList={onList}
+										// onClick={() => handleToggleOnList(item.id)}
+										checkbox={true}
+										toggleShoppingList={toggleShoppingList}
+										// onChange={(e) => checkOffItem(e.target.checked, item.id)}
+									/>
+								);
+							}
+						})
+					: pantryItems.map((item) => {
+							if (filter.includes(item.status)) {
+								return (
+									<>
+										<PantryItem
+											item={item}
+											id={item.id}
+											key={item.id + item.onList}
+											icon={item.icon}
+											name={item.name}
+											aisle={item.aisle}
+											status={item.status}
+											// onList={onList}
+											// onClick={() => handleToggleOnList(item.id)}
+											checkbox={true}
+											toggleShoppingList={toggleShoppingList}
+											// onChange={(e) => checkOffItem(e.target.checked, item.id)}
+										/>
+									</>
+								);
+							}
+						})}
 			</div>
 
 			<div className="fixed inset-x-0 bottom-0">
@@ -68,8 +89,8 @@ const PantryPage = ({
 					pantryItems={pantryItems}
 					searchQuery={searchQuery}
 					setSearchQuery={setSearchQuery}
-					searchFilter={searchFilter}
-					setSearchFilter={setSearchFilter}
+					search={search}
+					setSearch={setSearch}
 					setToggleShoppingList={setToggleShoppingList}
 					toggleShoppingList={toggleShoppingList}
 				/>
@@ -79,3 +100,14 @@ const PantryPage = ({
 };
 
 export default PantryPage;
+
+{
+	/* <div className=" flex justify-center pt-4">
+	<button
+		class="bg-gray-900 text-white font-semibold p-2"
+		// onClick={() => clearList()}
+	>
+		Remove all items
+	</button>
+</div>; */
+}

@@ -11,12 +11,12 @@ function App() {
 	//Supabase
 	const [fetchError, setFetchError] = useState(null);
 	const [pantryItems, setPantryItems] = useState(null);
-	const [searchFilter, setSearchFilter] = useState(null);
+	const [filter, setFilter] = useState(["in stock", "out", "low"]);
+
+	const [search, setSearch] = useState(null);
 	const [sort, setSort] = useState(null);
 
-	const [filter, setFilter] = useState(["in stock", "out", "low"]);
 	const [searchQuery, setSearchQuery] = useState("");
-	const [shoppingList, setShoppingList] = useState([]);
 
 	useEffect(() => {
 		const fetchPantryItems = async () => {
@@ -37,15 +37,8 @@ function App() {
 
 	useEffect(() => {
 		if (pantryItems) {
-			setSearchFilter(pantryItems);
+			setSearch(pantryItems);
 			setSort(pantryItems);
-		}
-	}, [pantryItems]);
-
-	useEffect(() => {
-		if (pantryItems) {
-			const itemsOnList = pantryItems.filter((item) => item.onList === true);
-			setShoppingList(itemsOnList);
 		}
 	}, [pantryItems]);
 
@@ -67,29 +60,16 @@ function App() {
 								setFilter={setFilter}
 								searchQuery={searchQuery}
 								setSearchQuery={setSearchQuery}
-								searchFilter={searchFilter}
-								setSearchFilter={setSearchFilter}
+								search={search}
+								setSearch={setSearch}
 								pantryItems={pantryItems}
 								setPantryItems={setPantryItems}
-								setShoppingList={setShoppingList}
-								shoppingList={shoppingList}
 								sort={sort}
 								setSort={setSort}
 							/>
 						}
 					/>
 					<Route path="/recipe-box" element={<RecipeBoxPage />} />
-					{/* <Route
-						path="/shopping-list"
-						element={
-							<ShoppingListPage
-								filter={filter}
-								setFilter={setFilter}
-								shoppingList={shoppingList}
-								setShoppingList={setShoppingList}
-							/>
-						}
-					/> */}
 					<Route path="/recipes/:id" element={<RecipePage />} />
 				</Routes>
 			</Router>
