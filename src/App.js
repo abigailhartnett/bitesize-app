@@ -5,7 +5,6 @@ import HomePage from "./pages/home";
 import PantryPage from "./pages/pantry";
 import RecipeBoxPage from "./pages/recipeBox";
 import MealPlanPage from "./pages/mealPlan";
-// import ShoppingListPage from "./pages/shoppingList";
 import RecipePage from "./pages/recipe";
 
 function App() {

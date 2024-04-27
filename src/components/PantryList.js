@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import supabase from "../config/supabaseClient";
 import PantryItem from "./PantryItem";
 
 const PantryList = ({
@@ -11,6 +12,8 @@ const PantryList = ({
 	shoppingList,
 	toggleShoppingList,
 }) => {
+	const [onList, setOnList] = useState();
+
 	const filteredPantryItems =
 		sort &&
 		sort.filter(
@@ -19,28 +22,28 @@ const PantryList = ({
 				searchFilter?.some((searchItem) => searchItem.id === item.id)
 		);
 
-	const pantryItemList = filteredPantryItems.map((item) => {
-		const addItemToShoppingList = (id) => {
-			const index = pantryItems.findIndex((item) => item.id === id);
-			if (shoppingList && !shoppingList.some((item) => item.id === id)) {
-				const updatedItem = { ...pantryItems[index], onList: true };
-				setPantryItems((prevItems) => {
-					const updatedItems = [...prevItems];
-					updatedItems[index] = updatedItem;
-					return updatedItems;
-				});
-				setShoppingList((shoppingList) => [...shoppingList, updatedItem]);
-			} else {
-				const updatedItem = { ...pantryItems[index], onList: false };
-				setPantryItems((prevItems) => {
-					const updatedItems = [...prevItems];
-					updatedItems[index] = updatedItem;
-					return updatedItems;
-				});
-				setShoppingList(shoppingList.filter((item) => item.id !== id));
-			}
-		};
+	const handleToggleOnList = async (id) => {
+		setOnList(!onList);
 
+		const { data, error } = await supabase
+			.from("pantry")
+			.update({ onList })
+			.eq("id", id)
+			.select();
+
+		if (error) {
+			console.log("Error:", error);
+			return;
+		}
+
+		if (data) {
+			console.log(data);
+		}
+
+		// console.log(item);
+	};
+
+	const pantryItemList = filteredPantryItems.map((item) => {
 		const checkOffItem = (isChecked, id) => {
 			const index = pantryItems.findIndex((item) => item.id === id);
 			if (isChecked) {
@@ -70,9 +73,9 @@ const PantryList = ({
 							name={item.name}
 							aisle={item.aisle}
 							status={item.status}
-							onList={item.onList}
+							onList={onList}
 							shoppingList={shoppingList}
-							onClick={() => addItemToShoppingList(item.id)}
+							onClick={() => handleToggleOnList(item.id)}
 							checkbox={true}
 							toggleShoppingList={toggleShoppingList}
 							onChange={(e) => checkOffItem(e.target.checked, item.id)}
@@ -83,12 +86,13 @@ const PantryList = ({
 						item={item}
 						id={item.id}
 						key={item.id + item.onList}
+						onList={onList}
 						icon={item.icon}
 						name={item.name}
 						aisle={item.aisle}
 						status={item.status}
 						shoppingList={shoppingList}
-						onClick={() => addItemToShoppingList(item.id)}
+						onClick={() => handleToggleOnList(item.id)}
 					/>
 				)}
 			</>

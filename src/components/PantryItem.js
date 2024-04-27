@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import supabase from "../config/supabaseClient";
 // import IconButton from "./buttons/IconButton";
 import Tag from "./Tag";
 // import { faPlus } from "@fortawesome/free-solid-svg-icons";
@@ -19,7 +20,7 @@ const PantryItem = ({
 }) => {
 	return (
 		<div
-			className={`flex py-1 ${item.onList && !toggleShoppingList ? "text-pepper/50" : ""}`}
+			className={`flex py-1 ${onList && !toggleShoppingList ? "text-pepper/50" : ""}`}
 		>
 			<div className="flex justify-between grow hover:bg-gray-100 px-4">
 				<div className={`flex gap-4 items-center`}>
@@ -37,7 +38,7 @@ const PantryItem = ({
 						checkbox && <input type="checkbox" onChange={onChange} />
 					) : (
 						<button onClick={onClick} className="text-sm font-semibold">
-							{item.onList ? "Remove item" : "Add item"}
+							{onList ? "Remove item" : "Add item"}
 						</button>
 					)}
 				</div>
