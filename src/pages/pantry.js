@@ -8,12 +8,10 @@ import SearchBar from "../components/SearchBar";
 const PantryPage = ({
 	filter,
 	setFilter,
-	search,
-	setSearch,
 	searchQuery,
+	setSearchQuery,
 	sort,
 	setSort,
-	setSearchQuery,
 	pantryItems,
 }) => {
 	const [toggleShoppingList, setToggleShoppingList] = useState(false);
@@ -21,6 +19,34 @@ const PantryPage = ({
 	const onClick = (e) => {
 		setToggleShoppingList(!toggleShoppingList);
 	};
+
+	const filteredPantryItems = pantryItems
+		.filter(
+			(item) =>
+				(toggleShoppingList ? item.onList : true) &&
+				filter.includes(item.status) &&
+				item.name.toLowerCase().includes(searchQuery.toLowerCase())
+		)
+		.map((item) => {
+			return (
+				<PantryItem
+					item={item}
+					id={item.id}
+					key={item.id}
+					icon={item.icon}
+					name={item.name}
+					aisle={item.aisle}
+					status={item.status}
+					// onList={onList}
+					// onClick={() => handleToggleOnList(item.id)}
+					checkbox={true}
+					toggleShoppingList={toggleShoppingList}
+					// onChange={(e) => checkOffItem(e.target.checked, item.id)}
+				/>
+			);
+		});
+
+	console.log(filteredPantryItems);
 
 	useState(() => {
 		setFilter(["in stock", "low", "out"]);
@@ -42,61 +68,20 @@ const PantryPage = ({
 				<Filter filter={filter} setFilter={setFilter} />
 			</div>
 			<div className="h-screen overflow-y-auto overflow-x-visible flex-grow pb-56">
-				{toggleShoppingList
-					? pantryItems.map((item) => {
-							if (item.onList && filter.includes(item.status)) {
-								return (
-									<PantryItem
-										item={item}
-										id={item.id}
-										key={item.id + item.onList}
-										icon={item.icon}
-										name={item.name}
-										aisle={item.aisle}
-										status={item.status}
-										// onList={onList}
-										// onClick={() => handleToggleOnList(item.id)}
-										checkbox={true}
-										toggleShoppingList={toggleShoppingList}
-										// onChange={(e) => checkOffItem(e.target.checked, item.id)}
-									/>
-								);
-							}
-						})
-					: pantryItems.map((item) => {
-							if (filter.includes(item.status)) {
-								return (
-									<>
-										<PantryItem
-											item={item}
-											id={item.id}
-											key={item.id + item.onList}
-											icon={item.icon}
-											name={item.name}
-											aisle={item.aisle}
-											status={item.status}
-											// onList={onList}
-											// onClick={() => handleToggleOnList(item.id)}
-											checkbox={true}
-											toggleShoppingList={toggleShoppingList}
-											// onChange={(e) => checkOffItem(e.target.checked, item.id)}
-										/>
-									</>
-								);
-							}
-						})}
+				{filteredPantryItems.length > 0 ? (
+					filteredPantryItems
+				) : (
+					<div className="text-center pt-4">Whoops! No items found 😱</div>
+				)}
 			</div>
-
 			<div className="fixed inset-x-0 bottom-0">
 				<SearchBar
 					placeholder={"Search pantry..."}
-					search={search}
-					setSearch={setSearch}
 					searchQuery={searchQuery}
 					setSearchQuery={setSearchQuery}
 					pantryItems={pantryItems}
 				/>
-				<div className="bg-gray-200 p-5 mt-4">
+				<div className="bg-gray-200 p-4">
 					<div className="flex items-center justify-between gap-1">
 						<button
 							className={`w-full p-2 ${toggleShoppingList ? "bg-gray-300 text-black/50" : "bg-white"} text-center font-semibold`}

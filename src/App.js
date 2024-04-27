@@ -12,11 +12,8 @@ function App() {
 	const [fetchError, setFetchError] = useState(null);
 	const [pantryItems, setPantryItems] = useState(null);
 	const [filter, setFilter] = useState(["in stock", "out", "low"]);
-
-	const [search, setSearch] = useState(null);
-	const [sort, setSort] = useState(null);
-
 	const [searchQuery, setSearchQuery] = useState("");
+	const [sort, setSort] = useState(null);
 
 	useEffect(() => {
 		const fetchPantryItems = async () => {
@@ -34,13 +31,6 @@ function App() {
 		};
 		fetchPantryItems();
 	}, [setFetchError]);
-
-	useEffect(() => {
-		if (pantryItems) {
-			setSearch(pantryItems);
-			setSort(pantryItems);
-		}
-	}, [pantryItems]);
 
 	if (!pantryItems) {
 		return <div>Loading...</div>;
@@ -60,8 +50,6 @@ function App() {
 								setFilter={setFilter}
 								searchQuery={searchQuery}
 								setSearchQuery={setSearchQuery}
-								search={search}
-								setSearch={setSearch}
 								pantryItems={pantryItems}
 								setPantryItems={setPantryItems}
 								sort={sort}

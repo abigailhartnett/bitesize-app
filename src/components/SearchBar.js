@@ -1,22 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 
 const SearchBar = ({
 	placeholder,
 	pantryItems,
-	setSearch,
 	searchQuery,
 	setSearchQuery,
 }) => {
-	const filterItems = (searchQuery) => {
-		const filteredItems = pantryItems.filter((item) => {
-			return item.name.toLowerCase().includes(searchQuery.toLowerCase());
-		});
-		return filteredItems;
-	};
-
 	const handleInputChange = (e) => {
 		setSearchQuery(e.target.value);
-		setSearch(filterItems(e.target.value));
 	};
 
 	return (
