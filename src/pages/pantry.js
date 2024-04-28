@@ -33,7 +33,7 @@ const PantryPage = ({
 		}
 
 		// Toggle the onList property
-		const updatedItem = { ...item, onList: !item.onList };
+		const updatedItem = { ...item, onList: !item.onList, checked: false };
 
 		// Update the item in the state
 		setPantryItems((prevItems) =>
@@ -43,7 +43,7 @@ const PantryPage = ({
 		// Update the item in Supabase
 		const { error } = await supabase
 			.from("pantry")
-			.update({ onList: updatedItem.onList })
+			.update({ onList: updatedItem.onList, checked: updatedItem.checked })
 			.eq("id", id);
 
 		if (error) {
@@ -52,27 +52,29 @@ const PantryPage = ({
 	};
 
 	const checkOffItem = async (isChecked, id) => {
-		if (isChecked) {
-			// Find Item
-			const item = pantryItems.find((item) => item.id === id);
+		// Find Item
+		const item = pantryItems.find((item) => item.id === id);
 
-			// Toggle the onList and status properties
-			const updatedItem = { ...item, onList: false, status: "in stock" };
+		// Toggle the onList and status properties
+		const updatedItem = {
+			...item,
+			checked: isChecked,
+			status: isChecked ? "in stock" : item.prevStatus,
+		};
 
-			// Update the item in the state
-			setPantryItems((prevItems) =>
-				prevItems.map((item) => (item.id === id ? updatedItem : item))
-			);
+		// Update the item in the state
+		setPantryItems((prevItems) =>
+			prevItems.map((item) => (item.id === id ? updatedItem : item))
+		);
 
-			// Update the item in Supabase
-			const { error } = await supabase
-				.from("pantry")
-				.update({ onList: updatedItem.onList, status: updatedItem.status })
-				.eq("id", id);
+		// Update the item in Supabase
+		const { error } = await supabase
+			.from("pantry")
+			.update({ status: updatedItem.status, checked: updatedItem.checked })
+			.eq("id", id);
 
-			if (error) {
-				console.log(error);
-			}
+		if (error) {
+			console.log(error);
 		}
 	};
 
@@ -90,16 +92,18 @@ const PantryPage = ({
 		const getNextStatus = (currentStatus) => {
 			const currentIndex = statuses.indexOf(currentStatus);
 			if (currentIndex === -1 || currentIndex === statuses.length - 1) {
-				// console.log("Next status:", statuses[0]);
 				return statuses[0];
 			} else {
-				// console.log("Next status:", statuses[currentIndex + 1]);
 				return statuses[currentIndex + 1];
 			}
 		};
 
 		// Toggle the onList property
-		const updatedItem = { ...item, status: getNextStatus(item.status) };
+		const updatedItem = {
+			...item,
+			status: getNextStatus(item.status),
+			prevStatus: getNextStatus(item.status),
+		};
 
 		// Update the item in the state
 		setPantryItems((prevItems) =>
@@ -111,7 +115,10 @@ const PantryPage = ({
 		// Update the item in Supabase
 		const { error } = await supabase
 			.from("pantry")
-			.update({ status: updatedItem.status })
+			.update({
+				status: updatedItem.status,
+				prevStatus: updatedItem.prevStatus,
+			})
 			.eq("id", id);
 
 		if (error) {
@@ -119,12 +126,35 @@ const PantryPage = ({
 		}
 	};
 
-	// const clearList = () => {
-	// 	setPantryItems((prevItems) =>
-	// 		prevItems.map((item) => ({ ...item, onList: false }))
-	// 	);
-	// 	setShoppingList([]);
-	// };
+	const clearList = async () => {
+		const itemsOnList = pantryItems.filter((item) => item.onList);
+
+		// Find Items
+		for (const item of itemsOnList) {
+			// Toggle the onList and status properties
+			const updatedItem = { ...item, onList: false, prevStatus: item.status };
+
+			// Update the item in the state
+			setPantryItems((prevItems) =>
+				prevItems.map((prevItem) =>
+					prevItem.id === item.id ? updatedItem : prevItem
+				)
+			);
+
+			// Update the item in Supabase
+			const { error } = await supabase
+				.from("pantry")
+				.update({
+					onList: updatedItem.onList,
+					prevStatus: updatedItem.prevStatus,
+				})
+				.eq("id", item.id);
+
+			if (error) {
+				console.log(error);
+			}
+		}
+	};
 
 	const filteredPantryItems = pantryItems
 		.filter(
@@ -166,13 +196,17 @@ const PantryPage = ({
 				{filteredPantryItems.length > 0 ? (
 					filteredPantryItems
 				) : (
-					<div className="text-center pt-4">Whoops! No items found 😱</div>
+					<div className="text-center pt-4">
+						{toggleShoppingList
+							? "Woohoo! All done! 🙌🏻"
+							: "Whoops! No items found 😱"}
+					</div>
 				)}
 				{toggleShoppingList && (
 					<div className=" flex justify-center pt-4">
 						<button
 							class="bg-pepper text-white font-semibold p-2"
-							// onClick={() => clearList()}
+							onClick={() => clearList()}
 						>
 							Clear list
 						</button>

@@ -28,12 +28,14 @@ const PantryItem = ({
 
 	return (
 		<div
-			className={`flex py-1 ${onList && !toggleShoppingList ? "text-pepper/50" : ""}`}
+			className={`flex py-1 ${onList && !toggleShoppingList ? "text-pepper/50" : ""} ${toggleShoppingList && item.checked ? "line-through text-pepper/50" : ""}`}
 		>
 			<div className="flex justify-between grow hover:bg-gray-100 px-4">
 				<div className={`flex gap-4 items-center`}>
 					<button onClick={() => toggleStatus(item.id)}>
-						<span class={`material-symbols-outlined ${statusColor}`}>
+						<span
+							class={`material-symbols-outlined ${toggleShoppingList && item.checked ? `${statusColor}-50` : statusColor}`}
+						>
 							{icon}
 						</span>
 					</button>
@@ -44,7 +46,13 @@ const PantryItem = ({
 				</div>
 
 				{toggleShoppingList ? (
-					checkbox && <input type="checkbox" onChange={onChange} />
+					checkbox && (
+						<input
+							type="checkbox"
+							onChange={onChange}
+							checked={item.checked && true}
+						/>
+					)
 				) : (
 					<button onClick={onClick} className="text-sm font-semibold">
 						{onList ? (
