@@ -58,7 +58,9 @@ const Filter = ({ filter, setFilter }) => {
 	return (
 		<div className="flex justify-between items-center pr-2">
 			<div className="flex items-center">
-				<IconButton icon={faFilter} onClick={handleClick} />
+				<span class="material-symbols-outlined px-3" onClick={handleClick}>
+					filter_list
+				</span>
 				<div className="flex gap-2">{tagOptions}</div>
 			</div>
 			{isOpen && (
