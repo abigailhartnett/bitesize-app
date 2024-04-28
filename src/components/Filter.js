@@ -64,7 +64,7 @@ const Filter = ({ filter, setFilter }) => {
 				<div className="flex gap-2">{tagOptions}</div>
 			</div>
 			{isOpen && (
-				<div class="absolute">
+				<div class="absolute top-24 left-2">
 					<select
 						multiple={true}
 						value={filterOptions}
