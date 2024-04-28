@@ -1,6 +1,6 @@
 import React from "react";
 import BigButton from "../components/buttons/BigButton";
-import CreatePantryItem from "../components/CreatePantryItem";
+// import CreatePantryItem from "../components/CreatePantryItem";
 
 const HomePage = () => {
 	return (
@@ -9,7 +9,7 @@ const HomePage = () => {
 			<BigButton text="Pantry" link="/pantry" />
 			<BigButton text="Recipe Box" link="/recipe-box" />
 			<BigButton text="Meal Plan" link="/meal-plan" />
-			<CreatePantryItem />
+			{/* <CreatePantryItem /> */}
 		</div>
 	);
 };
