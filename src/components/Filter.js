@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Tag from "./Tag";
-import IconButton from "./buttons/IconButton";
-import { faFilter } from "@fortawesome/free-solid-svg-icons";
 
 const Filter = ({ filter, setFilter }) => {
 	const [isOpen, setIsOpen] = useState(false);
