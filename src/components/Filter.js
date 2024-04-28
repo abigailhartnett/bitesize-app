@@ -25,9 +25,9 @@ const Filter = ({ filter, setFilter }) => {
 		setIsOpen(!isOpen);
 	};
 
-	const handleClose = () => {
-		setIsOpen(false);
-	};
+	// const handleClose = () => {
+	// 	setIsOpen(false);
+	// };
 
 	const handleFilterChange = (e) => {
 		if (

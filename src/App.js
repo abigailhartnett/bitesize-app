@@ -22,7 +22,7 @@ function App() {
 			if (error) {
 				setFetchError("Could not fetch pantry items");
 				setPantryItems(null);
-				console.log(error);
+				console.log(fetchError, error);
 			}
 			if (data) {
 				setPantryItems(data);
@@ -30,7 +30,7 @@ function App() {
 			}
 		};
 		fetchPantryItems();
-	}, [setFetchError]);
+	}, [fetchError, setFetchError]);
 
 	if (!pantryItems) {
 		return <div>Loading...</div>;

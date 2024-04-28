@@ -17,7 +17,8 @@ const CreatePantryItem = () => {
 		}
 
 		try {
-			const { data, error } = await supabase
+			// Fix this! Needs to pull from data
+			const { error } = await supabase
 				.from("pantry")
 				.insert([{ name, aisle, status }]);
 
