@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Tag from "./Tag";
 
 const PantryItem = ({
@@ -37,8 +37,6 @@ const PantryItem = ({
 					)}
 				</div>
 			</div>
-
-			<div>{/* <IconButton icon={faPlus} onClick={onClick} /> */}</div>
 		</div>
 	);
 };

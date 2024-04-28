@@ -1,11 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 
-const SearchBar = ({
-	placeholder,
-	pantryItems,
-	searchQuery,
-	setSearchQuery,
-}) => {
+const SearchBar = ({ placeholder, searchQuery, setSearchQuery }) => {
 	const handleInputChange = (e) => {
 		setSearchQuery(e.target.value);
 	};

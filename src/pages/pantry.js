@@ -11,7 +11,7 @@ const PantryPage = ({
 	setFilter,
 	searchQuery,
 	setSearchQuery,
-	sort,
+	// sort,
 	setSort,
 	pantryItems,
 	setPantryItems,
