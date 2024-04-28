@@ -1,13 +1,14 @@
 import React from "react";
-import Tag from "./Tag";
 
 const PantryItem = ({
+	item,
 	name,
 	aisle,
 	status,
 	onClick,
 	onChange,
 	toggleShoppingList,
+	toggleStatus,
 	onList,
 	checkbox,
 }) => {
@@ -31,7 +32,11 @@ const PantryItem = ({
 		>
 			<div className="flex justify-between grow hover:bg-gray-100 px-4">
 				<div className={`flex gap-4 items-center`}>
-					<span class={`material-symbols-outlined ${statusColor}`}>{icon}</span>
+					<button onClick={() => toggleStatus(item.id)}>
+						<span class={`material-symbols-outlined ${statusColor}`}>
+							{icon}
+						</span>
+					</button>
 					<div className="flex flex-col">
 						<span>{name}</span>
 						<span className="text-xs">{aisle}</span>

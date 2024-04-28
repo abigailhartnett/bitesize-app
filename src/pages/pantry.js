@@ -17,11 +17,13 @@ const PantryPage = ({
 	setPantryItems,
 }) => {
 	const [toggleShoppingList, setToggleShoppingList] = useState(false);
+	const statuses = ["in stock", "low", "out"];
 
 	const onClick = (e) => {
 		setToggleShoppingList(!toggleShoppingList);
 	};
 
+	// Note: Check if there are better ways to write these functions
 	const toggleOnList = async (id) => {
 		// Find the item
 		const item = pantryItems.find((item) => item.id === id);
@@ -74,6 +76,49 @@ const PantryPage = ({
 		}
 	};
 
+	const toggleStatus = async (id) => {
+		// Find the item
+		const item = pantryItems.find((item) => item.id === id);
+		if (!item) {
+			console.log(`Item with id ${id} not found`);
+			return;
+		}
+
+		// console.log("Current status:", item.status);
+
+		// Get status index
+		const getNextStatus = (currentStatus) => {
+			const currentIndex = statuses.indexOf(currentStatus);
+			if (currentIndex === -1 || currentIndex === statuses.length - 1) {
+				// console.log("Next status:", statuses[0]);
+				return statuses[0];
+			} else {
+				// console.log("Next status:", statuses[currentIndex + 1]);
+				return statuses[currentIndex + 1];
+			}
+		};
+
+		// Toggle the onList property
+		const updatedItem = { ...item, status: getNextStatus(item.status) };
+
+		// Update the item in the state
+		setPantryItems((prevItems) =>
+			prevItems.map((item) => (item.id === id ? updatedItem : item))
+		);
+
+		console.log("New status:", updatedItem.status);
+
+		// Update the item in Supabase
+		const { error } = await supabase
+			.from("pantry")
+			.update({ status: updatedItem.status })
+			.eq("id", id);
+
+		if (error) {
+			console.log(error);
+		}
+	};
+
 	// const clearList = () => {
 	// 	setPantryItems((prevItems) =>
 	// 		prevItems.map((item) => ({ ...item, onList: false }))
@@ -102,6 +147,7 @@ const PantryPage = ({
 					onClick={() => toggleOnList(item.id)}
 					checkbox={true}
 					toggleShoppingList={toggleShoppingList}
+					toggleStatus={() => toggleStatus(item.id)}
 					onChange={(e) => checkOffItem(e.target.checked, item.id)}
 				/>
 			);
