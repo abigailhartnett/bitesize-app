@@ -32,7 +32,10 @@ const PantryItem = ({
 			className={`flex py-1 ${onList && !toggleShoppingList ? "text-pepper/50" : ""} ${toggleShoppingList && item.checked ? "line-through text-pepper/50" : ""}`}
 		>
 			<div className="flex justify-between grow hover:bg-gray-100 px-4">
-				<div className="flex grow" onClick={() => openPopover(item.id)}>
+				<div
+					className="flex grow cursor-pointer"
+					onClick={() => openPopover(item.id)}
+				>
 					<div className={`flex gap-4 items-center`}>
 						<button onClick={() => toggleStatus(item.id)}>
 							<span

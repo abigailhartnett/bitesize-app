@@ -5,7 +5,7 @@ import Filter from "../components/Filter";
 import Sort from "../components/Sort";
 import PantryItem from "../components/PantryItem";
 import SearchBar from "../components/SearchBar";
-// import CreatePantryItem from "../components/CreatePantryItem";
+import CreatePantryItem from "../components/CreatePantryItem";
 import PopOver from "../components/PopOver";
 
 const PantryPage = ({
@@ -32,7 +32,7 @@ const PantryPage = ({
 		return item;
 	};
 
-	const onClick = (e) => {
+	const onClick = () => {
 		setToggleShoppingList(!toggleShoppingList);
 	};
 
