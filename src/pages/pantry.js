@@ -5,6 +5,8 @@ import Filter from "../components/Filter";
 import Sort from "../components/Sort";
 import PantryItem from "../components/PantryItem";
 import SearchBar from "../components/SearchBar";
+// import CreatePantryItem from "../components/CreatePantryItem";
+import PopOver from "../components/PopOver";
 
 const PantryPage = ({
 	filter,
@@ -17,7 +19,18 @@ const PantryPage = ({
 	setPantryItems,
 }) => {
 	const [toggleShoppingList, setToggleShoppingList] = useState(false);
+	const [popoverIsOpen, setPopoverIsOpen] = useState(false);
+	const [currentItem, setCurrentItem] = useState(null);
 	const statuses = ["in stock", "low", "out"];
+
+	const findItemById = (id) => {
+		const item = pantryItems.find((item) => item.id === id);
+		if (!item) {
+			console.log(`Item with id ${id} not found`);
+			return;
+		}
+		return item;
+	};
 
 	const onClick = (e) => {
 		setToggleShoppingList(!toggleShoppingList);
@@ -156,6 +169,19 @@ const PantryPage = ({
 		}
 	};
 
+	const openPopover = (id) => {
+		setPopoverIsOpen(true);
+		const item = findItemById(id);
+		setCurrentItem(item);
+	};
+
+	const removeItemFromList = (id) => {
+		// Note: replace a lot of the logic in this component with the currentItem state
+		toggleOnList(currentItem.id);
+		console.log("Current Item:", currentItem);
+		setPopoverIsOpen(false);
+	};
+
 	const filteredPantryItems = pantryItems
 		.filter(
 			(item) =>
@@ -174,10 +200,11 @@ const PantryPage = ({
 					aisle={item.aisle}
 					status={item.status}
 					onList={item.onList}
-					onClick={() => toggleOnList(item.id)}
+					toggleOnList={() => toggleOnList(item.id)}
 					checkbox={true}
 					toggleShoppingList={toggleShoppingList}
 					toggleStatus={() => toggleStatus(item.id)}
+					openPopover={() => openPopover(item.id)}
 					onChange={(e) => checkOffItem(e.target.checked, item.id)}
 				/>
 			);
@@ -193,13 +220,27 @@ const PantryPage = ({
 				<Filter filter={filter} setFilter={setFilter} />
 			</div>
 			<div className="h-screen overflow-y-auto overflow-x-visible flex-grow pb-56">
+				{popoverIsOpen && (
+					<PopOver
+						setPopoverIsOpen={setPopoverIsOpen}
+						toggleShoppingList={toggleShoppingList}
+						pantryItems={pantryItems}
+						removeItemFromList={removeItemFromList}
+						currentItem={currentItem}
+					></PopOver>
+				)}
 				{filteredPantryItems.length > 0 ? (
 					filteredPantryItems
 				) : (
 					<div className="text-center pt-4">
-						{toggleShoppingList
-							? "Woohoo! All done! 🙌🏻"
-							: "Whoops! No items found 😱"}
+						{toggleShoppingList ? (
+							"Woohoo! All done! 🙌🏻"
+						) : (
+							<div>
+								<span>Whoops! No items found 😱</span>
+								<CreatePantryItem />
+							</div>
+						)}
 					</div>
 				)}
 				{toggleShoppingList && (

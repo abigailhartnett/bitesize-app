@@ -5,10 +5,11 @@ const PantryItem = ({
 	name,
 	aisle,
 	status,
-	onClick,
 	onChange,
 	toggleShoppingList,
 	toggleStatus,
+	toggleOnList,
+	openPopover,
 	onList,
 	checkbox,
 }) => {
@@ -31,20 +32,21 @@ const PantryItem = ({
 			className={`flex py-1 ${onList && !toggleShoppingList ? "text-pepper/50" : ""} ${toggleShoppingList && item.checked ? "line-through text-pepper/50" : ""}`}
 		>
 			<div className="flex justify-between grow hover:bg-gray-100 px-4">
-				<div className={`flex gap-4 items-center`}>
-					<button onClick={() => toggleStatus(item.id)}>
-						<span
-							class={`material-symbols-outlined ${toggleShoppingList && item.checked ? `${statusColor}-50` : statusColor}`}
-						>
-							{icon}
-						</span>
-					</button>
-					<div className="flex flex-col">
-						<span>{name}</span>
-						<span className="text-xs">{aisle}</span>
+				<div className="flex grow" onClick={() => openPopover(item.id)}>
+					<div className={`flex gap-4 items-center`}>
+						<button onClick={() => toggleStatus(item.id)}>
+							<span
+								class={`material-symbols-outlined ${toggleShoppingList && item.checked ? `${statusColor}-50` : statusColor}`}
+							>
+								{icon}
+							</span>
+						</button>
+						<div className="flex flex-col">
+							<span>{name}</span>
+							<span className="text-xs">{aisle}</span>
+						</div>
 					</div>
 				</div>
-
 				{toggleShoppingList ? (
 					checkbox && (
 						<input
@@ -54,7 +56,7 @@ const PantryItem = ({
 						/>
 					)
 				) : (
-					<button onClick={onClick} className="text-sm font-semibold">
+					<button onClick={toggleOnList} className="text-sm font-semibold pl-4">
 						{onList ? (
 							<span class={`material-symbols-outlined`}>shopping_cart</span>
 						) : (
