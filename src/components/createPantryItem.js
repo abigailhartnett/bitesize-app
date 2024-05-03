@@ -5,6 +5,8 @@ const CreatePantryItem = () => {
 	const [name, setName] = useState("");
 	const [aisle, setAisle] = useState("");
 	const [status, setStatus] = useState("in stock");
+	const [onList, setOnList] = useState(false);
+	const [store, setStore] = useState("");
 	const [formError, setFormError] = useState(null);
 	const [successMessage, setSuccessMessage] = useState("");
 
@@ -20,7 +22,7 @@ const CreatePantryItem = () => {
 			// Fix this! Needs to pull from data
 			const { error } = await supabase
 				.from("pantry")
-				.insert([{ name, aisle, status }]);
+				.insert([{ name, aisle, status, onList, store }]);
 
 			if (error) {
 				setFormError("Could not add item");
@@ -30,9 +32,13 @@ const CreatePantryItem = () => {
 				console.log([{ name, aisle, status }]);
 				setFormError(null);
 				setSuccessMessage(`🙌🏻 Added ${name} to pantry!`);
+
+				// Reset form
 				setName("");
 				setAisle("");
 				setStatus("out");
+				setOnList(false);
+				setStore("");
 			}
 		} catch (error) {
 			setSuccessMessage(null);
@@ -68,6 +74,40 @@ const CreatePantryItem = () => {
 					<option value="out">Out</option>
 					<option value="low">Low</option>
 				</select>
+				<div className="flex gap-4">
+					<input
+						id="onList"
+						type="checkbox"
+						checked={onList}
+						onChange={(e) => setOnList(e.target.checked)}
+					/>
+					<label for="onList">Add to list</label>
+				</div>
+				<div className="flex gap-4" onChange={(e) => setStore(e.target.value)}>
+					<input
+						type="radio"
+						value="costco"
+						name="store"
+						checked={store === "costco"}
+					/>
+					<label htmlFor="costco">Costco</label>
+
+					<input
+						type="radio"
+						value="safeway"
+						name="store"
+						checked={store === "safeway"}
+					/>
+					<label htmlFor="safeway">Safeway</label>
+
+					<input
+						type="radio"
+						value="other"
+						name="store"
+						checked={store === "other"}
+					/>
+					<label htmlFor="other">Other</label>
+				</div>
 				<button className="bg-pepper text-salt" type="submit">
 					Add Item
 				</button>
