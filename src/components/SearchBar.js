@@ -1,6 +1,6 @@
 import React from "react";
 
-const SearchBar = ({ placeholder, searchQuery, setSearchQuery }) => {
+const SearchBar = ({ placeholder, searchQuery, setSearchQuery, id }) => {
 	const handleInputChange = (e) => {
 		setSearchQuery(e.target.value);
 	};
@@ -9,8 +9,8 @@ const SearchBar = ({ placeholder, searchQuery, setSearchQuery }) => {
 		<div className="w-full border-solid border-black border-2 flex items-center gap-2 p-1 bg-white">
 			<i class="fa-solid fa-search"></i>
 			<input
+				id={id}
 				name="search"
-				id="search"
 				type="text"
 				placeholder={placeholder}
 				value={searchQuery}

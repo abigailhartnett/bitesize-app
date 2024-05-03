@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import supabase from "../config/supabaseClient";
 import Nav from "../components/Nav";
 import Filter from "../components/Filter";
@@ -210,6 +210,24 @@ const PantryPage = ({
 			);
 		});
 
+	const handleFocus = () => {
+		window.scrollTo(0, 0);
+		document.body.scrollTop = 0;
+	};
+
+	useEffect(() => {
+		const searchInput = document.getElementById("searchInput");
+		if (searchInput) {
+			searchInput.addEventListener("focus", handleFocus);
+		}
+
+		return () => {
+			if (searchInput) {
+				searchInput.removeEventListener("focus", handleFocus);
+			}
+		};
+	}, []);
+
 	return (
 		<div className="fixed inset-x-0 top-0 flex flex-col justify-between min-h-screen">
 			<div class="border-solid border-black border-2 border-t-0 border-x-0 bg-white py-2">
@@ -256,6 +274,7 @@ const PantryPage = ({
 			</div>
 			<div className="fixed inset-x-0 bottom-0">
 				<SearchBar
+					id={"searchInput"}
 					placeholder={"Search pantry..."}
 					searchQuery={searchQuery}
 					setSearchQuery={setSearchQuery}
