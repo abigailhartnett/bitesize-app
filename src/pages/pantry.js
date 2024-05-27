@@ -3,10 +3,10 @@ import supabase from "../config/supabaseClient";
 import Nav from "../components/Nav";
 import Filter from "../components/Filter";
 import Sort from "../components/Sort";
-import PantryItem from "../components/PantryItem";
 import SearchBar from "../components/SearchBar";
 import CreatePantryItem from "../components/forms/CreatePantryItem";
 import PopOver from "../components/PopOver";
+import PantryItemList from "../components/calculations/PantryItemList";
 
 const PantryPage = ({
 	filter,
@@ -182,33 +182,12 @@ const PantryPage = ({
 		setPopoverIsOpen(false);
 	};
 
-	const filteredPantryItems = pantryItems
-		.filter(
-			(item) =>
-				(toggleShoppingList ? item.onList : true) &&
-				filter.includes(item.status) &&
-				item.name.toLowerCase().includes(searchQuery.toLowerCase())
-		)
-		.map((item) => {
-			return (
-				<PantryItem
-					item={item}
-					id={item.id}
-					key={item.id}
-					icon={item.icon}
-					name={item.name}
-					aisle={item.aisle}
-					status={item.status}
-					onList={item.onList}
-					toggleOnList={() => toggleOnList(item.id)}
-					checkbox={true}
-					toggleShoppingList={toggleShoppingList}
-					toggleStatus={() => toggleStatus(item.id)}
-					openPopover={() => openPopover(item.id)}
-					onChange={(e) => checkOffItem(e.target.checked, item.id)}
-				/>
-			);
-		});
+	const filteredPantryItems = pantryItems.filter(
+		(item) =>
+			(toggleShoppingList ? item.onList : true) &&
+			filter.includes(item.status) &&
+			item.name.toLowerCase().includes(searchQuery.toLowerCase())
+	);
 
 	const handleFocus = () => {
 		window.scrollTo(0, 0);
@@ -242,13 +221,24 @@ const PantryPage = ({
 					<PopOver
 						setPopoverIsOpen={setPopoverIsOpen}
 						toggleShoppingList={toggleShoppingList}
-						pantryItems={pantryItems}
 						removeItemFromList={removeItemFromList}
 						currentItem={currentItem}
 					></PopOver>
 				)}
+				{/* PANTRY ITEMS */}
 				{filteredPantryItems.length > 0 ? (
-					filteredPantryItems
+					<PantryItemList
+						filteredPantryItems={filteredPantryItems}
+						pantryItems={pantryItems}
+						filter={filter}
+						toggleOnList={toggleOnList}
+						toggleShoppingList={toggleShoppingList}
+						openPopover={openPopover}
+						checkOffItem={checkOffItem}
+						toggleStatus={toggleStatus}
+						onChange={() => checkOffItem}
+						searchQuery={searchQuery}
+					/>
 				) : (
 					<div className="text-center pt-4">
 						{toggleShoppingList ? (
@@ -261,10 +251,11 @@ const PantryPage = ({
 						)}
 					</div>
 				)}
+				{/* PANTRY ITEMS */}
 				{toggleShoppingList && (
 					<div className=" flex justify-center pt-4">
 						<button
-							class="bg-pepper text-white font-semibold p-2"
+							className="bg-pepper text-white font-semibold p-2"
 							onClick={() => clearList()}
 						>
 							Clear list
@@ -273,6 +264,7 @@ const PantryPage = ({
 				)}
 			</div>
 			<div className="fixed inset-x-0 bottom-0">
+				{/* SEARCH BAR */}
 				<SearchBar
 					id={"searchInput"}
 					placeholder={"Search pantry..."}
@@ -280,6 +272,7 @@ const PantryPage = ({
 					setSearchQuery={setSearchQuery}
 					pantryItems={pantryItems}
 				/>
+				{/* SEARCH BAR */}
 				<div className="bg-gray-200 p-4">
 					<div className="flex items-center justify-between gap-1">
 						<button

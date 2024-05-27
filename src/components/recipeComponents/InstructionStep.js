@@ -3,8 +3,9 @@ import { recipes } from "../../data/recipes";
 import { pantry } from "../../data/pantry";
 import CheckBox from "../CheckBox";
 
-const InstructionStep = ({ id }) => {
+const InstructionStep = ({ id, pantryItems }) => {
 	const recipe = recipes.find((recipe) => recipe.id === id);
+
 	// const ingredient = pantry.find((ingredient) => ingredient);
 
 	const contents = recipe.steps.map((step) => {
@@ -26,9 +27,12 @@ const InstructionStep = ({ id }) => {
 								<hr className="border-b border-t-0 border-solid border-pepper border-opacity-10 pt-3" />
 								<div className="grid-flow-row grid grid-cols-2 gap-2 pt-4">
 									{step.ingredients.map((ingredient) => {
-										const pantryItem = pantry.find(
+										const pantryItem = pantryItems.find(
 											(item) => item.name === ingredient.name
 										);
+										{
+											console.log(pantryItem);
+										}
 										if (pantryItem) {
 											return (
 												<div key={ingredient.id}>

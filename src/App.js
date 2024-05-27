@@ -6,11 +6,14 @@ import PantryPage from "./pages/pantry";
 import RecipeBoxPage from "./pages/recipeBox";
 import MealPlanPage from "./pages/mealPlan";
 import RecipePage from "./pages/recipe";
+import CreateRecipePage from "./pages/createRecipePage";
 
 function App() {
 	//Supabase
 	const [fetchError, setFetchError] = useState(null);
 	const [pantryItems, setPantryItems] = useState(null);
+	const [recipes, setRecipes] = useState(null);
+
 	const [filter, setFilter] = useState(["in stock", "out", "low"]);
 	const [searchQuery, setSearchQuery] = useState("");
 	const [sort, setSort] = useState(null);
@@ -30,9 +33,25 @@ function App() {
 			}
 		};
 		fetchPantryItems();
+
+		const fetchRecipes = async () => {
+			const { data, error } = await supabase.from("recipes").select();
+			console.log("fetchRecipes", data, error);
+
+			if (error) {
+				setFetchError("Could not fetch recipes");
+				setRecipes(null);
+				console.log(fetchError, error);
+			}
+			if (data) {
+				setRecipes(data);
+				setFetchError(null);
+			}
+		};
+		fetchRecipes();
 	}, [fetchError, setFetchError]);
 
-	if (!pantryItems) {
+	if (!pantryItems || !recipes) {
 		return <div>Loading...</div>;
 	}
 
@@ -57,8 +76,27 @@ function App() {
 							/>
 						}
 					/>
-					<Route path="/recipe-box" element={<RecipeBoxPage />} />
-					<Route path="/recipes/:id" element={<RecipePage />} />
+					<Route
+						path="/recipes"
+						element={
+							<RecipeBoxPage recipes={recipes} pantryItems={pantryItems} />
+						}
+					/>
+					<Route
+						path="/recipes/:slug"
+						element={<RecipePage recipes={recipes} pantryItems={pantryItems} />}
+					/>
+					<Route
+						path="create-recipe"
+						element={
+							<CreateRecipePage
+								searchQuery={searchQuery}
+								setSearchQuery={setSearchQuery}
+								pantryItems={pantryItems}
+								filter={filter}
+							/>
+						}
+					/>
 				</Routes>
 			</Router>
 		</div>

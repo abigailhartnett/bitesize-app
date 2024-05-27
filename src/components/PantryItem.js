@@ -12,6 +12,8 @@ const PantryItem = ({
 	openPopover,
 	onList,
 	checkbox,
+	currentPage,
+	addToRecipe,
 }) => {
 	const icon =
 		status === "out"
@@ -58,13 +60,25 @@ const PantryItem = ({
 						/>
 					)
 				) : (
-					<button onClick={toggleOnList} className="text-sm font-semibold pl-4">
-						{onList ? (
-							<span class={`material-symbols-outlined`}>shopping_cart</span>
-						) : (
-							<span class={`material-symbols-outlined text-pepper`}>add</span>
-						)}
-					</button>
+					<>
+						<button
+							onClick={toggleOnList}
+							className="text-sm font-semibold pl-4"
+						>
+							{onList ? (
+								<span class={`material-symbols-outlined`}>shopping_cart</span>
+							) : (
+								currentPage === "/pantry" && (
+									<span class={`material-symbols-outlined text-pepper`}>
+										add
+									</span>
+								)
+							)}
+						</button>
+						<button onClick={addToRecipe}>
+							{currentPage === "/recipes/create-recipe" && "Add to recipe"}
+						</button>
+					</>
 				)}
 			</div>
 		</div>
