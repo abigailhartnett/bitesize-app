@@ -211,7 +211,7 @@ const PantryPage = ({
 		<div className="fixed inset-x-0 top-0 flex flex-col justify-between min-h-screen">
 			<div class="border-solid border-black border-2 border-t-0 border-x-0 bg-white py-2">
 				<div class="flex justify-between pb-2 mr-3">
-					<Nav pageTitle="Pantry" />
+					<Nav pageTitle="Pantry" link="/" />
 					<Sort sortType="Pantry" pantryItems={pantryItems} setSort={setSort} />
 				</div>
 				<Filter filter={filter} setFilter={setFilter} />

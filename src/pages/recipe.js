@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import supabase from "../config/supabaseClient";
 import { useParams } from "react-router-dom";
-import { recipes } from "../data/recipes";
+// import { recipes } from "../data/recipes";
 // import InstructionStep from "../components/recipeComponents/InstructionStep";
 import Nav from "../components/Nav";
 // import ReadinessCalculation from "../components/calculations/readinessCalculation";
@@ -40,7 +40,7 @@ const RecipePage = ({ recipes }) => {
 	return recipe ? (
 		<div>
 			<div className="fixed inset-x-0 top-0 flex justify-between bg-salt">
-				<Nav pageTitle={recipe.title} />
+				<Nav pageTitle={recipe.title} link="/recipes" />
 				<div>
 					<div className="pr-4">{recipe.servings} servings</div>
 				</div>

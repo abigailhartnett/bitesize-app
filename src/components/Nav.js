@@ -3,10 +3,10 @@ import IconButton from "./buttons/IconButton";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 
-const Nav = ({ pageTitle }) => {
+const Nav = ({ pageTitle, link }) => {
 	const navigate = useNavigate();
 	const handleClick = () => {
-		navigate(-1);
+		navigate(link);
 	};
 
 	return (

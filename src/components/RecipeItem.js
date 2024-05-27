@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 // import supabase from "../config/supabaseClient";
 import IconButton from "./buttons/IconButton";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
@@ -6,8 +6,8 @@ import { Link } from "react-router-dom";
 // import ReadinessCalculation from "./calculations/readinessCalculation";
 
 const RecipeItem = ({ title, readiness, slug, id }) => {
-	const [recipeIngredients, setRecipeIngredients] = useState(null);
-	const [fetchError, setFetchError] = useState(null);
+	// const [recipeIngredients, setRecipeIngredients] = useState(null);
+	// const [fetchError, setFetchError] = useState(null);
 
 	// const fetchRecipes = async () => {
 	// 	const { data, error } = await supabase.from("recipeIngredients").select();

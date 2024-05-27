@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import supabase from "../config/supabaseClient";
 import PopOver from "../components/PopOver";
 import { useLocation } from "react-router-dom";
+import Nav from "../components/Nav";
 
 const CreateRecipePage = ({
 	searchQuery,
@@ -174,6 +175,10 @@ const CreateRecipePage = ({
 	return (
 		<>
 			<div>
+				<div class="pb-2 mr-3">
+					<Nav pageTitle="Create a recipe" link="/recipes" />
+				</div>
+				<div class="border-solid border-black border-2 border-t-0 border-x-0 bg-white pb-2"></div>
 				<div className="flex justify-between">
 					<div className="flex gap-2 align-items mt-4">
 						<label for="title">Recipe Title:</label>

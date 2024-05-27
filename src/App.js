@@ -79,7 +79,11 @@ function App() {
 					<Route
 						path="/recipes"
 						element={
-							<RecipeBoxPage recipes={recipes} pantryItems={pantryItems} />
+							<RecipeBoxPage
+								recipes={recipes}
+								searchQuery={searchQuery}
+								setSearchQuery={setSearchQuery}
+							/>
 						}
 					/>
 					<Route
