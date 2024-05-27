@@ -69,7 +69,7 @@ const CreateRecipePage = ({
 		setIngredients(newIngredients);
 	};
 
-	const openPopover = (id) => {
+	const openPopover = () => {
 		setPopoverIsOpen(true);
 	};
 

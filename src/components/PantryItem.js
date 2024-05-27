@@ -35,6 +35,7 @@ const PantryItem = ({
 		>
 			<div className="flex justify-between grow hover:bg-gray-100 px-4">
 				<div className={`flex gap-4 items-center`}>
+					{/* STATUS BUTTON */}
 					<button onClick={() => toggleStatus(item.id)}>
 						<span
 							class={`material-symbols-outlined ${toggleShoppingList && item.checked ? `${statusColor}-50` : statusColor}`}
@@ -42,11 +43,13 @@ const PantryItem = ({
 							{icon}
 						</span>
 					</button>
+					{/* ITEM NAME */}
 					<div className="flex flex-col">
 						<span>{name}</span>
 						<span className="text-xs">{aisle}</span>
 					</div>
 				</div>
+				{/* NOTE: Change this so that the popover opens on the whole thing except the add item button (wrap name) */}
 				<div
 					className="flex grow cursor-pointer"
 					onClick={() => openPopover(item.id)}
@@ -61,23 +64,22 @@ const PantryItem = ({
 					)
 				) : (
 					<>
-						<button
-							onClick={toggleOnList}
-							className="text-sm font-semibold pl-4"
-						>
-							{onList ? (
-								<span class={`material-symbols-outlined`}>shopping_cart</span>
-							) : (
-								currentPage === "/pantry" && (
+						{currentPage === "/create-recipe" ? (
+							<button onClick={addToRecipe}>Add to recipe</button>
+						) : (
+							<button
+								onClick={toggleOnList}
+								className="text-sm font-semibold pl-4"
+							>
+								{onList ? (
+									<span class={`material-symbols-outlined`}>shopping_cart</span>
+								) : (
 									<span class={`material-symbols-outlined text-pepper`}>
 										add
 									</span>
-								)
-							)}
-						</button>
-						<button onClick={addToRecipe}>
-							{currentPage === "/recipes/create-recipe" && "Add to recipe"}
-						</button>
+								)}
+							</button>
+						)}
 					</>
 				)}
 			</div>

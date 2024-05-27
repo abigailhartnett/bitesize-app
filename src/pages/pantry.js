@@ -184,6 +184,7 @@ const PantryPage = ({
 
 	const filteredPantryItems = pantryItems.filter(
 		(item) =>
+			item &&
 			(toggleShoppingList ? item.onList : true) &&
 			filter.includes(item.status) &&
 			item.name.toLowerCase().includes(searchQuery.toLowerCase())

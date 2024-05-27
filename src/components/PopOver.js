@@ -29,7 +29,7 @@ const PopOver = ({
 						</span>
 					</button>
 
-					{currentPage === "/recipes/create-recipe" ? (
+					{currentPage === "/create-recipe" ? (
 						<>
 							<div className="mt-4 h-52 overflow-y-auto overflow-x-visible flex-grow pb-56">
 								{filteredPantryItems.length > 0 ? (
@@ -40,14 +40,10 @@ const PopOver = ({
 									/>
 								) : (
 									<div className="text-center pt-4">
-										{toggleShoppingList ? (
-											"Woohoo! All done! 🙌🏻"
-										) : (
-											<div>
-												<span>Whoops! No items found 😱</span>
-												<CreatePantryItem />
-											</div>
-										)}
+										<div>
+											<span>Whoops! No items found 😱</span>
+											<CreatePantryItem />
+										</div>
 									</div>
 								)}
 							</div>
@@ -66,14 +62,14 @@ const PopOver = ({
 									className="font-semibold flex gap-2"
 									onClick={() => removeItemFromList(currentItem.id)}
 								>
-									<span>{currentItem.name}</span>
+									<span>{currentItem?.name}</span>
 									<span class="material-symbols-outlined text-sm">edit</span>
 								</button>
 							</div>
 							<div>
 								{/* <div>Related Recipes</div> */}
 
-								{currentItem.onList && toggleShoppingList && (
+								{currentItem?.onList && toggleShoppingList && (
 									<button
 										className="bg-pepper text-salt p-2"
 										onClick={removeItemFromList}
