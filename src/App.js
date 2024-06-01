@@ -7,6 +7,7 @@ import RecipeBoxPage from "./pages/recipeBox";
 import MealPlanPage from "./pages/mealPlan";
 import RecipePage from "./pages/recipe";
 import CreateRecipePage from "./pages/createRecipePage";
+import ListPage from "./components/pages/list-page/ListPage";
 
 function App() {
 	//Supabase
@@ -98,6 +99,19 @@ function App() {
 								setSearchQuery={setSearchQuery}
 								pantryItems={pantryItems}
 								filter={filter}
+							/>
+						}
+					/>
+					<Route
+						path="/list-page"
+						element={
+							<ListPage
+								filter={filter}
+								setFilter={setFilter}
+								pantryItems={pantryItems}
+								setSort={setSort}
+								searchQuery={searchQuery}
+								setSearchQuery={setSearchQuery}
 							/>
 						}
 					/>
