@@ -8,7 +8,7 @@ const CreateRecipePage = ({
 	searchQuery,
 	setSearchQuery,
 	pantryItems,
-	toggleShoppingList,
+	showShoppingList,
 	filter,
 }) => {
 	const [formError, setFormError] = useState(null);
@@ -36,7 +36,7 @@ const CreateRecipePage = ({
 
 	const filteredPantryItems = pantryItems.filter(
 		(item) =>
-			(toggleShoppingList ? item.onList : true) &&
+			(showShoppingList ? item.onList : true) &&
 			filter.includes(item.status) &&
 			item.name.toLowerCase().includes(searchQuery.toLowerCase())
 	);
@@ -230,7 +230,7 @@ const CreateRecipePage = ({
 				{popoverIsOpen && (
 					<PopOver
 						setPopoverIsOpen={setPopoverIsOpen}
-						toggleShoppingList={toggleShoppingList}
+						showShoppingList={showShoppingList}
 						filteredPantryItems={filteredPantryItems}
 						currentPage={currentPage}
 						addToRecipe={addToRecipe}

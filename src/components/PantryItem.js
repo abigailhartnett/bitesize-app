@@ -1,52 +1,34 @@
 import React from "react";
+import StatusButton from "./buttons/StatusButton";
 
 const PantryItem = ({
 	item,
-	name,
-	aisle,
-	status,
 	onChange,
-	toggleShoppingList,
-	toggleStatus,
+	showShoppingList,
 	toggleOnList,
 	openPopover,
-	onList,
 	checkbox,
 	currentPage,
 	addToRecipe,
+	pantryItems,
+	setPantryItems,
 }) => {
-	const icon =
-		status === "out"
-			? "radio_button_unchecked"
-			: status === "low"
-				? "radio_button_partial"
-				: "radio_button_checked";
-
-	const statusColor =
-		status === "out"
-			? "text-tomato"
-			: status === "low"
-				? "text-mustard"
-				: "text-broccoli";
-
 	return (
 		<div
-			className={`flex py-1 ${onList && !toggleShoppingList ? "text-pepper/50" : ""} ${toggleShoppingList && item.checked ? "line-through text-pepper/50" : ""}`}
+			className={`flex py-1 ${item.onList && !showShoppingList ? "text-pepper/50" : ""} ${showShoppingList && item.checked ? "line-through text-pepper/50" : ""}`}
 		>
 			<div className="flex justify-between grow hover:bg-gray-100 px-4">
 				<div className={`flex gap-4 items-center`}>
-					{/* STATUS BUTTON */}
-					<button onClick={() => toggleStatus(item.id)}>
-						<span
-							class={`material-symbols-outlined ${toggleShoppingList && item.checked ? `${statusColor}-50` : statusColor}`}
-						>
-							{icon}
-						</span>
-					</button>
+					<StatusButton
+						pantryItems={pantryItems}
+						setPantryItems={setPantryItems}
+						item={item}
+						showShoppingList={showShoppingList}
+					/>
 					{/* ITEM NAME */}
 					<div className="flex flex-col">
-						<span>{name}</span>
-						<span className="text-xs">{aisle}</span>
+						<span>{item.name}</span>
+						<span className="text-xs">{item.aisle}</span>
 					</div>
 				</div>
 				{/* NOTE: Change this so that the popover opens on the whole thing except the add item button (wrap name) */}
@@ -54,7 +36,7 @@ const PantryItem = ({
 					className="flex grow cursor-pointer"
 					onClick={() => openPopover(item.id)}
 				></div>
-				{toggleShoppingList ? (
+				{showShoppingList ? (
 					checkbox && (
 						<input
 							type="checkbox"
@@ -71,7 +53,7 @@ const PantryItem = ({
 								onClick={toggleOnList}
 								className="text-sm font-semibold pl-4"
 							>
-								{onList ? (
+								{item.onList ? (
 									<span class={`material-symbols-outlined`}>shopping_cart</span>
 								) : (
 									<span class={`material-symbols-outlined text-pepper`}>

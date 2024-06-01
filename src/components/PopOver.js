@@ -6,7 +6,7 @@ import SearchBar from "./SearchBar";
 const PopOver = ({
 	filteredPantryItems,
 	setPopoverIsOpen,
-	toggleShoppingList,
+	showShoppingList,
 	removeItemFromList,
 	currentItem,
 	currentPage,
@@ -69,7 +69,7 @@ const PopOver = ({
 							<div>
 								{/* <div>Related Recipes</div> */}
 
-								{currentItem?.onList && toggleShoppingList && (
+								{currentItem?.onList && showShoppingList && (
 									<button
 										className="bg-pepper text-salt p-2"
 										onClick={removeItemFromList}
