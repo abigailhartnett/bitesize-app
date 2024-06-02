@@ -36,7 +36,7 @@ const PantryItem = ({
 					className="flex grow cursor-pointer"
 					onClick={() => openPopover(item.id)}
 				></div>
-				{showShoppingList ? (
+				{currentPage === "/shopping-list" ? (
 					checkbox && (
 						<input
 							type="checkbox"
@@ -44,25 +44,16 @@ const PantryItem = ({
 							checked={item.checked && true}
 						/>
 					)
+				) : currentPage === "/create-recipe" ? (
+					<button onClick={addToRecipe}>Add to recipe</button>
 				) : (
-					<>
-						{currentPage === "/create-recipe" ? (
-							<button onClick={addToRecipe}>Add to recipe</button>
+					<button onClick={toggleOnList} className="text-sm font-semibold pl-4">
+						{item.onList ? (
+							<span class={`material-symbols-outlined`}>shopping_cart</span>
 						) : (
-							<button
-								onClick={toggleOnList}
-								className="text-sm font-semibold pl-4"
-							>
-								{item.onList ? (
-									<span class={`material-symbols-outlined`}>shopping_cart</span>
-								) : (
-									<span class={`material-symbols-outlined text-pepper`}>
-										add
-									</span>
-								)}
-							</button>
+							<span class={`material-symbols-outlined text-pepper`}>add</span>
 						)}
-					</>
+					</button>
 				)}
 			</div>
 		</div>

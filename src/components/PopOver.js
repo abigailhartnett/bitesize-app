@@ -12,6 +12,7 @@ const PopOver = ({
 	currentPage,
 	addToRecipe,
 	pantryItems,
+	children,
 }) => {
 	const closePopOver = () => {
 		setPopoverIsOpen(false);
@@ -52,29 +53,7 @@ const PopOver = ({
 							/>
 						</>
 					) : (
-						<>
-							<div className="my-4">
-								<button
-									className="font-semibold flex gap-2"
-									onClick={() => removeItemFromList(currentItem.id)}
-								>
-									<span>{currentItem?.name}</span>
-									<span class="material-symbols-outlined text-sm">edit</span>
-								</button>
-							</div>
-							<div>
-								{/* <div>Related Recipes</div> */}
-
-								{currentItem?.onList && showShoppingList && (
-									<button
-										className="bg-pepper text-salt p-2"
-										onClick={removeItemFromList}
-									>
-										Remove from list
-									</button>
-								)}
-							</div>
-						</>
+						<>{children}</>
 					)}
 				</div>
 			</div>

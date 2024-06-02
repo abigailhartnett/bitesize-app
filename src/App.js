@@ -97,7 +97,11 @@ function App() {
 					<Route
 						path="/shopping-list"
 						element={
-							<ShoppingListPage pantryItems={pantryItems} setSort={setSort} />
+							<ShoppingListPage
+								pantryItems={pantryItems}
+								setSort={setSort}
+								setPantryItems={setPantryItems}
+							/>
 						}
 					/>
 				</Routes>

@@ -1,6 +1,5 @@
 import React from "react";
 import PantryItem from "../PantryItem";
-// import { useLocation } from "react-router-dom";
 import supabase from "../../config/supabaseClient";
 import { useToggleOnList } from "../../hooks/useToggleOnList";
 
@@ -15,7 +14,7 @@ const PantryItemList = ({
 }) => {
 	const toggle = useToggleOnList(pantryItems, setPantryItems);
 
-	return filteredPantryItems.map((item) => {
+	return filteredPantryItems?.map((item) => {
 		const checkOffItem = async (isChecked, id) => {
 			// Find Item
 			const item = pantryItems.find((item) => item.id === id);
@@ -29,7 +28,7 @@ const PantryItemList = ({
 
 			// Update the item in the state
 			setPantryItems((prevItems) =>
-				prevItems.map((item) => (item.id === id ? updatedItem : item))
+				prevItems?.map((item) => (item.id === id ? updatedItem : item))
 			);
 
 			// Update the item in Supabase
