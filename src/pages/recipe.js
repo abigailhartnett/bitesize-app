@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import supabase from "../config/supabaseClient";
 import { useParams } from "react-router-dom";
 import { useToggleOnList } from "../hooks/useToggleOnList";
-import Nav from "../components/Nav";
 import PantryItem from "../components/PantryItem";
 import Menu from "../components/Menu";
 import ListView from "../components/ListView";
@@ -44,9 +43,7 @@ const RecipePage = ({ recipes, pantryItems, setPantryItems }) => {
 
 	return (
 		<div className="fixed inset-x-0 top-0 flex flex-col justify-between">
-			<TopBar>
-				<Nav pageTitle={recipe.title} link="/recipes" />
-			</TopBar>
+			<TopBar pageTitle={recipe.title} />
 			<ListView>
 				<div className="pt-8">
 					<div>

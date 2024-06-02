@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useSearch } from "../hooks/useSearch";
 import { useFilter } from "../hooks/useFilter";
-import Nav from "../components/Nav";
 import Filter from "../components/Filter";
 import Sort from "../components/Sort";
 import SearchBar from "../components/SearchBar";
@@ -40,9 +39,8 @@ const PantryPage = ({ setSort, pantryItems, setPantryItems }) => {
 	);
 
 	return (
-		<div className="fixed inset-x-0 top-0 flex flex-col justify-between">
-			<TopBar>
-				<Nav pageTitle="Pantry" link="/" />
+		<div className="flex flex-col justify-between">
+			<TopBar pageTitle="Pantry">
 				<Sort sortType="Pantry" pantryItems={pantryItems} setSort={setSort} />
 			</TopBar>
 			<Filter filter={filter} setFilter={setFilter} />

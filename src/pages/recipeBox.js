@@ -1,6 +1,5 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import Nav from "../components/Nav";
 import SearchBar from "../components/SearchBar";
 import RecipeItem from "../components/RecipeItem";
 import { useSearch } from "../hooks/useSearch";
@@ -19,9 +18,7 @@ const RecipeBoxPage = ({ recipes }) => {
 
 	return (
 		<div className="fixed inset-x-0 top-0 flex flex-col justify-between">
-			<TopBar>
-				<Nav pageTitle="Pantry" link="/" />
-			</TopBar>
+			<TopBar pageTitle="Recipes"></TopBar>
 			<ListView>
 				{filteredRecipes.length > 0 ? (
 					filteredRecipes.map((item) => (

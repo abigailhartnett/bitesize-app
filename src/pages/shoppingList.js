@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import supabase from "../config/supabaseClient";
-import Nav from "../components/Nav";
 import Filter from "../components/Filter";
 import Sort from "../components/Sort";
 import PopOver from "../components/PopOver";
@@ -84,9 +83,8 @@ const ShoppingListPage = ({ setSort, pantryItems, setPantryItems }) => {
 	);
 
 	return (
-		<div className="fixed inset-x-0 top-0 flex flex-col justify-between">
-			<TopBar>
-				<Nav pageTitle="Shopping list" link="/" />
+		<div className="flex flex-col justify-between">
+			<TopBar pageTitle="Shopping list">
 				<Sort sortType="Pantry" pantryItems={pantryItems} setSort={setSort} />
 			</TopBar>
 			<Filter filter={filter} setFilter={setFilter} />

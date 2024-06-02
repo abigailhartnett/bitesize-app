@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import supabase from "../config/supabaseClient";
 import PopOver from "../components/PopOver";
 import { useLocation } from "react-router-dom";
-import Nav from "../components/Nav";
 import { useSearch } from "../hooks/useSearch";
 import Button from "../components/buttons/Button";
 import TopBar from "../components/TopBar";
@@ -173,10 +172,8 @@ const CreateRecipePage = ({ pantryItems, showShoppingList, filter }) => {
 	};
 
 	return (
-		<div className="fixed inset-x-0 top-0 flex flex-col justify-between">
-			<TopBar>
-				<Nav pageTitle="Create recipe" link="/recipes" />
-			</TopBar>
+		<div className="flex flex-col justify-between">
+			<TopBar pageTitle="Create a recipe"></TopBar>
 			<ListView>
 				<div className="flex justify-between">
 					<div className="flex gap-2 align-items mt-4">
