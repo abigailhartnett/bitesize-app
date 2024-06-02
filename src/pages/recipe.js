@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from "react";
 import supabase from "../config/supabaseClient";
 import { useParams } from "react-router-dom";
-// import { recipes } from "../data/recipes";
-// import InstructionStep from "../components/recipeComponents/InstructionStep";
 import Nav from "../components/Nav";
-// import ReadinessCalculation from "../components/calculations/readinessCalculation";
 
 const RecipePage = ({ recipes }) => {
 	const { slug } = useParams();
@@ -47,7 +44,6 @@ const RecipePage = ({ recipes }) => {
 			</div>
 
 			<div className="pt-8 flex gap-2">
-				{/* <InstructionStep pantryItems={pantryItems} id={recipe.id} /> */}
 				<div>
 					<div className="pt-4 font-semibold">Ingredients:</div>
 					<div>
@@ -64,8 +60,6 @@ const RecipePage = ({ recipes }) => {
 					<div>{recipe.instructions}</div>
 				</div>
 			</div>
-			{/* <div className="pt-4">Cook time: {recipe.cookTime}</div> */}
-			{/* <div className="pt-4">Notes:</div> */}
 		</div>
 	) : (
 		`Recipe not found`

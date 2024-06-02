@@ -8,6 +8,7 @@ import MealPlanPage from "./pages/mealPlan";
 import RecipePage from "./pages/recipe";
 import CreateRecipePage from "./pages/createRecipePage";
 import ListPage from "./components/pages/list-page/ListPage";
+import ShoppingListPage from "./pages/shoppingList";
 
 function App() {
 	//Supabase
@@ -15,7 +16,6 @@ function App() {
 	const [pantryItems, setPantryItems] = useState(null);
 	const [recipes, setRecipes] = useState(null);
 
-	const [filter, setFilter] = useState(["in stock", "out", "low"]);
 	const [sort, setSort] = useState(null);
 
 	useEffect(() => {
@@ -65,8 +65,6 @@ function App() {
 						path="/pantry"
 						element={
 							<PantryPage
-								filter={filter}
-								setFilter={setFilter}
 								pantryItems={pantryItems}
 								setPantryItems={setPantryItems}
 								sort={sort}
@@ -84,19 +82,16 @@ function App() {
 					/>
 					<Route
 						path="create-recipe"
-						element={
-							<CreateRecipePage pantryItems={pantryItems} filter={filter} />
-						}
+						element={<CreateRecipePage pantryItems={pantryItems} />}
 					/>
 					<Route
 						path="/list-page"
+						element={<ListPage pantryItems={pantryItems} setSort={setSort} />}
+					/>
+					<Route
+						path="/shopping-list"
 						element={
-							<ListPage
-								filter={filter}
-								setFilter={setFilter}
-								pantryItems={pantryItems}
-								setSort={setSort}
-							/>
+							<ShoppingListPage pantryItems={pantryItems} setSort={setSort} />
 						}
 					/>
 				</Routes>

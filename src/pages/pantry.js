@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import supabase from "../config/supabaseClient";
 import Nav from "../components/Nav";
 import Filter from "../components/Filter";
@@ -9,22 +9,19 @@ import PopOver from "../components/PopOver";
 import PantryItemList from "../components/calculations/PantryItemList";
 import { useToggleOnList } from "../hooks/useToggleOnList";
 import { useSearch } from "../hooks/useSearch";
+import { useFilter } from "../hooks/useFilter";
 import Button from "../components/buttons/Button";
 import Menu from "../components/Menu";
+import TopBar from "../components/TopBar";
 
-const PantryPage = ({
-	filter,
-	setFilter,
-	setSort,
-	pantryItems,
-	setPantryItems,
-}) => {
+const PantryPage = ({ setSort, pantryItems, setPantryItems }) => {
 	const [showShoppingList, setShowShoppingList] = useState(false);
 	const [popoverIsOpen, setPopoverIsOpen] = useState(false);
 	const [currentItem, setCurrentItem] = useState(null);
 
 	const toggle = useToggleOnList(pantryItems, setPantryItems);
 	const [filteredItems, setSearchQuery] = useSearch(pantryItems, "name");
+	const [filter, setFilter] = useFilter();
 
 	const findItemById = (id) => {
 		const item = pantryItems.find((item) => item.id === id);
@@ -71,7 +68,7 @@ const PantryPage = ({
 		setCurrentItem(item);
 	};
 
-	const removeItemFromList = (id) => {
+	const removeItemFromList = () => {
 		toggle(currentItem.id);
 		setPopoverIsOpen(false);
 	};
@@ -80,20 +77,22 @@ const PantryPage = ({
 		(item) =>
 			item &&
 			(showShoppingList ? item.onList : true) &&
-			filter.includes(item.status) &&
+			filter?.includes(item.status) &&
 			filteredItems.includes(item)
 	);
 
+	useEffect(() => {
+		console.log(filter);
+	}, [filter]);
+
 	return (
 		<div className="fixed inset-x-0 top-0 flex flex-col justify-between min-h-screen">
-			<div class="border-solid border-black border-2 border-t-0 border-x-0 bg-white py-2">
-				<div class="flex justify-between pb-2 mr-3">
-					<Nav pageTitle="Pantry" link="/" />
-					<Sort sortType="Pantry" pantryItems={pantryItems} setSort={setSort} />
-				</div>
-				<Filter filter={filter} setFilter={setFilter} />
-			</div>
-			<div className="h-screen overflow-y-auto overflow-x-visible flex-grow pb-56">
+			<TopBar>
+				<Nav pageTitle="Pantry" link="/" />
+				<Sort sortType="Pantry" pantryItems={pantryItems} setSort={setSort} />
+			</TopBar>
+			<Filter filter={filter} setFilter={setFilter} />
+			<div className="h-screen overflow-y-auto overflow-x-visible flex-grow pb-56 border-t-2 border-solid border-pepper">
 				{popoverIsOpen && (
 					<PopOver
 						setPopoverIsOpen={setPopoverIsOpen}
@@ -108,7 +107,6 @@ const PantryPage = ({
 						filteredPantryItems={filteredPantryItems}
 						pantryItems={pantryItems}
 						setPantryItems={setPantryItems}
-						filter={filter}
 						showShoppingList={showShoppingList}
 						openPopover={openPopover}
 					/>

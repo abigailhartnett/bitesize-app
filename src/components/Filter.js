@@ -7,8 +7,8 @@ const Filter = ({ filter, setFilter }) => {
 
 	const filterOptions = {
 		pantry: ["in stock", "low", "out"],
-		recipe: ["favorites", "dinner", "cook time: <30 mins"],
-		store: ["Costco", "Safeway"],
+		// recipe: ["favorites", "dinner", "cook time: <30 mins"],
+		// store: ["Costco", "Safeway"],
 	};
 
 	const options = filterOptions.pantry.map((option) => {
@@ -52,6 +52,8 @@ const Filter = ({ filter, setFilter }) => {
 	useEffect(() => {
 		setTags(filter);
 	}, [filter]);
+
+	console.log(filter);
 
 	return (
 		<div className="flex justify-between items-center pr-2">
