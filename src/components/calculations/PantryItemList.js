@@ -46,7 +46,7 @@ const PantryItemList = ({
 		return (
 			<PantryItem
 				item={item}
-				toggleOnList={() => toggle(item.id)}
+				toggleOnList={() => toggle(item.name)}
 				addToRecipe={() => addToRecipe(item.id)}
 				checkbox={true}
 				showShoppingList={showShoppingList}

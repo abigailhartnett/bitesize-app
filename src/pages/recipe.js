@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from "react";
 import supabase from "../config/supabaseClient";
 import { useParams } from "react-router-dom";
+import { useToggleOnList } from "../hooks/useToggleOnList";
 import Nav from "../components/Nav";
+import PantryItem from "../components/PantryItem";
 
-const RecipePage = ({ recipes }) => {
+const RecipePage = ({ recipes, pantryItems, setPantryItems }) => {
 	const { slug } = useParams();
 	const [recipeIngredients, setRecipeIngredients] = useState(null);
 	const [fetchError, setFetchError] = useState(null);
+
+	const toggle = useToggleOnList(pantryItems, setPantryItems);
 
 	useEffect(() => {
 		const fetchRecipeIngredients = async () => {
@@ -30,6 +34,7 @@ const RecipePage = ({ recipes }) => {
 	}
 
 	const recipe = recipes.find((recipe) => recipe.slug === slug);
+
 	const recipeIngredientsList = recipeIngredients.filter(
 		(item) => item.recipe_slug === slug
 	);
@@ -43,19 +48,29 @@ const RecipePage = ({ recipes }) => {
 				</div>
 			</div>
 
-			<div className="pt-8 flex gap-2">
+			<div className="pt-8">
 				<div>
 					<div className="pt-4 font-semibold">Ingredients:</div>
 					<div>
-						{recipeIngredientsList.map((item, id) => (
-							<div className="flex gap-1">
-								<input type="checkbox" />
-								<p key={id}>{item.pantry_item_name}</p>
-							</div>
-						))}
+						{recipeIngredientsList.map((recipeIngredient, id) => {
+							const pantryItem = pantryItems.find(
+								(item) => item.name === recipeIngredient.name
+							);
+							if (pantryItem) {
+								return (
+									<PantryItem
+										key={id}
+										item={pantryItem}
+										toggleOnList={() => toggle(pantryItem.name)}
+										pantryItems={pantryItems}
+										setPantryItems={setPantryItems}
+									/>
+								);
+							}
+						})}
 					</div>
 				</div>
-				<div className="pt-4">
+				<div className="mt-8">
 					<h3 className="font-semibold">Instructions:</h3>
 					<div>{recipe.instructions}</div>
 				</div>

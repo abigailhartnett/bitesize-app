@@ -1,11 +1,11 @@
 import supabase from "../config/supabaseClient";
 
 export const useToggleOnList = (pantryItems, setPantryItems) => {
-	return async (id) => {
+	return async (name) => {
 		// Find the item
-		const item = pantryItems?.find((item) => item.id === id);
+		const item = pantryItems?.find((item) => item.name === name);
 		if (!item) {
-			console.log(`Item with id ${id} not found`);
+			console.log(`Item with name ${name} not found`);
 			return;
 		}
 
@@ -14,14 +14,14 @@ export const useToggleOnList = (pantryItems, setPantryItems) => {
 
 		// Update the item in the state
 		setPantryItems((prevItems) =>
-			prevItems?.map((item) => (item.id === id ? updatedItem : item))
+			prevItems?.map((item) => (item.name === name ? updatedItem : item))
 		);
 
 		// Update the item in Supabase
 		const { error } = await supabase
 			.from("pantry")
 			.update({ onList: updatedItem.onList, checked: updatedItem.checked })
-			.eq("id", id);
+			.eq("name", name);
 
 		if (error) {
 			console.log(error);

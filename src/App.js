@@ -78,7 +78,13 @@ function App() {
 					/>
 					<Route
 						path="/recipes/:slug"
-						element={<RecipePage recipes={recipes} pantryItems={pantryItems} />}
+						element={
+							<RecipePage
+								recipes={recipes}
+								pantryItems={pantryItems}
+								setPantryItems={setPantryItems}
+							/>
+						}
 					/>
 					<Route
 						path="create-recipe"
