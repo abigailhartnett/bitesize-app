@@ -13,6 +13,7 @@ import Button from "../components/buttons/Button";
 import Menu from "../components/Menu";
 import TopBar from "../components/TopBar";
 import ListView from "../components/ListView";
+import Container from "../components/Container";
 
 const ShoppingListPage = ({ setSort, pantryItems, setPantryItems }) => {
 	const [currentItem, setCurrentItem] = useState(null);
@@ -83,7 +84,7 @@ const ShoppingListPage = ({ setSort, pantryItems, setPantryItems }) => {
 	);
 
 	return (
-		<div className="flex flex-col justify-between">
+		<Container>
 			<TopBar pageTitle="Shopping list">
 				<Sort sortType="Pantry" pantryItems={pantryItems} setSort={setSort} />
 			</TopBar>
@@ -122,7 +123,7 @@ const ShoppingListPage = ({ setSort, pantryItems, setPantryItems }) => {
 				<Button onClick={() => clearList()}>Clear list</Button>
 				<Menu />
 			</div>
-		</div>
+		</Container>
 	);
 };
 

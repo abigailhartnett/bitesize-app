@@ -10,6 +10,7 @@ import PantryItemList from "../components/calculations/PantryItemList";
 import Menu from "../components/Menu";
 import TopBar from "../components/TopBar";
 import ListView from "../components/ListView";
+import Container from "../components/Container";
 
 const PantryPage = ({ setSort, pantryItems, setPantryItems }) => {
 	const [popoverIsOpen, setPopoverIsOpen] = useState(false);
@@ -39,7 +40,7 @@ const PantryPage = ({ setSort, pantryItems, setPantryItems }) => {
 	);
 
 	return (
-		<div className="flex flex-col justify-between">
+		<Container>
 			<TopBar pageTitle="Pantry">
 				<Sort sortType="Pantry" pantryItems={pantryItems} setSort={setSort} />
 			</TopBar>
@@ -86,7 +87,7 @@ const PantryPage = ({ setSort, pantryItems, setPantryItems }) => {
 				/>
 				<Menu />
 			</div>
-		</div>
+		</Container>
 	);
 };
 

@@ -7,6 +7,7 @@ import ListView from "../components/ListView";
 import Menu from "../components/Menu";
 import Button from "../components/buttons/Button";
 import TopBar from "../components/TopBar";
+import Container from "../components/Container";
 
 const RecipeBoxPage = ({ recipes }) => {
 	const navigate = useNavigate();
@@ -17,7 +18,7 @@ const RecipeBoxPage = ({ recipes }) => {
 	);
 
 	return (
-		<div className="fixed inset-x-0 top-0 flex flex-col justify-between">
+		<Container>
 			<TopBar pageTitle="Recipes"></TopBar>
 			<ListView>
 				{filteredRecipes.length > 0 ? (
@@ -42,7 +43,7 @@ const RecipeBoxPage = ({ recipes }) => {
 
 				<Menu />
 			</div>
-		</div>
+		</Container>
 	);
 };
 

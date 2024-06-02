@@ -6,6 +6,7 @@ import PantryItem from "../components/PantryItem";
 import Menu from "../components/Menu";
 import ListView from "../components/ListView";
 import TopBar from "../components/TopBar";
+import Container from "../components/Container";
 
 const RecipePage = ({ recipes, pantryItems, setPantryItems }) => {
 	const { slug } = useParams();
@@ -42,7 +43,7 @@ const RecipePage = ({ recipes, pantryItems, setPantryItems }) => {
 	);
 
 	return (
-		<div className="fixed inset-x-0 top-0 flex flex-col justify-between">
+		<Container>
 			<TopBar pageTitle={recipe.title} />
 			<ListView>
 				<div className="pt-8">
@@ -77,7 +78,7 @@ const RecipePage = ({ recipes, pantryItems, setPantryItems }) => {
 			<div className="fixed inset-x-0 bottom-0">
 				<Menu />
 			</div>
-		</div>
+		</Container>
 	);
 };
 

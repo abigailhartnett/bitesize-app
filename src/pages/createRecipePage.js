@@ -7,6 +7,7 @@ import Button from "../components/buttons/Button";
 import TopBar from "../components/TopBar";
 import ListView from "../components/ListView";
 import Menu from "../components/Menu";
+import Container from "../components/Container";
 
 const CreateRecipePage = ({ pantryItems, showShoppingList, filter }) => {
 	const [formError, setFormError] = useState(null);
@@ -172,7 +173,7 @@ const CreateRecipePage = ({ pantryItems, showShoppingList, filter }) => {
 	};
 
 	return (
-		<div className="flex flex-col justify-between">
+		<Container>
 			<TopBar pageTitle="Create a recipe"></TopBar>
 			<ListView>
 				<div className="flex justify-between">
@@ -242,7 +243,7 @@ const CreateRecipePage = ({ pantryItems, showShoppingList, filter }) => {
 			<div className="fixed inset-x-0 bottom-0">
 				<Menu />
 			</div>
-		</div>
+		</Container>
 	);
 };
 
