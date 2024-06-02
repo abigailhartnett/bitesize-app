@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+	BrowserRouter as Router,
+	Routes,
+	Route,
+	Navigate,
+} from "react-router-dom";
 import supabase from "./config/supabaseClient";
-import HomePage from "./pages/home";
 import PantryPage from "./pages/pantry";
 import RecipeBoxPage from "./pages/recipeBox";
-import MealPlanPage from "./pages/mealPlan";
 import RecipePage from "./pages/recipe";
 import CreateRecipePage from "./pages/createRecipePage";
 import ListPage from "./components/pages/list-page/ListPage";
@@ -59,8 +62,7 @@ function App() {
 		<div>
 			<Router>
 				<Routes>
-					<Route path="/" element={<HomePage />} />
-					<Route path="/meal-plan" element={<MealPlanPage />} />
+					<Route path="/" element={<Navigate to="/pantry" />} />
 					<Route
 						path="/pantry"
 						element={

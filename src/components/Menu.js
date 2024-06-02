@@ -1,21 +1,18 @@
 import React from "react";
+import Button from "./buttons/Button";
+import { useNavigate } from "react-router-dom";
 
-const Menu = ({ showShoppingList, setShowShoppingList }) => {
+const Menu = () => {
+	const navigate = useNavigate();
+
 	return (
 		<div className="bg-gray-200 p-4">
 			<div className="flex items-center justify-between gap-1">
-				<button
-					className={`w-full p-2 ${showShoppingList ? "bg-gray-300 text-black/50" : "bg-white"} text-center font-semibold`}
-					onClick={() => setShowShoppingList(!showShoppingList)}
-				>
-					Pantry
-				</button>
-				<button
-					className={`w-full p-2 ${!showShoppingList ? "bg-gray-300 text-black/50" : "bg-white"} text-center font-semibold`}
-					onClick={() => setShowShoppingList(!showShoppingList)}
-				>
+				<Button onClick={() => navigate("/recipes")}>Recipe box</Button>
+				<Button onClick={() => navigate("/pantry")}>Pantry</Button>
+				<Button onClick={() => navigate("/shopping-list")}>
 					Shopping list
-				</button>
+				</Button>
 			</div>
 		</div>
 	);

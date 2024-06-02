@@ -4,6 +4,9 @@ import { useParams } from "react-router-dom";
 import { useToggleOnList } from "../hooks/useToggleOnList";
 import Nav from "../components/Nav";
 import PantryItem from "../components/PantryItem";
+import Menu from "../components/Menu";
+import ListView from "../components/ListView";
+import TopBar from "../components/TopBar";
 
 const RecipePage = ({ recipes, pantryItems, setPantryItems }) => {
 	const { slug } = useParams();
@@ -39,45 +42,45 @@ const RecipePage = ({ recipes, pantryItems, setPantryItems }) => {
 		(item) => item.recipe_slug === slug
 	);
 
-	return recipe ? (
-		<div>
-			<div className="fixed inset-x-0 top-0 flex justify-between bg-salt">
+	return (
+		<div className="fixed inset-x-0 top-0 flex flex-col justify-between">
+			<TopBar>
 				<Nav pageTitle={recipe.title} link="/recipes" />
-				<div>
-					<div className="pr-4">{recipe.servings} servings</div>
-				</div>
-			</div>
-
-			<div className="pt-8">
-				<div>
-					<div className="pt-4 font-semibold">Ingredients:</div>
+			</TopBar>
+			<ListView>
+				<div className="pt-8">
 					<div>
-						{recipeIngredientsList.map((recipeIngredient, id) => {
-							const pantryItem = pantryItems.find(
-								(item) => item.name === recipeIngredient.name
-							);
-							if (pantryItem) {
-								return (
-									<PantryItem
-										key={id}
-										item={pantryItem}
-										toggleOnList={() => toggle(pantryItem.name)}
-										pantryItems={pantryItems}
-										setPantryItems={setPantryItems}
-									/>
+						<div className="pt-4 font-semibold">Ingredients:</div>
+						<div>
+							{recipeIngredientsList.map((recipeIngredient, id) => {
+								const pantryItem = pantryItems.find(
+									(item) => item.name === recipeIngredient.name
 								);
-							}
-						})}
+								if (pantryItem) {
+									return (
+										<PantryItem
+											key={id}
+											item={pantryItem}
+											toggleOnList={() => toggle(pantryItem.name)}
+											pantryItems={pantryItems}
+											setPantryItems={setPantryItems}
+										/>
+									);
+								}
+								return null;
+							})}
+						</div>
+					</div>
+					<div className="mt-8">
+						<h3 className="font-semibold">Instructions:</h3>
+						<div>{recipe.instructions}</div>
 					</div>
 				</div>
-				<div className="mt-8">
-					<h3 className="font-semibold">Instructions:</h3>
-					<div>{recipe.instructions}</div>
-				</div>
+			</ListView>
+			<div className="fixed inset-x-0 bottom-0">
+				<Menu />
 			</div>
 		</div>
-	) : (
-		`Recipe not found`
 	);
 };
 

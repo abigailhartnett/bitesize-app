@@ -5,6 +5,9 @@ import { useLocation } from "react-router-dom";
 import Nav from "../components/Nav";
 import { useSearch } from "../hooks/useSearch";
 import Button from "../components/buttons/Button";
+import TopBar from "../components/TopBar";
+import ListView from "../components/ListView";
+import Menu from "../components/Menu";
 
 const CreateRecipePage = ({ pantryItems, showShoppingList, filter }) => {
 	const [formError, setFormError] = useState(null);
@@ -34,8 +37,8 @@ const CreateRecipePage = ({ pantryItems, showShoppingList, filter }) => {
 	const filteredPantryItems = pantryItems.filter(
 		(item) =>
 			(showShoppingList ? item.onList : true) &&
-			filter.includes(item.status) &&
-			filteredItems.includes(item)
+			filter?.includes(item.status) &&
+			filteredItems?.includes(item)
 	);
 
 	const handleTitleChange = (e) => {
@@ -170,12 +173,11 @@ const CreateRecipePage = ({ pantryItems, showShoppingList, filter }) => {
 	};
 
 	return (
-		<>
-			<div>
-				<div class="pb-2 mr-3">
-					<Nav pageTitle="Create a recipe" link="/recipes" />
-				</div>
-				<div class="border-solid border-black border-2 border-t-0 border-x-0 bg-white pb-2"></div>
+		<div className="fixed inset-x-0 top-0 flex flex-col justify-between">
+			<TopBar>
+				<Nav pageTitle="Create recipe" link="/recipes" />
+			</TopBar>
+			<ListView>
 				<div className="flex justify-between">
 					<div className="flex gap-2 align-items mt-4">
 						<label for="title">Recipe Title:</label>
@@ -187,9 +189,6 @@ const CreateRecipePage = ({ pantryItems, showShoppingList, filter }) => {
 						/>
 					</div>
 					{titleError && <div>{titleError}</div>}
-					<Button type={"submit"} onClick={submitRecipe}>
-						Submit
-					</Button>
 				</div>
 				<div className="flex gap-2 align-items mt-4">
 					<label for="slug">Recipe slug:</label>
@@ -210,36 +209,43 @@ const CreateRecipePage = ({ pantryItems, showShoppingList, filter }) => {
 						onChange={handleServingsChange}
 					/>
 				</div>
+
+				<div className="my-4">
+					<label>Ingredients:</label>
+					<ul>
+						<div>{ingredientList}</div>
+					</ul>
+					<Button onClick={openPopover}>Add ingredients</Button>
+					{popoverIsOpen && (
+						<PopOver
+							setPopoverIsOpen={setPopoverIsOpen}
+							showShoppingList={showShoppingList}
+							filteredPantryItems={filteredPantryItems}
+							currentPage={currentPage}
+							addToRecipe={addToRecipe}
+							pantryItems={pantryItems}
+						></PopOver>
+					)}
+				</div>
+				<div className="flex flex-col gap-2">
+					<label for="instructions">Instructions:</label>
+					<textarea
+						id="instructions"
+						className="border-2 border-solid border-pepper h-72"
+						placeholder="Write recipe instructions here..."
+						value={instructions}
+						onChange={handleInstructionsChange}
+					></textarea>
+				</div>
+				<Button type={"submit"} onClick={submitRecipe}>
+					Submit
+				</Button>
+				{formError}
+			</ListView>
+			<div className="fixed inset-x-0 bottom-0">
+				<Menu />
 			</div>
-			<div className="my-4">
-				<label>Ingredients:</label>
-				<ul>
-					<div>{ingredientList}</div>
-				</ul>
-				<Button onClick={openPopover}>Add ingredients</Button>
-				{popoverIsOpen && (
-					<PopOver
-						setPopoverIsOpen={setPopoverIsOpen}
-						showShoppingList={showShoppingList}
-						filteredPantryItems={filteredPantryItems}
-						currentPage={currentPage}
-						addToRecipe={addToRecipe}
-						pantryItems={pantryItems}
-					></PopOver>
-				)}
-			</div>
-			<div className="flex flex-col gap-2">
-				<label for="instructions">Instructions:</label>
-				<textarea
-					id="instructions"
-					className="border-2 border-solid border-pepper h-72"
-					placeholder="Write recipe instructions here..."
-					value={instructions}
-					onChange={handleInstructionsChange}
-				></textarea>
-			</div>
-			{formError}
-		</>
+		</div>
 	);
 };
 

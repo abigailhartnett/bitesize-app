@@ -4,7 +4,6 @@ import supabase from "../config/supabaseClient";
 import Nav from "../components/Nav";
 import Filter from "../components/Filter";
 import Sort from "../components/Sort";
-import SearchBar from "../components/SearchBar";
 import PopOver from "../components/PopOver";
 import PantryItemList from "../components/calculations/PantryItemList";
 import { useToggleOnList } from "../hooks/useToggleOnList";
@@ -17,9 +16,8 @@ import TopBar from "../components/TopBar";
 import ListView from "../components/ListView";
 
 const ShoppingListPage = ({ setSort, pantryItems, setPantryItems }) => {
-	const [showShoppingList, setShowShoppingList] = useState(false);
 	const [currentItem, setCurrentItem] = useState(null);
-	const [filteredItems, setSearchQuery] = useSearch(pantryItems, "name");
+	const [filteredItems] = useSearch(pantryItems, "name");
 	const [filter, setFilter] = useFilter();
 	const [popoverIsOpen, setPopoverIsOpen] = usePopover();
 
@@ -86,7 +84,7 @@ const ShoppingListPage = ({ setSort, pantryItems, setPantryItems }) => {
 	);
 
 	return (
-		<div className="fixed inset-x-0 top-0 flex flex-col justify-between min-h-screen">
+		<div className="fixed inset-x-0 top-0 flex flex-col justify-between">
 			<TopBar>
 				<Nav pageTitle="Shopping list" link="/" />
 				<Sort sortType="Pantry" pantryItems={pantryItems} setSort={setSort} />
@@ -115,25 +113,16 @@ const ShoppingListPage = ({ setSort, pantryItems, setPantryItems }) => {
 						filteredPantryItems={filteredPantryItems}
 						pantryItems={pantryItems}
 						setPantryItems={setPantryItems}
-						showShoppingList={showShoppingList}
 						openPopover={openPopover}
 						currentPage={currentPage}
 					/>
 				) : (
 					<div className="text-center pt-4">Woohoo! All done! 🙌🏻</div>
 				)}
-				<Button onClick={() => clearList()}>Clear list</Button>
 			</ListView>
 			<div className="fixed inset-x-0 bottom-0">
-				<SearchBar
-					id={"searchInput"}
-					placeholder={"Search pantry..."}
-					setSearchQuery={setSearchQuery}
-				/>
-				{/* <Menu
-					showShoppingList={showShoppingList}
-					setShowShoppingList={setShowShoppingList}
-				/> */}
+				<Button onClick={() => clearList()}>Clear list</Button>
+				<Menu />
 			</div>
 		</div>
 	);
