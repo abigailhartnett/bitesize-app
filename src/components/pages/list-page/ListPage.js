@@ -11,8 +11,6 @@ const ListPage = ({
 	setFilter,
 	pantryItems,
 	setSort,
-	searchQuery,
-	setSearchQuery,
 	// toggleShoppingList,
 }) => {
 	return (
@@ -45,7 +43,6 @@ const ListPage = ({
 						checkOffItem={checkOffItem}
 						toggleStatus={toggleStatus}
 						onChange={() => checkOffItem}
-						searchQuery={searchQuery}
 					/>
 				) : (
 					<div className="text-center pt-4">
@@ -76,8 +73,6 @@ const ListPage = ({
 				<SearchBar
 					id={"searchInput"}
 					placeholder={"Search pantry..."}
-					searchQuery={searchQuery}
-					setSearchQuery={setSearchQuery}
 					pantryItems={pantryItems}
 				/>
 				{/* SEARCH BAR */}

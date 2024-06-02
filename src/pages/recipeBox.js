@@ -6,13 +6,15 @@ import SearchBar from "../components/SearchBar";
 import Sort from "../components/Sort";
 import RecipeItem from "../components/RecipeItem";
 // import Filter from "../components/Filter";
+import { useSearch } from "../hooks/useSearch";
 
-const RecipeBoxPage = ({ recipes, searchQuery, setSearchQuery }) => {
+const RecipeBoxPage = ({ recipes }) => {
 	const navigate = useNavigate();
+	const [searchItem, setSearchQuery] = useSearch();
 
 	const filteredRecipes = recipes.filter((item) =>
 		// filter.includes(item.status) &&
-		item?.title?.toLowerCase().includes(searchQuery.toLowerCase())
+		searchItem(item.title)
 	);
 
 	return (
@@ -46,8 +48,6 @@ const RecipeBoxPage = ({ recipes, searchQuery, setSearchQuery }) => {
 				<SearchBar
 					id={"searchInput"}
 					placeholder={"Search pantry..."}
-					searchQuery={searchQuery}
-					setSearchQuery={setSearchQuery}
 					recipes={recipes}
 				/>
 				{/* SEARCH BAR */}

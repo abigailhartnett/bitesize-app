@@ -16,7 +16,6 @@ function App() {
 	const [recipes, setRecipes] = useState(null);
 
 	const [filter, setFilter] = useState(["in stock", "out", "low"]);
-	const [searchQuery, setSearchQuery] = useState("");
 	const [sort, setSort] = useState(null);
 
 	useEffect(() => {
@@ -68,8 +67,6 @@ function App() {
 							<PantryPage
 								filter={filter}
 								setFilter={setFilter}
-								searchQuery={searchQuery}
-								setSearchQuery={setSearchQuery}
 								pantryItems={pantryItems}
 								setPantryItems={setPantryItems}
 								sort={sort}
@@ -79,13 +76,7 @@ function App() {
 					/>
 					<Route
 						path="/recipes"
-						element={
-							<RecipeBoxPage
-								recipes={recipes}
-								searchQuery={searchQuery}
-								setSearchQuery={setSearchQuery}
-							/>
-						}
+						element={<RecipeBoxPage recipes={recipes} />}
 					/>
 					<Route
 						path="/recipes/:slug"
@@ -94,12 +85,7 @@ function App() {
 					<Route
 						path="create-recipe"
 						element={
-							<CreateRecipePage
-								searchQuery={searchQuery}
-								setSearchQuery={setSearchQuery}
-								pantryItems={pantryItems}
-								filter={filter}
-							/>
+							<CreateRecipePage pantryItems={pantryItems} filter={filter} />
 						}
 					/>
 					<Route
@@ -110,8 +96,6 @@ function App() {
 								setFilter={setFilter}
 								pantryItems={pantryItems}
 								setSort={setSort}
-								searchQuery={searchQuery}
-								setSearchQuery={setSearchQuery}
 							/>
 						}
 					/>

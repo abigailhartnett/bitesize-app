@@ -1,6 +1,6 @@
 import React from "react";
 
-const SearchBar = ({ placeholder, searchQuery, setSearchQuery, id }) => {
+const SearchBar = ({ placeholder, id, setSearchQuery }) => {
 	const handleInputChange = (e) => {
 		setSearchQuery(e.target.value);
 	};
@@ -13,7 +13,6 @@ const SearchBar = ({ placeholder, searchQuery, setSearchQuery, id }) => {
 				name="search"
 				type="text"
 				placeholder={placeholder}
-				value={searchQuery}
 				onChange={(e) => handleInputChange(e)}
 				className="w-full"
 			></input>

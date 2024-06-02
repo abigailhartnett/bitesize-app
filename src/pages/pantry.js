@@ -8,13 +8,12 @@ import CreatePantryItem from "../components/forms/CreatePantryItem";
 import PopOver from "../components/PopOver";
 import PantryItemList from "../components/calculations/PantryItemList";
 import { useToggleOnList } from "../hooks/useToggleOnList";
+import { useSearch } from "../hooks/useSearch";
 import Button from "../components/buttons/Button";
 
 const PantryPage = ({
 	filter,
 	setFilter,
-	searchQuery,
-	setSearchQuery,
 	setSort,
 	pantryItems,
 	setPantryItems,
@@ -24,6 +23,7 @@ const PantryPage = ({
 	const [currentItem, setCurrentItem] = useState(null);
 
 	const toggle = useToggleOnList(pantryItems, setPantryItems);
+	const [filteredItems, setSearchQuery] = useSearch(pantryItems, "name");
 
 	const findItemById = (id) => {
 		const item = pantryItems.find((item) => item.id === id);
@@ -80,7 +80,7 @@ const PantryPage = ({
 			item &&
 			(showShoppingList ? item.onList : true) &&
 			filter.includes(item.status) &&
-			item.name.toLowerCase().includes(searchQuery.toLowerCase())
+			filteredItems.includes(item)
 	);
 
 	return (
@@ -133,9 +133,7 @@ const PantryPage = ({
 				<SearchBar
 					id={"searchInput"}
 					placeholder={"Search pantry..."}
-					searchQuery={searchQuery}
 					setSearchQuery={setSearchQuery}
-					pantryItems={pantryItems}
 				/>
 				{/* SHOW SHOPPING LIST */}
 				<div className="bg-gray-200 p-4">

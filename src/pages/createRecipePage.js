@@ -3,14 +3,9 @@ import supabase from "../config/supabaseClient";
 import PopOver from "../components/PopOver";
 import { useLocation } from "react-router-dom";
 import Nav from "../components/Nav";
+import { useSearch } from "../hooks/useSearch";
 
-const CreateRecipePage = ({
-	searchQuery,
-	setSearchQuery,
-	pantryItems,
-	showShoppingList,
-	filter,
-}) => {
+const CreateRecipePage = ({ pantryItems, showShoppingList, filter }) => {
 	const [formError, setFormError] = useState(null);
 	const [titleError, setTitleError] = useState(null);
 	const [slugError, setSlugError] = useState(null);
@@ -24,6 +19,7 @@ const CreateRecipePage = ({
 
 	const location = useLocation();
 	const currentPage = location.pathname;
+	const [searchItem, setSearchQuery] = useSearch();
 
 	const findItemById = (id) => {
 		const item = pantryItems.find((item) => item.id === id);
@@ -38,7 +34,7 @@ const CreateRecipePage = ({
 		(item) =>
 			(showShoppingList ? item.onList : true) &&
 			filter.includes(item.status) &&
-			item.name.toLowerCase().includes(searchQuery.toLowerCase())
+			searchItem(item.name)
 	);
 
 	const handleTitleChange = (e) => {
@@ -234,8 +230,6 @@ const CreateRecipePage = ({
 						filteredPantryItems={filteredPantryItems}
 						currentPage={currentPage}
 						addToRecipe={addToRecipe}
-						searchQuery={searchQuery}
-						setSearchQuery={setSearchQuery}
 						pantryItems={pantryItems}
 					></PopOver>
 				)}

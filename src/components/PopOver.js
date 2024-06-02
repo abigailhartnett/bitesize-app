@@ -11,8 +11,6 @@ const PopOver = ({
 	currentItem,
 	currentPage,
 	addToRecipe,
-	searchQuery,
-	setSearchQuery,
 	pantryItems,
 }) => {
 	const closePopOver = () => {
@@ -50,8 +48,6 @@ const PopOver = ({
 							<SearchBar
 								id={"searchInput"}
 								placeholder={"Search pantry..."}
-								searchQuery={searchQuery}
-								setSearchQuery={setSearchQuery}
 								pantryItems={pantryItems}
 							/>
 						</>
