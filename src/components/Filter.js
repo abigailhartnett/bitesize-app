@@ -56,7 +56,7 @@ const Filter = ({ filter, setFilter }) => {
 	console.log(filter);
 
 	return (
-		<div className="flex justify-between items-center pr-2">
+		<div className="flex justify-between items-center mb-4">
 			<div className="flex items-center">
 				<span class="material-symbols-outlined px-3" onClick={handleClick}>
 					filter_list
