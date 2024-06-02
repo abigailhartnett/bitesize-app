@@ -10,6 +10,7 @@ import PantryItemList from "../components/calculations/PantryItemList";
 import { useToggleOnList } from "../hooks/useToggleOnList";
 import { useSearch } from "../hooks/useSearch";
 import Button from "../components/buttons/Button";
+import Menu from "../components/Menu";
 
 const PantryPage = ({
 	filter,
@@ -129,29 +130,15 @@ const PantryPage = ({
 				)}
 			</div>
 			<div className="fixed inset-x-0 bottom-0">
-				{/* SEARCH BAR */}
 				<SearchBar
 					id={"searchInput"}
 					placeholder={"Search pantry..."}
 					setSearchQuery={setSearchQuery}
 				/>
-				{/* SHOW SHOPPING LIST */}
-				<div className="bg-gray-200 p-4">
-					<div className="flex items-center justify-between gap-1">
-						<button
-							className={`w-full p-2 ${showShoppingList ? "bg-gray-300 text-black/50" : "bg-white"} text-center font-semibold`}
-							onClick={() => setShowShoppingList(!showShoppingList)}
-						>
-							Pantry
-						</button>
-						<button
-							className={`w-full p-2 ${!showShoppingList ? "bg-gray-300 text-black/50" : "bg-white"} text-center font-semibold`}
-							onClick={() => setShowShoppingList(!showShoppingList)}
-						>
-							Shopping list
-						</button>
-					</div>
-				</div>
+				<Menu
+					showShoppingList={showShoppingList}
+					setShowShoppingList={setShowShoppingList}
+				/>
 			</div>
 		</div>
 	);
