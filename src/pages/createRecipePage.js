@@ -4,6 +4,7 @@ import PopOver from "../components/PopOver";
 import { useLocation } from "react-router-dom";
 import Nav from "../components/Nav";
 import { useSearch } from "../hooks/useSearch";
+import Button from "../components/buttons/Button";
 
 const CreateRecipePage = ({ pantryItems, showShoppingList, filter }) => {
 	const [formError, setFormError] = useState(null);
@@ -19,7 +20,7 @@ const CreateRecipePage = ({ pantryItems, showShoppingList, filter }) => {
 
 	const location = useLocation();
 	const currentPage = location.pathname;
-	const [searchItem, setSearchQuery] = useSearch();
+	const [filteredItems] = useSearch(pantryItems, "name");
 
 	const findItemById = (id) => {
 		const item = pantryItems.find((item) => item.id === id);
@@ -34,7 +35,7 @@ const CreateRecipePage = ({ pantryItems, showShoppingList, filter }) => {
 		(item) =>
 			(showShoppingList ? item.onList : true) &&
 			filter.includes(item.status) &&
-			searchItem(item.name)
+			filteredItems.includes(item)
 	);
 
 	const handleTitleChange = (e) => {
@@ -186,14 +187,9 @@ const CreateRecipePage = ({ pantryItems, showShoppingList, filter }) => {
 						/>
 					</div>
 					{titleError && <div>{titleError}</div>}
-					<button
-						type="submit"
-						value="Submit"
-						className="bg-pepper text-salt p-2 mt-4"
-						onClick={submitRecipe}
-					>
-						Create recipe
-					</button>
+					<Button type={"submit"} onClick={submitRecipe}>
+						Submit
+					</Button>
 				</div>
 				<div className="flex gap-2 align-items mt-4">
 					<label for="slug">Recipe slug:</label>
@@ -220,9 +216,7 @@ const CreateRecipePage = ({ pantryItems, showShoppingList, filter }) => {
 				<ul>
 					<div>{ingredientList}</div>
 				</ul>
-				<button className="bg-pepper text-white p-2" onClick={openPopover}>
-					Add ingredients
-				</button>
+				<Button onClick={openPopover}>Add ingredients</Button>
 				{popoverIsOpen && (
 					<PopOver
 						setPopoverIsOpen={setPopoverIsOpen}

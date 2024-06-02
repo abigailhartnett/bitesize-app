@@ -10,11 +10,11 @@ import { useSearch } from "../hooks/useSearch";
 
 const RecipeBoxPage = ({ recipes }) => {
 	const navigate = useNavigate();
-	const [searchItem, setSearchQuery] = useSearch();
+	const [filteredItems, setSearchQuery] = useSearch(recipes, "title");
 
 	const filteredRecipes = recipes.filter((item) =>
 		// filter.includes(item.status) &&
-		searchItem(item.title)
+		filteredItems.includes(item)
 	);
 
 	return (
@@ -47,8 +47,9 @@ const RecipeBoxPage = ({ recipes }) => {
 				{/* SEARCH BAR */}
 				<SearchBar
 					id={"searchInput"}
-					placeholder={"Search pantry..."}
-					recipes={recipes}
+					placeholder={"Search recipes..."}
+					// recipes={recipes}
+					setSearchQuery={setSearchQuery}
 				/>
 				{/* SEARCH BAR */}
 				<div className="bg-gray-200 p-4">
