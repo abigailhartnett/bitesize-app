@@ -1,6 +1,4 @@
 import React from "react";
-import Icon from "./Icon";
-import { faXmarkCircle } from "@fortawesome/free-solid-svg-icons";
 
 // tag--${label.replace(" ", "-").toLowerCase()}
 
@@ -12,7 +10,7 @@ const Tag = ({ label, type, onClick }) => {
 			{label}
 			{type === "close" && (
 				<div className="pl-2 text-xs" onClick={onClick}>
-					<Icon icon={faXmarkCircle} />
+					<i class="fa-solid fa-circle-xmark"></i>
 				</div>
 			)}
 		</div>

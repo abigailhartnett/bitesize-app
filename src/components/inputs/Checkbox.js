@@ -1,6 +1,6 @@
 import React from "react";
 
-const CheckBox = ({ id, label }) => {
+const Checkbox = ({ id, label }) => {
 	return (
 		<div className="pr-2 flex gap-2 items-center relative">
 			<input
@@ -16,4 +16,4 @@ const CheckBox = ({ id, label }) => {
 	);
 };
 
-export default CheckBox;
+export default Checkbox;

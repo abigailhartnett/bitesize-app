@@ -4,7 +4,7 @@ import Nav from "../components/Nav";
 import Filter from "../components/Filter";
 import Sort from "../components/Sort";
 import SearchBar from "../components/SearchBar";
-import CreatePantryItem from "../components/forms/CreatePantryItem";
+import CreatePantryItem from "../forms/CreatePantryItem";
 import PopOver from "../components/PopOver";
 import PantryItemList from "../components/calculations/PantryItemList";
 import { useToggleOnList } from "../hooks/useToggleOnList";

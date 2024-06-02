@@ -1,6 +1,6 @@
 import React from "react";
 import PantryItemList from "./calculations/PantryItemList";
-import CreatePantryItem from "./forms/CreatePantryItem";
+import CreatePantryItem from "../forms/CreatePantryItem";
 import SearchBar from "./SearchBar";
 
 const PopOver = ({
