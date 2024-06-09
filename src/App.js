@@ -5,6 +5,7 @@ import {
 	Route,
 	Navigate,
 } from "react-router-dom";
+import "./icons";
 import supabase from "./config/supabaseClient";
 import PantryPage from "./pages/pantry";
 import RecipeBoxPage from "./pages/recipeBox";

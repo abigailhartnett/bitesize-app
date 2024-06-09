@@ -1,18 +1,33 @@
 import React from "react";
-import Button from "./buttons/Button";
+import IconButton from "./buttons/IconButton";
 import { useNavigate } from "react-router-dom";
 
 const Menu = () => {
 	const navigate = useNavigate();
 
 	return (
-		<div className="bg-gray-200 p-4">
+		<div className="bg-white px-4 h-20 max-w-sm">
 			<div className="flex items-center justify-between gap-1">
-				<Button onClick={() => navigate("/recipes")}>Recipe box</Button>
-				<Button onClick={() => navigate("/pantry")}>Pantry</Button>
-				<Button onClick={() => navigate("/shopping-list")}>
-					Shopping list
-				</Button>
+				<IconButton
+					title="Go to pantry"
+					icon="fas fa-apple-alt"
+					onClick={() => navigate("/pantry")}
+				/>
+				<IconButton
+					title="Go to shopping list"
+					icon="fas fa-list-alt"
+					onClick={() => navigate("/shopping-list")}
+				/>
+				<IconButton
+					title="Go to recipes"
+					icon="fas fa-book"
+					onClick={() => navigate("/recipes")}
+				/>
+				<IconButton
+					title="Go to meal plan"
+					icon="fas fa-calendar"
+					onClick={() => navigate("/")}
+				/>
 			</div>
 		</div>
 	);

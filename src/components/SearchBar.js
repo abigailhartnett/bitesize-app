@@ -6,7 +6,7 @@ const SearchBar = ({ placeholder, id, setSearchQuery }) => {
 	};
 
 	return (
-		<div className="w-full border-solid border-black border-2 flex items-center gap-2 p-1 bg-white">
+		<div className="w-full border-solid border-black border-2 flex items-center gap-2 p-1 bg-white max-w-sm">
 			<i class="fa-solid fa-search"></i>
 			<input
 				id={id}

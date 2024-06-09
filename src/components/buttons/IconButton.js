@@ -1,13 +1,12 @@
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const IconButton = ({ icon, onClick }) => {
 	return (
 		<button
 			onClick={onClick}
-			className="cursor-pointer active:bg-pepper h-11 w-11 flex justify-center items-center active:text-salt"
+			className="cursor-pointer text-pepper active:bg-pepper hover:text-pepper/50 h-12 w-12 flex justify-center items-center active:text-salt rounded-lg"
 		>
-			<FontAwesomeIcon icon={icon} />
+			<i className={`${icon} fa-lg`}></i>
 		</button>
 	);
 };
