@@ -9,6 +9,7 @@ import TopBar from "../components/TopBar";
 import Container from "../components/Container";
 import PopOver from "../components/PopOver";
 import Button from "../components/buttons/Button";
+import EditPantryItem from "../forms/EditPantryItem";
 
 const RecipePage = ({ recipes, pantryItems, setPantryItems }) => {
 	const { slug } = useParams();
@@ -18,7 +19,7 @@ const RecipePage = ({ recipes, pantryItems, setPantryItems }) => {
 		recipes.find((recipe) => recipe.slug === slug)
 	);
 	const [popoverIsOpen, setPopoverIsOpen] = useState(false);
-	const [plannedStatus, setPlannedStatus] = useState(null);
+	const [editing, setEditing] = useState(false);
 
 	const toggle = useToggleOnList(pantryItems, setPantryItems);
 
@@ -60,8 +61,6 @@ const RecipePage = ({ recipes, pantryItems, setPantryItems }) => {
 			currentItem.status === "planned" ? "not planned" : "planned";
 		setCurrentItem((prevItem) => ({ ...prevItem, status: newStatus }));
 
-		const updatedRecipe = { ...currentItem, status: plannedStatus };
-
 		try {
 			await supabase
 				.from("recipes")
@@ -94,17 +93,26 @@ const RecipePage = ({ recipes, pantryItems, setPantryItems }) => {
 					<PopOver
 						setPopoverIsOpen={setPopoverIsOpen}
 						currentItem={currentItem}
+						setEditing={setEditing}
+						editing={editing}
 					>
 						{currentItem && (
 							<>
-								<div className="my-4">
-									<button className="font-semibold flex gap-2">
-										<span>{currentItem?.name}</span>
-										<span className="material-symbols-outlined text-sm">
-											edit
-										</span>
-									</button>
-								</div>
+								{editing ? (
+									<EditPantryItem
+										currentItem={currentItem}
+										setCurrentItem={setCurrentItem}
+										pantryItems={pantryItems}
+										setEditing={setEditing}
+										setPopoverIsOpen={setPopoverIsOpen}
+										editing={editing}
+									/>
+								) : (
+									<div className="my-4 font-semibold">
+										<span className="mb-4">{currentItem?.name}</span>
+										<Button onClick={() => setEditing(true)}>Edit Item</Button>
+									</div>
+								)}
 							</>
 						)}
 					</PopOver>

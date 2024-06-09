@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import supabase from "../config/supabaseClient";
+import Button from "../components/buttons/Button";
 
 const EditPantryItem = ({
 	currentItem,
 	setCurrentItem,
 	pantryItems,
 	setEditing,
+	editing,
 	setPopoverIsOpen,
 }) => {
 	const [name, setName] = useState(currentItem?.name);
@@ -42,7 +44,6 @@ const EditPantryItem = ({
 	};
 
 	const handleSubmit = async (e) => {
-		console.log("currentItem from edit page", currentItem);
 		e.preventDefault();
 
 		try {
@@ -67,7 +68,9 @@ const EditPantryItem = ({
 		}
 
 		fetchEntries();
-		setEditing(false);
+		{
+			editing && setEditing(false);
+		}
 		setPopoverIsOpen(false);
 	};
 
@@ -136,9 +139,7 @@ const EditPantryItem = ({
 					/>
 					<label htmlFor="other">Other</label>
 				</div>
-				<button className="bg-pepper text-salt" type="submit">
-					Edit item
-				</button>
+				<Button type="submit">Update item</Button>
 			</form>
 			{formError && <div>{formError}</div>}
 			{successMessage && <div>{successMessage}</div>}

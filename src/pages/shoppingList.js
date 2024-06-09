@@ -183,12 +183,14 @@ const ShoppingListPage = ({ setSort, pantryItems, setPantryItems }) => {
 							<PopOver
 								setPopoverIsOpen={setPopoverIsOpen}
 								setEditing={setEditing}
+								editing={editing}
 							>
 								<EditPantryItem
 									currentItem={currentItem}
 									setCurrentItem={setCurrentItem}
 									pantryItems={pantryItems}
 									setEditing={setEditing}
+									editing={setEditing}
 									setPopoverIsOpen={setPopoverIsOpen}
 								/>
 							</PopOver>

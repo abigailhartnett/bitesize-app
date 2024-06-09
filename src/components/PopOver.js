@@ -1,9 +1,11 @@
 import React from "react";
 
-const PopOver = ({ setPopoverIsOpen, children, setEditing }) => {
+const PopOver = ({ setPopoverIsOpen, children, setEditing, editing }) => {
 	const closePopOver = () => {
 		setPopoverIsOpen(false);
-		setEditing(false);
+		{
+			editing && setEditing(false);
+		}
 	};
 
 	return (

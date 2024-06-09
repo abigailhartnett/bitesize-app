@@ -67,6 +67,7 @@ const PantryPage = ({ setSort, pantryItems, setPantryItems }) => {
 						setPopoverIsOpen={setPopoverIsOpen}
 						currentItem={currentItem}
 						setEditing={setEditing}
+						editing={editing}
 					>
 						{currentItem && (
 							<>
@@ -77,6 +78,7 @@ const PantryPage = ({ setSort, pantryItems, setPantryItems }) => {
 										pantryItems={pantryItems}
 										setEditing={setEditing}
 										setPopoverIsOpen={setPopoverIsOpen}
+										editing={editing}
 									/>
 								) : (
 									<div className="my-4 font-semibold">
