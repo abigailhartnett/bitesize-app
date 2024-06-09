@@ -8,8 +8,11 @@ import TopBar from "../components/TopBar";
 import ListView from "../components/ListView";
 import Menu from "../components/Menu";
 import Container from "../components/Container";
+import PantryItemList from "../components/calculations/PantryItemList";
+import SearchBar from "../components/SearchBar";
+import CreatePantryItem from "../forms/CreatePantryItem";
 
-const CreateRecipePage = ({ pantryItems, showShoppingList, filter }) => {
+const CreateRecipePage = ({ pantryItems, filter }) => {
 	const [formError, setFormError] = useState(null);
 	const [titleError, setTitleError] = useState(null);
 	const [slugError, setSlugError] = useState(null);
@@ -23,7 +26,7 @@ const CreateRecipePage = ({ pantryItems, showShoppingList, filter }) => {
 
 	const location = useLocation();
 	const currentPage = location.pathname;
-	const [filteredItems] = useSearch(pantryItems, "name");
+	const [filteredItems, setSearchQuery] = useSearch(pantryItems, "name");
 
 	const findItemById = (id) => {
 		const item = pantryItems.find((item) => item.id === id);
@@ -35,10 +38,7 @@ const CreateRecipePage = ({ pantryItems, showShoppingList, filter }) => {
 	};
 
 	const filteredPantryItems = pantryItems.filter(
-		(item) =>
-			(showShoppingList ? item.onList : true) &&
-			filter?.includes(item.status) &&
-			filteredItems?.includes(item)
+		(item) => item && filteredItems?.includes(item)
 	);
 
 	const handleTitleChange = (e) => {
@@ -217,12 +217,34 @@ const CreateRecipePage = ({ pantryItems, showShoppingList, filter }) => {
 					{popoverIsOpen && (
 						<PopOver
 							setPopoverIsOpen={setPopoverIsOpen}
-							showShoppingList={showShoppingList}
 							filteredPantryItems={filteredPantryItems}
 							currentPage={currentPage}
 							addToRecipe={addToRecipe}
 							pantryItems={pantryItems}
-						></PopOver>
+						>
+							<div className="mt-4 h-52 overflow-y-auto overflow-x-visible flex-grow pb-8">
+								{filteredPantryItems.length > 0 ? (
+									<PantryItemList
+										filteredPantryItems={filteredPantryItems}
+										addToRecipe={addToRecipe}
+										currentPage={currentPage}
+									/>
+								) : (
+									<div className="text-center pt-4">
+										<div>
+											<span>Whoops! No items found 😱</span>
+											<CreatePantryItem />
+										</div>
+									</div>
+								)}
+							</div>
+							<SearchBar
+								id={"searchInput"}
+								placeholder={"Search pantry..."}
+								pantryItems={pantryItems}
+								setSearchQuery={setSearchQuery}
+							/>
+						</PopOver>
 					)}
 				</div>
 				<div className="flex flex-col gap-2">
