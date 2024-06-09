@@ -1,14 +1,26 @@
 import React, { useState } from "react";
 import supabase from "../config/supabaseClient";
 
-const CreatePantryItem = () => {
+const CreatePantryItem = ({ pantryItems }) => {
 	const [name, setName] = useState("");
 	const [aisle, setAisle] = useState("");
-	const [status, setStatus] = useState("in stock");
+	const [status, setStatus] = useState("out");
 	const [onList, setOnList] = useState(false);
 	const [store, setStore] = useState("");
 	const [formError, setFormError] = useState(null);
 	const [successMessage, setSuccessMessage] = useState("");
+
+	const aisleOptions = [
+		...new Set(pantryItems?.map((item) => item.aisle || "")),
+	]
+		.sort((a, b) => a.localeCompare(b))
+		.map((aisle, index) => {
+			return (
+				<option key={index} value={aisle}>
+					{aisle}
+				</option>
+			);
+		});
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -57,21 +69,23 @@ const CreatePantryItem = () => {
 					onChange={(e) => setName(e.target.value)}
 				/>
 				<label htmlFor="aisle">Aisle</label>
-				<input
+				<select
 					type="text"
 					id="aisle"
 					value={aisle}
 					onChange={(e) => setAisle(e.target.value)}
-				/>
+				>
+					{aisleOptions}
+				</select>
 				<label htmlFor="status">Status</label>
 				<select
 					id="status"
 					value={status}
 					onChange={(e) => setStatus(e.target.value)}
 				>
-					<option value="in stock">In Stock</option>
 					<option value="out">Out</option>
 					<option value="low">Low</option>
+					<option value="in stock">In Stock</option>
 				</select>
 				<div className="flex gap-4">
 					<input

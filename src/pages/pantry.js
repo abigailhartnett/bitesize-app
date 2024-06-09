@@ -11,10 +11,13 @@ import Menu from "../components/Menu";
 import TopBar from "../components/TopBar";
 import ListView from "../components/ListView";
 import Container from "../components/Container";
+import EditPantryItem from "../forms/EditPantryItem";
+import Button from "../components/buttons/Button";
 
 const PantryPage = ({ setSort, pantryItems, setPantryItems }) => {
 	const [popoverIsOpen, setPopoverIsOpen] = useState(false);
 	const [currentItem, setCurrentItem] = useState(null);
+	const [editing, setEditing] = useState(false);
 
 	const [filteredItems, setSearchQuery] = useSearch(pantryItems, "name");
 
@@ -63,15 +66,24 @@ const PantryPage = ({ setSort, pantryItems, setPantryItems }) => {
 					<PopOver
 						setPopoverIsOpen={setPopoverIsOpen}
 						currentItem={currentItem}
+						setEditing={setEditing}
 					>
 						{currentItem && (
 							<>
-								<div className="my-4">
-									<button className="font-semibold flex gap-2">
-										<span>{currentItem?.name}</span>
-										<span class="material-symbols-outlined text-sm">edit</span>
-									</button>
-								</div>
+								{editing ? (
+									<EditPantryItem
+										currentItem={currentItem}
+										setCurrentItem={setCurrentItem}
+										pantryItems={pantryItems}
+										setEditing={setEditing}
+										setPopoverIsOpen={setPopoverIsOpen}
+									/>
+								) : (
+									<div className="my-4 font-semibold">
+										<span className="mb-4">{currentItem?.name}</span>
+										<Button onClick={() => setEditing(true)}>Edit Item</Button>
+									</div>
+								)}
 							</>
 						)}
 					</PopOver>
@@ -87,7 +99,7 @@ const PantryPage = ({ setSort, pantryItems, setPantryItems }) => {
 					<div className="text-center pt-4">
 						<div>
 							<span>Whoops! No items found 😱</span>
-							<CreatePantryItem />
+							<CreatePantryItem pantryItems={pantryItems} />
 						</div>
 					</div>
 				)}

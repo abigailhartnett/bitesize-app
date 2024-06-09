@@ -14,6 +14,7 @@ import Menu from "../components/Menu";
 import TopBar from "../components/TopBar";
 import ListView from "../components/ListView";
 import Container from "../components/Container";
+import EditPantryItem from "../forms/EditPantryItem";
 
 const ShoppingListPage = ({ setSort, pantryItems, setPantryItems }) => {
 	const [currentItem, setCurrentItem] = useState(null);
@@ -28,6 +29,8 @@ const ShoppingListPage = ({ setSort, pantryItems, setPantryItems }) => {
 	];
 	const [filter, setFilter] = useFilter(filterOptions);
 	const [popoverIsOpen, setPopoverIsOpen] = usePopover();
+	const [editing, setEditing] = useState(false);
+	const [openWarning, setOpenWarning] = useState(false);
 
 	const location = useLocation();
 	const currentPage = location.pathname;
@@ -92,6 +95,7 @@ const ShoppingListPage = ({ setSort, pantryItems, setPantryItems }) => {
 		}
 
 		setPopoverIsOpen(false);
+		setOpenWarning(false);
 	};
 
 	const clearCheckedItems = async () => {
@@ -128,6 +132,11 @@ const ShoppingListPage = ({ setSort, pantryItems, setPantryItems }) => {
 		setPopoverIsOpen(false);
 	};
 
+	const triggerClearList = () => {
+		setOpenWarning(true);
+		openPopover();
+	};
+
 	return (
 		<Container>
 			<TopBar pageTitle="Shopping list">
@@ -140,29 +149,51 @@ const ShoppingListPage = ({ setSort, pantryItems, setPantryItems }) => {
 			/>
 			<ListView>
 				{popoverIsOpen && (
-					<PopOver setPopoverIsOpen={setPopoverIsOpen}>
-						{currentItem?.onList ? (
-							<>
-								<div className="my-4">
-									<button className="font-semibold flex gap-2">
-										<span>{currentItem?.name}</span>
-										<span class="material-symbols-outlined text-sm">edit</span>
-									</button>
-								</div>
-								<Button onClick={() => removeItemFromList(currentItem?.id)}>
-									Remove from list
-								</Button>
-							</>
-						) : (
-							<>
+					<>
+						{openWarning ? (
+							<PopOver
+								setPopoverIsOpen={setPopoverIsOpen}
+								setEditing={setEditing}
+							>
 								<div className="my-4">
 									Are you sure you want to clear your entire list? <br />
 									This cannot be undone.
 								</div>
 								<Button onClick={() => clearList()}>Clear list</Button>
-							</>
-						)}
-					</PopOver>
+							</PopOver>
+						) : null}
+						{currentItem?.onList && !openWarning ? (
+							<PopOver
+								setPopoverIsOpen={setPopoverIsOpen}
+								setEditing={setEditing}
+							>
+								<div className="my-4">
+									<span>{currentItem?.name}</span>
+									<button className="font-semibold flex gap-2">
+										<span class="material-symbols-outlined text-sm">edit</span>
+									</button>
+								</div>
+								<Button onClick={() => setEditing(true)}>Edit Item</Button>
+								<Button onClick={() => removeItemFromList(currentItem?.id)}>
+									Remove from list
+								</Button>
+							</PopOver>
+						) : null}
+						{editing ? (
+							<PopOver
+								setPopoverIsOpen={setPopoverIsOpen}
+								setEditing={setEditing}
+							>
+								<EditPantryItem
+									currentItem={currentItem}
+									setCurrentItem={setCurrentItem}
+									pantryItems={pantryItems}
+									setEditing={setEditing}
+									setPopoverIsOpen={setPopoverIsOpen}
+								/>
+							</PopOver>
+						) : null}
+					</>
 				)}
 				{filteredPantryItems?.length > 0 ? (
 					<PantryItemList
@@ -177,7 +208,7 @@ const ShoppingListPage = ({ setSort, pantryItems, setPantryItems }) => {
 				)}
 			</ListView>
 			<div className="fixed inset-x-0 bottom-0">
-				<Button onClick={() => openPopover()}>Clear list</Button>
+				<Button onClick={() => triggerClearList()}>Clear list</Button>
 				<Button onClick={() => clearCheckedItems()}>Clear checked items</Button>
 				<Menu />
 			</div>
