@@ -36,6 +36,24 @@ const ShoppingListPage = ({ setSort, pantryItems, setPantryItems }) => {
 		return item;
 	};
 
+	const openPopover = (id) => {
+		setPopoverIsOpen(true);
+		const item = findItemById(id);
+		setCurrentItem(item);
+	};
+
+	const removeItemFromList = () => {
+		toggle(currentItem.name);
+		setPopoverIsOpen(false);
+	};
+
+	const filteredPantryItems = pantryItems.filter(
+		(item) =>
+			item?.onList &&
+			filter?.includes(item.status) &&
+			filteredItems.includes(item)
+	);
+
 	const clearList = async () => {
 		const itemsOnList = pantryItems?.filter((item) => item.onList);
 
@@ -64,25 +82,9 @@ const ShoppingListPage = ({ setSort, pantryItems, setPantryItems }) => {
 				console.log(error);
 			}
 		}
-	};
 
-	const openPopover = (id) => {
-		setPopoverIsOpen(true);
-		const item = findItemById(id);
-		setCurrentItem(item);
-	};
-
-	const removeItemFromList = () => {
-		toggle(currentItem.name);
 		setPopoverIsOpen(false);
 	};
-
-	const filteredPantryItems = pantryItems.filter(
-		(item) =>
-			item?.onList &&
-			filter?.includes(item.status) &&
-			filteredItems.includes(item)
-	);
 
 	return (
 		<Container>
@@ -97,7 +99,7 @@ const ShoppingListPage = ({ setSort, pantryItems, setPantryItems }) => {
 			<ListView>
 				{popoverIsOpen && (
 					<PopOver setPopoverIsOpen={setPopoverIsOpen}>
-						{currentItem?.onList && (
+						{currentItem?.onList ? (
 							<>
 								<div className="my-4">
 									<button className="font-semibold flex gap-2">
@@ -108,6 +110,14 @@ const ShoppingListPage = ({ setSort, pantryItems, setPantryItems }) => {
 								<Button onClick={() => removeItemFromList(currentItem?.id)}>
 									Remove from list
 								</Button>
+							</>
+						) : (
+							<>
+								<div className="my-4">
+									Are you sure you want to clear your list? <br />
+									This cannot be undone.
+								</div>
+								<Button onClick={() => clearList()}>Clear list</Button>
 							</>
 						)}
 					</PopOver>
@@ -125,7 +135,7 @@ const ShoppingListPage = ({ setSort, pantryItems, setPantryItems }) => {
 				)}
 			</ListView>
 			<div className="fixed inset-x-0 bottom-0">
-				<Button onClick={() => clearList()}>Clear list</Button>
+				<Button onClick={() => openPopover()}>Clear list</Button>
 				<Menu />
 			</div>
 		</Container>
