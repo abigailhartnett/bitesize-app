@@ -5,7 +5,7 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 // import ReadinessCalculation from "./calculations/readinessCalculation";
 
-const RecipeItem = ({ title, readiness, slug, id }) => {
+const RecipeItem = ({ item, slug }) => {
 	// const [recipeIngredients, setRecipeIngredients] = useState(null);
 	// const [fetchError, setFetchError] = useState(null);
 
@@ -22,16 +22,16 @@ const RecipeItem = ({ title, readiness, slug, id }) => {
 	// 		setFetchError(null);
 	// 	}
 	// };
-
 	return (
 		<div className="flex py-1 justify-between">
 			<Link to={slug} className="flex-grow">
 				<div className="hover:bg-gray-100 active:bg-gray-500 px-4">
 					<div className="gap-4 items-center">
 						<div className="flex flex-col">
-							<h2>{title}</h2>
+							<h2>{item.title}</h2>
 							<span className="text-xs">
 								{/* <ReadinessCalculation id={id} /> */}
+								{item.status}
 							</span>
 						</div>
 					</div>

@@ -14,9 +14,11 @@ const RecipePage = ({ recipes, pantryItems, setPantryItems }) => {
 	const { slug } = useParams();
 	const [recipeIngredients, setRecipeIngredients] = useState(null);
 	const [fetchError, setFetchError] = useState(null);
-	const [currentItem, setCurrentItem] = useState(null);
+	const [currentItem, setCurrentItem] = useState(
+		recipes.find((recipe) => recipe.slug === slug)
+	);
 	const [popoverIsOpen, setPopoverIsOpen] = useState(false);
-	const [onMealPlan, setOnMealPlan] = useState(false);
+	const [plannedStatus, setPlannedStatus] = useState(null);
 
 	const toggle = useToggleOnList(pantryItems, setPantryItems);
 
@@ -26,6 +28,7 @@ const RecipePage = ({ recipes, pantryItems, setPantryItems }) => {
 			console.log(`Item with id ${id} not found`);
 			return;
 		}
+		setCurrentItem(item);
 		return item;
 	};
 
@@ -53,15 +56,23 @@ const RecipePage = ({ recipes, pantryItems, setPantryItems }) => {
 	}, [fetchError, setFetchError]);
 
 	const togglePlanned = async () => {
-		setOnMealPlan(!onMealPlan);
+		const newStatus =
+			currentItem.status === "planned" ? "not planned" : "planned";
+		setCurrentItem((prevItem) => ({ ...prevItem, status: newStatus }));
+
+		const updatedRecipe = { ...currentItem, status: plannedStatus };
 
 		try {
 			await supabase
 				.from("recipes")
-				.update({ planned: onMealPlan })
+				.update({ status: newStatus })
 				.eq("slug", slug);
 		} catch (error) {
 			console.error("Error adding recipe to meal plan:", error);
+			setCurrentItem((prevItem) => ({
+				...prevItem,
+				status: currentItem.status,
+			}));
 		}
 	};
 
@@ -89,7 +100,9 @@ const RecipePage = ({ recipes, pantryItems, setPantryItems }) => {
 								<div className="my-4">
 									<button className="font-semibold flex gap-2">
 										<span>{currentItem?.name}</span>
-										<span class="material-symbols-outlined text-sm">edit</span>
+										<span className="material-symbols-outlined text-sm">
+											edit
+										</span>
 									</button>
 								</div>
 							</>
@@ -122,10 +135,12 @@ const RecipePage = ({ recipes, pantryItems, setPantryItems }) => {
 					<h3 className="font-semibold">Instructions:</h3>
 					<div>{recipe.instructions}</div>
 				</div>
-				{onMealPlan ? (
-					<Button onClick={() => togglePlanned()}>Add to meal plan</Button>
-				) : (
+				{currentItem && currentItem?.status === "planned" ? (
 					<Button onClick={() => togglePlanned()}>Remove from meal plan</Button>
+				) : (
+					currentItem && (
+						<Button onClick={() => togglePlanned()}>Add to meal plan</Button>
+					)
 				)}
 			</ListView>
 

@@ -39,7 +39,6 @@ function App() {
 
 		const fetchRecipes = async () => {
 			const { data, error } = await supabase.from("recipes").select();
-			console.log("fetchRecipes", data, error);
 
 			if (error) {
 				setFetchError("Could not fetch recipes");
