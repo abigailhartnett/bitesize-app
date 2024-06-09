@@ -168,8 +168,6 @@ const CreateRecipePage = ({ pantryItems, filter }) => {
 		setFormError(null);
 		setTitleError(null);
 		setSlugError(null);
-
-		console.log(recipeIngredients);
 	};
 
 	return (

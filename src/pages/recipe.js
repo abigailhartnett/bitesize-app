@@ -7,13 +7,33 @@ import Menu from "../components/Menu";
 import ListView from "../components/ListView";
 import TopBar from "../components/TopBar";
 import Container from "../components/Container";
+import PopOver from "../components/PopOver";
+import Button from "../components/buttons/Button";
 
 const RecipePage = ({ recipes, pantryItems, setPantryItems }) => {
 	const { slug } = useParams();
 	const [recipeIngredients, setRecipeIngredients] = useState(null);
 	const [fetchError, setFetchError] = useState(null);
+	const [currentItem, setCurrentItem] = useState(null);
+	const [popoverIsOpen, setPopoverIsOpen] = useState(false);
+	const [onMealPlan, setOnMealPlan] = useState(false);
 
 	const toggle = useToggleOnList(pantryItems, setPantryItems);
+
+	const findItemById = (id) => {
+		const item = pantryItems.find((item) => item.id === id);
+		if (!item) {
+			console.log(`Item with id ${id} not found`);
+			return;
+		}
+		return item;
+	};
+
+	const openPopover = (id) => {
+		setPopoverIsOpen(true);
+		const item = findItemById(id);
+		setCurrentItem(item);
+	};
 
 	useEffect(() => {
 		const fetchRecipeIngredients = async () => {
@@ -32,6 +52,19 @@ const RecipePage = ({ recipes, pantryItems, setPantryItems }) => {
 		fetchRecipeIngredients();
 	}, [fetchError, setFetchError]);
 
+	const togglePlanned = async () => {
+		setOnMealPlan(!onMealPlan);
+
+		try {
+			await supabase
+				.from("recipes")
+				.update({ planned: onMealPlan })
+				.eq("slug", slug);
+		} catch (error) {
+			console.error("Error adding recipe to meal plan:", error);
+		}
+	};
+
 	if (!recipeIngredients) {
 		return <div>Loading...</div>;
 	}
@@ -46,35 +79,56 @@ const RecipePage = ({ recipes, pantryItems, setPantryItems }) => {
 		<Container>
 			<TopBar pageTitle={recipe.title} />
 			<ListView>
-				<div className="pt-8">
-					<div>
-						<div className="pt-4 font-semibold">Ingredients:</div>
-						<div>
-							{recipeIngredientsList.map((recipeIngredient, id) => {
-								const pantryItem = pantryItems.find(
-									(item) => item.name === recipeIngredient.name
-								);
-								if (pantryItem) {
-									return (
-										<PantryItem
-											key={id}
-											item={pantryItem}
-											toggleOnList={() => toggle(pantryItem.name)}
-											pantryItems={pantryItems}
-											setPantryItems={setPantryItems}
-										/>
-									);
-								}
-								return null;
-							})}
-						</div>
-					</div>
-					<div className="mt-8">
-						<h3 className="font-semibold">Instructions:</h3>
-						<div>{recipe.instructions}</div>
-					</div>
+				{popoverIsOpen && (
+					<PopOver
+						setPopoverIsOpen={setPopoverIsOpen}
+						currentItem={currentItem}
+					>
+						{currentItem && (
+							<>
+								<div className="my-4">
+									<button className="font-semibold flex gap-2">
+										<span>{currentItem?.name}</span>
+										<span class="material-symbols-outlined text-sm">edit</span>
+									</button>
+								</div>
+							</>
+						)}
+					</PopOver>
+				)}
+				<div className="pt-4 font-semibold">Ingredients:</div>
+				<div>
+					{recipeIngredientsList.map((recipeIngredient, id) => {
+						const pantryItem = pantryItems.find(
+							(item) => item.name === recipeIngredient.name
+						);
+						if (pantryItem) {
+							return (
+								<PantryItem
+									key={id}
+									item={pantryItem}
+									toggleOnList={() => toggle(pantryItem.name)}
+									pantryItems={pantryItems}
+									setPantryItems={setPantryItems}
+									openPopover={openPopover}
+								/>
+							);
+						}
+						return null;
+					})}
 				</div>
+
+				<div className="mt-8">
+					<h3 className="font-semibold">Instructions:</h3>
+					<div>{recipe.instructions}</div>
+				</div>
+				{onMealPlan ? (
+					<Button onClick={() => togglePlanned()}>Add to meal plan</Button>
+				) : (
+					<Button onClick={() => togglePlanned()}>Remove from meal plan</Button>
+				)}
 			</ListView>
+
 			<div className="fixed inset-x-0 bottom-0">
 				<Menu />
 			</div>

@@ -26,7 +26,6 @@ const RecipeItem = ({ title, readiness, slug, id }) => {
 	return (
 		<div className="flex py-1 justify-between">
 			<Link to={slug} className="flex-grow">
-				{console.log(slug)}
 				<div className="hover:bg-gray-100 active:bg-gray-500 px-4">
 					<div className="gap-4 items-center">
 						<div className="flex flex-col">

@@ -43,8 +43,6 @@ const Filter = ({ filter, setFilter, options }) => {
 		setTags(filter);
 	}, [filter]);
 
-	console.log(filter);
-
 	return (
 		<div className="flex gap-2 items-center mb-4">
 			<button onClick={handleClick}>

@@ -3,23 +3,34 @@ import { useNavigate } from "react-router-dom";
 import SearchBar from "../components/SearchBar";
 import RecipeItem from "../components/RecipeItem";
 import { useSearch } from "../hooks/useSearch";
+import { useFilter } from "../hooks/useFilter";
 import ListView from "../components/ListView";
 import Menu from "../components/Menu";
 import Button from "../components/buttons/Button";
 import TopBar from "../components/TopBar";
 import Container from "../components/Container";
+import Filter from "../components/Filter";
 
 const RecipeBoxPage = ({ recipes }) => {
 	const navigate = useNavigate();
 	const [filteredItems, setSearchQuery] = useSearch(recipes, "title");
 
-	const filteredRecipes = recipes.filter((item) =>
-		filteredItems.includes(item)
+	const filterOptions = ["planned", "not planned"];
+	const [filter, setFilter] = useFilter(filterOptions);
+
+	const filteredRecipes = recipes.filter(
+		(item) =>
+			item && filter?.includes(item.status) && filteredItems.includes(item)
 	);
 
 	return (
 		<Container>
 			<TopBar pageTitle="Recipes"></TopBar>
+			<Filter
+				filter={filter}
+				setFilter={setFilter}
+				options={["planned", "not planned"]}
+			/>
 			<ListView>
 				{filteredRecipes.length > 0 ? (
 					filteredRecipes.map((item) => (
@@ -40,7 +51,6 @@ const RecipeBoxPage = ({ recipes }) => {
 					placeholder={"Search pantry..."}
 					setSearchQuery={setSearchQuery}
 				/>
-
 				<Menu />
 			</div>
 		</Container>
