@@ -1,19 +1,6 @@
 import React from "react";
-import PantryItemList from "./calculations/PantryItemList";
-import CreatePantryItem from "../forms/CreatePantryItem";
-import SearchBar from "./SearchBar";
 
-const PopOver = ({
-	filteredPantryItems,
-	setPopoverIsOpen,
-	showShoppingList,
-	removeItemFromList,
-	currentItem,
-	currentPage,
-	addToRecipe,
-	pantryItems,
-	children,
-}) => {
+const PopOver = ({ setPopoverIsOpen, children }) => {
 	const closePopOver = () => {
 		setPopoverIsOpen(false);
 	};

@@ -215,13 +215,7 @@ const CreateRecipePage = ({ pantryItems, filter }) => {
 					</ul>
 					<Button onClick={openPopover}>Add ingredients</Button>
 					{popoverIsOpen && (
-						<PopOver
-							setPopoverIsOpen={setPopoverIsOpen}
-							filteredPantryItems={filteredPantryItems}
-							currentPage={currentPage}
-							addToRecipe={addToRecipe}
-							pantryItems={pantryItems}
-						>
+						<PopOver setPopoverIsOpen={setPopoverIsOpen}>
 							<div className="mt-4 h-52 overflow-y-auto overflow-x-visible flex-grow pb-8">
 								{filteredPantryItems.length > 0 ? (
 									<PantryItemList
