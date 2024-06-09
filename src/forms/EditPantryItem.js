@@ -68,9 +68,7 @@ const EditPantryItem = ({
 		}
 
 		fetchEntries();
-		{
-			editing && setEditing(false);
-		}
+		editing && setEditing(false);
 		setPopoverIsOpen(false);
 	};
 

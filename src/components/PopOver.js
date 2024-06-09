@@ -3,9 +3,7 @@ import React from "react";
 const PopOver = ({ setPopoverIsOpen, children, setEditing, editing }) => {
 	const closePopOver = () => {
 		setPopoverIsOpen(false);
-		{
-			editing && setEditing(false);
-		}
+		editing && setEditing(false);
 	};
 
 	return (
