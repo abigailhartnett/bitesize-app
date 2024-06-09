@@ -1,37 +1,27 @@
 import React, { useState, useEffect } from "react";
 import Tag from "./Tag";
 
-const Filter = ({ filter, setFilter }) => {
+const Filter = ({ filter, setFilter, options }) => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [tags, setTags] = useState([]);
 
-	const filterOptions = {
-		pantry: ["in stock", "low", "out"],
-		// recipe: ["favorites", "dinner", "cook time: <30 mins"],
-		// store: ["Costco", "Safeway"],
-	};
-
-	const options = filterOptions.pantry.map((option) => {
-		return <option>{option}</option>;
+	const displayOptions = options?.map((option, index) => {
+		return <option key={index}>{option}</option>;
 	});
 
 	const removeTags = (tagToRemove) => {
-		setFilter(filter.filter((tag) => tag !== tagToRemove));
+		setFilter(filter?.filter((tag) => tag !== tagToRemove));
 	};
 
 	const handleClick = () => {
 		setIsOpen(!isOpen);
 	};
 
-	// const handleClose = () => {
-	// 	setIsOpen(false);
-	// };
-
 	const handleFilterChange = (e) => {
 		if (
 			filter &&
 			!filter.includes(e.target.value) &&
-			filterOptions.pantry.includes(e.target.value)
+			options.includes(e.target.value)
 		) {
 			setFilter([...filter, e.target.value]);
 		} else {
@@ -41,7 +31,7 @@ const Filter = ({ filter, setFilter }) => {
 		setTags(filter);
 	};
 
-	const tagOptions = [...tags].sort().map((tag) => {
+	const tagOptions = [...tags]?.sort().map((tag) => {
 		return (
 			<Tag type="close" label={`${tag}`} onClick={() => removeTags(tag)}>
 				{tag}
@@ -56,21 +46,15 @@ const Filter = ({ filter, setFilter }) => {
 	console.log(filter);
 
 	return (
-		<div className="flex justify-between items-center mb-4">
-			<div className="flex items-center">
-				<span class="material-symbols-outlined px-3" onClick={handleClick}>
-					filter_list
-				</span>
-				<div className="flex gap-2">{tagOptions}</div>
-			</div>
+		<div className="flex gap-2 items-center mb-4">
+			<button onClick={handleClick}>
+				<span class="material-symbols-outlined px-3">filter_list</span>
+			</button>
+			<div className="flex gap-2">{tagOptions}</div>
 			{isOpen && (
 				<div class="absolute top-24 left-2">
-					<select
-						multiple={true}
-						value={filterOptions}
-						onChange={handleFilterChange}
-					>
-						{options}
+					<select multiple={true} value={filter} onChange={handleFilterChange}>
+						{displayOptions}
 					</select>
 				</div>
 			)}

@@ -1,7 +1,7 @@
 import { useState } from "react";
 
-export const useFilter = () => {
-	const [filter, setFilter] = useState(["in stock", "out", "low"]);
+export const useFilter = (filterOptions) => {
+	const [filter, setFilter] = useState(filterOptions);
 
 	return [filter, setFilter];
 };
