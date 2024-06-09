@@ -18,7 +18,14 @@ const PantryPage = ({ setSort, pantryItems, setPantryItems }) => {
 
 	const [filteredItems, setSearchQuery] = useSearch(pantryItems, "name");
 
-	const filterOptions = ["in stock", "out", "low"];
+	const filterOptions = [
+		"in stock",
+		"out",
+		"low",
+		"safeway",
+		"costco",
+		"other",
+	];
 	const [filter, setFilter] = useFilter(filterOptions);
 
 	const findItemById = (id) => {
@@ -49,7 +56,7 @@ const PantryPage = ({ setSort, pantryItems, setPantryItems }) => {
 			<Filter
 				filter={filter}
 				setFilter={setFilter}
-				options={["in stock", "low", "out"]}
+				options={["in stock", "out", "low", "safeway", "costco", "other"]}
 			/>
 			<ListView>
 				{popoverIsOpen && (

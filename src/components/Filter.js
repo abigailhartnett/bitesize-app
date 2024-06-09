@@ -44,7 +44,7 @@ const Filter = ({ filter, setFilter, options }) => {
 	}, [filter]);
 
 	return (
-		<div className="flex gap-2 items-center mb-4">
+		<div className="flex gap-2 items-center mb-4 overflow-x-scroll">
 			<button onClick={handleClick}>
 				<span class="material-symbols-outlined px-3">filter_list</span>
 			</button>

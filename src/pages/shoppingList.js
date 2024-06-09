@@ -18,7 +18,14 @@ import Container from "../components/Container";
 const ShoppingListPage = ({ setSort, pantryItems, setPantryItems }) => {
 	const [currentItem, setCurrentItem] = useState(null);
 	const [filteredItems] = useSearch(pantryItems, "name");
-	const filterOptions = ["in stock", "out", "low"];
+	const filterOptions = [
+		"in stock",
+		"out",
+		"low",
+		"safeway",
+		"costco",
+		"other",
+	];
 	const [filter, setFilter] = useFilter(filterOptions);
 	const [popoverIsOpen, setPopoverIsOpen] = usePopover();
 
@@ -51,6 +58,7 @@ const ShoppingListPage = ({ setSort, pantryItems, setPantryItems }) => {
 		(item) =>
 			item?.onList &&
 			filter?.includes(item.status) &&
+			(filter?.includes(item.store) || item.store === null) &&
 			filteredItems.includes(item)
 	);
 
@@ -128,7 +136,7 @@ const ShoppingListPage = ({ setSort, pantryItems, setPantryItems }) => {
 			<Filter
 				filter={filter}
 				setFilter={setFilter}
-				options={["in stock", "low", "out"]}
+				options={["in stock", "low", "out", "safeway", "costco", "other"]}
 			/>
 			<ListView>
 				{popoverIsOpen && (
