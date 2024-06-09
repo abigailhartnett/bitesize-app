@@ -10,6 +10,7 @@ import Button from "../components/buttons/Button";
 import TopBar from "../components/TopBar";
 import Container from "../components/Container";
 import Filter from "../components/Filter";
+import BottomBar from "../components/BottomBar";
 
 const RecipeBoxPage = ({ recipes }) => {
 	const navigate = useNavigate();
@@ -42,7 +43,7 @@ const RecipeBoxPage = ({ recipes }) => {
 					</div>
 				)}
 			</ListView>
-			<div className="fixed inset-x-0 bottom-0">
+			<BottomBar>
 				<Button onClick={() => navigate("/create-recipe")}>
 					Create new recipe
 				</Button>
@@ -52,7 +53,7 @@ const RecipeBoxPage = ({ recipes }) => {
 					setSearchQuery={setSearchQuery}
 				/>
 				<Menu />
-			</div>
+			</BottomBar>
 		</Container>
 	);
 };

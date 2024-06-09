@@ -11,6 +11,7 @@ import Container from "../components/Container";
 import PantryItemList from "../components/calculations/PantryItemList";
 import SearchBar from "../components/SearchBar";
 import CreatePantryItem from "../forms/CreatePantryItem";
+import BottomBar from "../components/BottomBar";
 
 const CreateRecipePage = ({ pantryItems, filter }) => {
 	const [formError, setFormError] = useState(null);
@@ -254,9 +255,9 @@ const CreateRecipePage = ({ pantryItems, filter }) => {
 				</Button>
 				{formError}
 			</ListView>
-			<div className="fixed inset-x-0 bottom-0">
+			<BottomBar>
 				<Menu />
-			</div>
+			</BottomBar>
 		</Container>
 	);
 };

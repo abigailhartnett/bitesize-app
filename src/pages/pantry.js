@@ -13,6 +13,7 @@ import ListView from "../components/ListView";
 import Container from "../components/Container";
 import EditPantryItem from "../forms/EditPantryItem";
 import Button from "../components/buttons/Button";
+import BottomBar from "../components/BottomBar";
 
 const PantryPage = ({ setSort, pantryItems, setPantryItems }) => {
 	const [popoverIsOpen, setPopoverIsOpen] = useState(false);
@@ -106,14 +107,14 @@ const PantryPage = ({ setSort, pantryItems, setPantryItems }) => {
 					</div>
 				)}
 			</ListView>
-			<div className="fixed inset-x-0 bottom-0">
+			<BottomBar>
 				<SearchBar
 					id={"searchInput"}
 					placeholder={"Search pantry..."}
 					setSearchQuery={setSearchQuery}
 				/>
 				<Menu />
-			</div>
+			</BottomBar>
 		</Container>
 	);
 };

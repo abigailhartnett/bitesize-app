@@ -6,16 +6,18 @@ const SearchBar = ({ placeholder, id, setSearchQuery }) => {
 	};
 
 	return (
-		<div className="w-full border-solid border-black border-2 flex items-center gap-2 p-1 bg-white max-w-sm">
-			<i class="fa-solid fa-search"></i>
-			<input
-				id={id}
-				name="search"
-				type="text"
-				placeholder={placeholder}
-				onChange={(e) => handleInputChange(e)}
-				className="w-full"
-			></input>
+		<div className="w-full max-w-sm bg-white py-2">
+			<div className="flex items-center gap-2 p-1 bg-[#e9e9e9] max-w-sm rounded-2xl mx-4 h-12 px-4">
+				<i class="fa-solid fa-search"></i>
+				<input
+					id={id}
+					name="search"
+					type="text"
+					placeholder={placeholder}
+					onChange={(e) => handleInputChange(e)}
+					className="w-full bg-[#e9e9e9]"
+				></input>
+			</div>
 		</div>
 	);
 };

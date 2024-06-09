@@ -10,6 +10,7 @@ import Container from "../components/Container";
 import PopOver from "../components/PopOver";
 import Button from "../components/buttons/Button";
 import EditPantryItem from "../forms/EditPantryItem";
+import BottomBar from "../components/BottomBar";
 
 const RecipePage = ({ recipes, pantryItems, setPantryItems }) => {
 	const { slug } = useParams();
@@ -152,9 +153,9 @@ const RecipePage = ({ recipes, pantryItems, setPantryItems }) => {
 				)}
 			</ListView>
 
-			<div className="fixed inset-x-0 bottom-0">
+			<BottomBar>
 				<Menu />
-			</div>
+			</BottomBar>
 		</Container>
 	);
 };

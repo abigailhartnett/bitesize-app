@@ -15,6 +15,7 @@ import TopBar from "../components/TopBar";
 import ListView from "../components/ListView";
 import Container from "../components/Container";
 import EditPantryItem from "../forms/EditPantryItem";
+import BottomBar from "../components/BottomBar";
 
 const ShoppingListPage = ({ setSort, pantryItems, setPantryItems }) => {
 	const [currentItem, setCurrentItem] = useState(null);
@@ -209,11 +210,11 @@ const ShoppingListPage = ({ setSort, pantryItems, setPantryItems }) => {
 					<div className="text-center pt-4">Woohoo! All done! 🙌🏻</div>
 				)}
 			</ListView>
-			<div className="fixed inset-x-0 bottom-0">
+			<BottomBar>
 				<Button onClick={() => triggerClearList()}>Clear list</Button>
 				<Button onClick={() => clearCheckedItems()}>Clear checked items</Button>
 				<Menu />
-			</div>
+			</BottomBar>
 		</Container>
 	);
 };
