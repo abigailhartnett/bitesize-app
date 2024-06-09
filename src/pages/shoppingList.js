@@ -86,6 +86,40 @@ const ShoppingListPage = ({ setSort, pantryItems, setPantryItems }) => {
 		setPopoverIsOpen(false);
 	};
 
+	const clearCheckedItems = async () => {
+		const itemsOnList = pantryItems?.filter(
+			(item) => item.onList && item.checked
+		);
+
+		// Find Items
+		for (const item of itemsOnList) {
+			// Toggle the onList and status properties
+			const updatedItem = { ...item, onList: false, prevStatus: item.status };
+
+			// Update the item in the state
+			setPantryItems((prevItems) =>
+				prevItems.map((prevItem) =>
+					prevItem.id === item.id ? updatedItem : prevItem
+				)
+			);
+
+			// Update the item in Supabase
+			const { error } = await supabase
+				.from("pantry")
+				.update({
+					onList: updatedItem.onList,
+					prevStatus: updatedItem.prevStatus,
+				})
+				.eq("id", item.id);
+
+			if (error) {
+				console.log(error);
+			}
+		}
+
+		setPopoverIsOpen(false);
+	};
+
 	return (
 		<Container>
 			<TopBar pageTitle="Shopping list">
@@ -114,7 +148,7 @@ const ShoppingListPage = ({ setSort, pantryItems, setPantryItems }) => {
 						) : (
 							<>
 								<div className="my-4">
-									Are you sure you want to clear your list? <br />
+									Are you sure you want to clear your entire list? <br />
 									This cannot be undone.
 								</div>
 								<Button onClick={() => clearList()}>Clear list</Button>
@@ -136,6 +170,7 @@ const ShoppingListPage = ({ setSort, pantryItems, setPantryItems }) => {
 			</ListView>
 			<div className="fixed inset-x-0 bottom-0">
 				<Button onClick={() => openPopover()}>Clear list</Button>
+				<Button onClick={() => clearCheckedItems()}>Clear checked items</Button>
 				<Menu />
 			</div>
 		</Container>
