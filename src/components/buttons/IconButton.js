@@ -1,12 +1,12 @@
 import React from "react";
 
-const IconButton = ({ icon, onClick }) => {
+const IconButton = ({ icon, onClick, className }) => {
 	return (
 		<button
 			onClick={onClick}
-			className="cursor-pointer text-pepper active:bg-pepper hover:text-pepper/50 h-12 w-12 flex justify-center items-center active:text-salt rounded-lg"
+			className={`cursor-pointer h-12 w-12 flex justify-center items-center active:text-salt rounded-lg ${className}`}
 		>
-			<i className={`${icon} fa-lg`}></i>
+			<i className={`${icon} fa-solid fa-lg`}></i>
 		</button>
 	);
 };

@@ -1,17 +1,17 @@
 import React from "react";
 
-const Checkbox = ({ id, label }) => {
+const Checkbox = ({ id, label, onChange, checked }) => {
 	return (
-		<div className="pr-2 flex gap-2 items-center relative">
+		<div className="relative">
 			<input
+				onChange={onChange}
+				checked={checked}
 				type="checkbox"
-				className="appearance-none h-4 w-4 border border-pepper checked:bg-pepper checked:border-transparent focus:outline-raspberry peer shrink-0"
+				className="hover:cursor-pointer appearance-none h-4 w-4 border-2 border-pepper checked:bg-pepper checked:border-transparent focus:outline-pomegranate peer shrink-0 rounded-sm"
 				id={id}
+				aria-label={label}
 			></input>
-			{/* <i className="fas fa-check text-raspberry pl-2 hidden peer-checked:block absolute left-0"></i> */}
-			<label htmlFor={id} className="peer-checked:line-through">
-				{label}
-			</label>
+			<i className="fas fa-check fa-sm text-salt pl-2 hidden peer-checked:block absolute top-2.5 right-0.5 pointer-events-none"></i>
 		</div>
 	);
 };
