@@ -26,7 +26,7 @@ const Menu = () => {
 				<IconButton
 					title="Go to meal plan"
 					icon="fas fa-calendar"
-					onClick={() => navigate("/")}
+					onClick={() => navigate("/meal-plan")}
 				/>
 			</div>
 		</div>
