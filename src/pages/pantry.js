@@ -97,6 +97,9 @@ const PantryPage = ({ setSort, pantryItems, setPantryItems }) => {
 						pantryItems={pantryItems}
 						setPantryItems={setPantryItems}
 						openPopover={openPopover}
+						aisle
+						status
+						toggleButton
 					/>
 				) : (
 					<div className="text-center pt-4">
