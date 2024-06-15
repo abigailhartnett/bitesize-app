@@ -89,61 +89,67 @@ const RecipePage = ({ recipes, pantryItems, setPantryItems }) => {
 	return (
 		<Container>
 			<TopBar pageTitle={recipe.title} />
-			<ListView>
-				{popoverIsOpen && (
-					<PopOver
-						setPopoverIsOpen={setPopoverIsOpen}
-						currentItem={currentItem}
-						setEditing={setEditing}
-						editing={editing}
-					>
-						{currentItem && (
-							<>
-								{editing ? (
-									<EditPantryItem
-										currentItem={currentItem}
-										setCurrentItem={setCurrentItem}
-										pantryItems={pantryItems}
-										setEditing={setEditing}
-										setPopoverIsOpen={setPopoverIsOpen}
-										editing={editing}
-									/>
-								) : (
-									<div className="my-4 font-semibold">
-										<span className="mb-4">{currentItem?.name}</span>
-										<Button onClick={() => setEditing(true)}>Edit Item</Button>
-									</div>
-								)}
-							</>
-						)}
-					</PopOver>
-				)}
-				<div className="pt-4 font-semibold">Ingredients:</div>
-				<div>
-					{recipeIngredientsList.map((recipeIngredient, id) => {
-						const pantryItem = pantryItems.find(
-							(item) => item.name === recipeIngredient.name
-						);
-						if (pantryItem) {
-							return (
-								<PantryItem
-									key={id}
-									item={pantryItem}
-									toggleOnList={() => toggle(pantryItem.name)}
-									pantryItems={pantryItems}
-									setPantryItems={setPantryItems}
-									openPopover={openPopover}
-								/>
-							);
-						}
-						return null;
-					})}
-				</div>
-
-				<div className="mt-8">
+			<div className="flex">
+				<div className="mt-4">
 					<h3 className="font-semibold">Instructions:</h3>
 					<div>{recipe.instructions}</div>
 				</div>
+				<ListView>
+					{popoverIsOpen && (
+						<PopOver
+							setPopoverIsOpen={setPopoverIsOpen}
+							currentItem={currentItem}
+							setEditing={setEditing}
+							editing={editing}
+						>
+							{currentItem && (
+								<>
+									{editing ? (
+										<EditPantryItem
+											currentItem={currentItem}
+											setCurrentItem={setCurrentItem}
+											pantryItems={pantryItems}
+											setEditing={setEditing}
+											setPopoverIsOpen={setPopoverIsOpen}
+											editing={editing}
+										/>
+									) : (
+										<div className="my-4 font-semibold">
+											<span className="mb-4">{currentItem?.name}</span>
+											<Button onClick={() => setEditing(true)}>
+												Edit Item
+											</Button>
+										</div>
+									)}
+								</>
+							)}
+						</PopOver>
+					)}
+					<div className="pt-4 font-semibold">Ingredients:</div>
+					<div>
+						{recipeIngredientsList.map((recipeIngredient, id) => {
+							const pantryItem = pantryItems.find(
+								(item) => item.name === recipeIngredient.name
+							);
+							if (pantryItem) {
+								return (
+									<PantryItem
+										key={id}
+										item={pantryItem}
+										toggleOnList={() => toggle(pantryItem.name)}
+										pantryItems={pantryItems}
+										setPantryItems={setPantryItems}
+										openPopover={openPopover}
+										status
+									/>
+								);
+							}
+							return null;
+						})}
+					</div>
+				</ListView>
+			</div>
+			<BottomBar>
 				{currentItem && currentItem?.status === "planned" ? (
 					<Button onClick={() => togglePlanned()}>Remove from meal plan</Button>
 				) : (
@@ -151,9 +157,6 @@ const RecipePage = ({ recipes, pantryItems, setPantryItems }) => {
 						<Button onClick={() => togglePlanned()}>Add to meal plan</Button>
 					)
 				)}
-			</ListView>
-
-			<BottomBar>
 				<Menu />
 			</BottomBar>
 		</Container>
