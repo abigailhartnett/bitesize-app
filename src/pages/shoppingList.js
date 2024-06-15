@@ -205,6 +205,9 @@ const ShoppingListPage = ({ setSort, pantryItems, setPantryItems }) => {
 						setPantryItems={setPantryItems}
 						openPopover={openPopover}
 						currentPage={currentPage}
+						aisle
+						status
+						checkbox
 					/>
 				) : (
 					<div className="text-center pt-4">Woohoo! All done! 🙌🏻</div>
