@@ -6,7 +6,7 @@ const ListView = ({ children }) => {
 
 	return (
 		<div
-			className="overflow-y-auto overflow-x-visible flex-grow pb-56 border-t-2 border-solid border-pepper"
+			className="overflow-y-auto overflow-x-visible flex-grow pb-56"
 			style={{ height: `${windowSize.height}px` }}
 		>
 			{children}
