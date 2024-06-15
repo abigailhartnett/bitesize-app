@@ -11,6 +11,10 @@ const PantryItemList = ({
 	openPopover,
 	addToRecipe,
 	currentPage,
+	aisle,
+	status,
+	toggleButton,
+	checkbox,
 }) => {
 	const toggle = useToggleOnList(pantryItems, setPantryItems);
 
@@ -47,13 +51,16 @@ const PantryItemList = ({
 				item={item}
 				toggleOnList={() => toggle(item.name)}
 				addToRecipe={() => addToRecipe(item.id)}
-				checkbox={true}
+				checkbox={checkbox}
 				showShoppingList={showShoppingList}
 				openPopover={() => openPopover(item.id)}
 				onChange={(e) => checkOffItem(e.target.checked, item.id)}
 				currentPage={currentPage}
 				pantryItems={pantryItems}
 				setPantryItems={setPantryItems}
+				aisle={aisle}
+				status={status}
+				toggleButton={toggleButton}
 			/>
 		);
 	});
