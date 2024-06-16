@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import supabase from "../config/supabaseClient";
 import { useParams } from "react-router-dom";
 import { useToggleOnList } from "../hooks/useToggleOnList";
-import PantryItem from "../components/PantryItem";
+// import PantryItem from "../components/PantryItem";
 import Menu from "../components/Menu";
 import ListView from "../components/ListView";
 import TopBar from "../components/TopBar";
@@ -11,34 +11,70 @@ import PopOver from "../components/PopOver";
 import Button from "../components/buttons/Button";
 import EditPantryItem from "../forms/EditPantryItem";
 import BottomBar from "../components/BottomBar";
+import IconButton from "../components/buttons/IconButton";
+import RecipeItemList from "../components/RecipeItemList";
 
 const RecipePage = ({ recipes, pantryItems, setPantryItems }) => {
 	const { slug } = useParams();
 	const [recipeIngredients, setRecipeIngredients] = useState(null);
+	const [ingredientsOpen, setIngredientsOpen] = useState(true);
 	const [fetchError, setFetchError] = useState(null);
-	const [currentItem, setCurrentItem] = useState(
+	const [currentRecipe, setCurrentRecipe] = useState(
 		recipes.find((recipe) => recipe.slug === slug)
 	);
+	const [currentIngredient, setCurrentIngredient] = useState(null);
 	const [popoverIsOpen, setPopoverIsOpen] = useState(false);
 	const [editing, setEditing] = useState(false);
 
-	const toggle = useToggleOnList(pantryItems, setPantryItems);
+	// const toggle = useToggleOnList(pantryItems, setPantryItems);
 
-	const findItemById = (id) => {
-		const item = pantryItems.find((item) => item.id === id);
+	const findIngredientByName = (name) => {
+		const item = pantryItems.find((item) => item.name === name);
 		if (!item) {
-			console.log(`Item with id ${id} not found`);
+			console.log(`Item with id ${name} not found`);
 			return;
 		}
-		setCurrentItem(item);
+		setCurrentIngredient(item);
 		return item;
 	};
 
-	const openPopover = (id) => {
+	const openPopover = (name) => {
 		setPopoverIsOpen(true);
-		const item = findItemById(id);
-		setCurrentItem(item);
+		const item = findIngredientByName(name);
+		setCurrentIngredient(item);
 	};
+
+	const recipe = recipes.find((recipe) => recipe.slug === slug);
+
+	const recipeIngredientsList = recipeIngredients?.filter(
+		(item) => item.recipe_slug === slug
+	);
+
+	// const checkOffItem = async (isChecked, id) => {
+	// 	// Find Item
+	// 	const item = recipeIngredients.find((item) => item.id === id);
+
+	// 	// Toggle checked property
+	// 	const updatedItem = {
+	// 		...item,
+	// 		checked: isChecked,
+	// 	};
+
+	// 	// Update the item in the state
+	// 	setRecipeIngredients((prevItems) =>
+	// 		prevItems?.map((item) => (item.id === id ? updatedItem : item))
+	// 	);
+
+	// 	// Update the item in Supabase
+	// 	const { error } = await supabase
+	// 		.from("recipeIngredients")
+	// 		.update({ checked: updatedItem.checked })
+	// 		.eq("id", id);
+
+	// 	if (error) {
+	// 		console.log(error);
+	// 	}
+	// };
 
 	useEffect(() => {
 		const fetchRecipeIngredients = async () => {
@@ -59,8 +95,8 @@ const RecipePage = ({ recipes, pantryItems, setPantryItems }) => {
 
 	const togglePlanned = async () => {
 		const newStatus =
-			currentItem.status === "planned" ? "not planned" : "planned";
-		setCurrentItem((prevItem) => ({ ...prevItem, status: newStatus }));
+			currentRecipe.status === "planned" ? "not planned" : "planned";
+		setCurrentRecipe((prevItem) => ({ ...prevItem, status: newStatus }));
 
 		try {
 			await supabase
@@ -69,91 +105,107 @@ const RecipePage = ({ recipes, pantryItems, setPantryItems }) => {
 				.eq("slug", slug);
 		} catch (error) {
 			console.error("Error adding recipe to meal plan:", error);
-			setCurrentItem((prevItem) => ({
+			setCurrentRecipe((prevItem) => ({
 				...prevItem,
-				status: currentItem.status,
+				status: currentRecipe.status,
 			}));
 		}
 	};
+
+	// const ingredients = recipeIngredientsList?.map((recipeIngredient, id) => {
+	// 	const pantryItem = pantryItems.find(
+	// 		(item) => item.name === recipeIngredient.name
+	// 	);
+
+	// 	if (pantryItem) {
+	// 		return (
+	// 			<PantryItem
+	// 				key={id}
+	// 				item={pantryItem}
+	// 				toggleOnList={() => toggle(pantryItem.name)}
+	// 				pantryItems={pantryItems}
+	// 				setPantryItems={setPantryItems}
+	// 				openPopover={openPopover}
+	// 				status
+	// 				checkbox
+	// 				amount={recipeIngredient.amount}
+	// 				unit={recipeIngredient.unit}
+	// 				onChange={(e) => checkOffItem(e.target.checked, recipeIngredient.id)}
+	// 			/>
+	// 		);
+	// 	}
+	// 	return null;
+	// });
 
 	if (!recipeIngredients) {
 		return <div>Loading...</div>;
 	}
 
-	const recipe = recipes.find((recipe) => recipe.slug === slug);
-
-	const recipeIngredientsList = recipeIngredients.filter(
-		(item) => item.recipe_slug === slug
-	);
-
 	return (
 		<Container>
 			<TopBar pageTitle={recipe.title} />
-			<div className="flex">
+			{console.log(currentIngredient)}
+			<ListView>
+				{popoverIsOpen && (
+					<PopOver
+						setPopoverIsOpen={setPopoverIsOpen}
+						currentIngredient={currentIngredient}
+						setEditing={setEditing}
+						editing={editing}
+					>
+						{currentIngredient && (
+							<>
+								{editing ? (
+									<EditPantryItem
+										currentIngredient={currentIngredient}
+										setCurrentIngredient={setCurrentIngredient}
+										pantryItems={pantryItems}
+										setEditing={setEditing}
+										setPopoverIsOpen={setPopoverIsOpen}
+										editing={editing}
+									/>
+								) : (
+									<div className="my-4 font-semibold">
+										<span className="mb-4">{currentRecipe?.name}</span>
+										<Button onClick={() => setEditing(true)}>Edit Item</Button>
+									</div>
+								)}
+							</>
+						)}
+					</PopOver>
+				)}
+				<div className="flex justify-between">
+					<div className="pt-4 font-semibold">Ingredients</div>
+					<IconButton
+						icon={ingredientsOpen ? "fa-chevron-up" : "fa-chevron-down"}
+						onClick={() => setIngredientsOpen(!ingredientsOpen)}
+					/>
+				</div>
+				<div>
+					{ingredientsOpen && (
+						<RecipeItemList
+							pantryItems={pantryItems}
+							setPantryItems={setPantryItems}
+							openPopover={openPopover}
+							recipeIngredients={recipeIngredients}
+							setRecipeIngredients={setRecipeIngredients}
+							slug={slug}
+							checkbox
+							recipeIngredientsList={recipeIngredientsList}
+							// status={currentIngredient.status}
+						/>
+					)}
+				</div>
 				<div className="mt-4">
 					<h3 className="font-semibold">Instructions:</h3>
 					<div>{recipe.instructions}</div>
 				</div>
-				<ListView>
-					{popoverIsOpen && (
-						<PopOver
-							setPopoverIsOpen={setPopoverIsOpen}
-							currentItem={currentItem}
-							setEditing={setEditing}
-							editing={editing}
-						>
-							{currentItem && (
-								<>
-									{editing ? (
-										<EditPantryItem
-											currentItem={currentItem}
-											setCurrentItem={setCurrentItem}
-											pantryItems={pantryItems}
-											setEditing={setEditing}
-											setPopoverIsOpen={setPopoverIsOpen}
-											editing={editing}
-										/>
-									) : (
-										<div className="my-4 font-semibold">
-											<span className="mb-4">{currentItem?.name}</span>
-											<Button onClick={() => setEditing(true)}>
-												Edit Item
-											</Button>
-										</div>
-									)}
-								</>
-							)}
-						</PopOver>
-					)}
-					<div className="pt-4 font-semibold">Ingredients:</div>
-					<div>
-						{recipeIngredientsList.map((recipeIngredient, id) => {
-							const pantryItem = pantryItems.find(
-								(item) => item.name === recipeIngredient.name
-							);
-							if (pantryItem) {
-								return (
-									<PantryItem
-										key={id}
-										item={pantryItem}
-										toggleOnList={() => toggle(pantryItem.name)}
-										pantryItems={pantryItems}
-										setPantryItems={setPantryItems}
-										openPopover={openPopover}
-										status
-									/>
-								);
-							}
-							return null;
-						})}
-					</div>
-				</ListView>
-			</div>
+			</ListView>
 			<BottomBar>
-				{currentItem && currentItem?.status === "planned" ? (
+				{currentRecipe && currentRecipe?.status === "planned" ? (
 					<Button onClick={() => togglePlanned()}>Remove from meal plan</Button>
 				) : (
-					currentItem && (
+					currentRecipe && (
 						<Button onClick={() => togglePlanned()}>Add to meal plan</Button>
 					)
 				)}

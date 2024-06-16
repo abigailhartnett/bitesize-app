@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import supabase from "../config/supabaseClient";
 import { useParams } from "react-router-dom";
 import { useToggleOnList } from "../hooks/useToggleOnList";
-import PantryItem from "../components/PantryItem";
+// import PantryItem from "../components/PantryItem";
 import Menu from "../components/Menu";
 import ListView from "../components/ListView";
 import TopBar from "../components/TopBar";
@@ -26,7 +26,7 @@ const CookRecipePage = ({ recipes, pantryItems, setPantryItems }) => {
 
 	const [ingredientsOpen, setIngredientsOpen] = useState(true);
 
-	const toggle = useToggleOnList(pantryItems, setPantryItems);
+	// const toggle = useToggleOnList(pantryItems, setPantryItems);
 
 	const recipe = recipes?.find((recipe) => recipe.slug === slug);
 
@@ -131,18 +131,15 @@ const CookRecipePage = ({ recipes, pantryItems, setPantryItems }) => {
 				</div>
 				{ingredientsOpen && (
 					<RecipeItemList
-						// filteredPantryItems={filteredPantryItems}
 						pantryItems={pantryItems}
 						setPantryItems={setPantryItems}
 						openPopover={openPopover}
-						// aisle
-						// status
-						// toggleButton
 						recipeIngredients={recipeIngredients}
 						setRecipeIngredients={setRecipeIngredients}
 						slug={slug}
 						checkbox
 						recipeIngredientsList={recipeIngredientsList}
+						status={currentItem.status}
 					/>
 				)}
 

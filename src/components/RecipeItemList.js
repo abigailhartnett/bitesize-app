@@ -18,14 +18,15 @@ const RecipeItemList = ({
 	recipeIngredients,
 	setRecipeIngredients,
 	checkbox,
-	slug,
+	// slug,
+	status,
 }) => {
 	const toggle = useToggleOnList(pantryItems, setPantryItems);
 
 	return recipeIngredientsList.map((recipeIngredient, id) => {
-		const pantryItem = pantryItems.find(
-			(item) => item.name === recipeIngredient.name
-		);
+		// const pantryItem = pantryItems.find(
+		// 	(item) => item.name === recipeIngredient.name
+		// );
 
 		const checkOffItem = async (isChecked, id) => {
 			// Find Item
@@ -66,7 +67,7 @@ const RecipeItemList = ({
 				pantryItems={pantryItems}
 				setPantryItems={setPantryItems}
 				// aisle={aisle}
-				// status={status}
+				status={status}
 				// toggleButton={toggleButton}
 				amount={recipeIngredient.amount}
 				unit={recipeIngredient.unit}

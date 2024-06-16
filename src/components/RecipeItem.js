@@ -5,7 +5,7 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 // import ReadinessCalculation from "./calculations/readinessCalculation";
 
-const RecipeItem = ({ item, slug }) => {
+const RecipeItem = ({ item }) => {
 	// const [recipeIngredients, setRecipeIngredients] = useState(null);
 	// const [fetchError, setFetchError] = useState(null);
 
@@ -24,7 +24,7 @@ const RecipeItem = ({ item, slug }) => {
 	// };
 	return (
 		<div className="flex py-1 justify-between">
-			<Link to={slug} className="flex-grow">
+			<Link to={item.slug} className="flex-grow">
 				<div className="hover:bg-gray-100 active:bg-gray-500 px-4">
 					<div className="gap-4 items-center">
 						<div className="flex flex-col">
