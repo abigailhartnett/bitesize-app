@@ -2,17 +2,13 @@ import React from "react";
 
 // tag--${label.replace(" ", "-").toLowerCase()}
 
-const Tag = ({ label, type, onClick }) => {
+const Tag = ({ label, onClick }) => {
 	return (
 		<div
-			className={`flex items-center h-fit text-xs font-semibold rounded-full px-2 py-1 uppercase tracking-wide border border-solid border-black`}
+			className={`flex items-center h-fit text-xs font-semibold rounded-2xl px-4 py-3.5 uppercase tracking-wide border border-solid border-[#29292914] cursor-pointer`}
+			onClick={onClick}
 		>
 			<span className="whitespace-nowrap">{label}</span>
-			{type === "close" && (
-				<div className="pl-2 text-xs" onClick={onClick}>
-					<i class="fa-solid fa-circle-xmark"></i>
-				</div>
-			)}
 		</div>
 	);
 };
