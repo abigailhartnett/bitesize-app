@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import supabase from "../config/supabaseClient";
 import { useParams } from "react-router-dom";
-import { useToggleOnList } from "../hooks/useToggleOnList";
+// import { useToggleOnList } from "../hooks/useToggleOnList";
 // import PantryItem from "../components/PantryItem";
 import Menu from "../components/Menu";
 import ListView from "../components/ListView";
