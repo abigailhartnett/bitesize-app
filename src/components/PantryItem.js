@@ -60,7 +60,7 @@ const PantryItem = ({
 
 				{/* ITEM NAME */}
 				<div className="flex items-center gap-2">
-					<span>{item.name}</span>
+					<span className="font-semibold">{item.name}</span>
 					{aisle && <span className="text-xs">{item.aisle}</span>}
 					{
 						<span className="text-xs">
