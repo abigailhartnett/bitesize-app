@@ -6,8 +6,8 @@ const Menu = () => {
 	const navigate = useNavigate();
 
 	return (
-		<div className="bg-white px-4 h-20 max-w-sm">
-			<div className="flex items-center justify-between gap-1">
+		<div className="h-20 max-w-sm">
+			<div className="flex items-center justify-between gap-1 mx-4">
 				<IconButton
 					title="Go to pantry"
 					icon="fas fa-apple-alt"

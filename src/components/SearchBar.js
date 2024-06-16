@@ -6,7 +6,7 @@ const SearchBar = ({ placeholder, id, setSearchQuery }) => {
 	};
 
 	return (
-		<div className="w-full max-w-sm bg-white py-2">
+		<div className=" bg-white py-2">
 			<div className="flex items-center gap-2 p-1 bg-[#e9e9e9] max-w-sm rounded-2xl mx-4 h-12 px-4">
 				<i class="fa-solid fa-search"></i>
 				<input

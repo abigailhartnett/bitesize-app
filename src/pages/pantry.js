@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useSearch } from "../hooks/useSearch";
 import { useFilter } from "../hooks/useFilter";
 import Filter from "../components/Filter";
-import Sort from "../components/Sort";
 import SearchBar from "../components/SearchBar";
 import CreatePantryItem from "../forms/CreatePantryItem";
 import PopOver from "../components/PopOver";
@@ -54,9 +53,7 @@ const PantryPage = ({ setSort, pantryItems, setPantryItems }) => {
 
 	return (
 		<Container>
-			<TopBar pageTitle="Pantry">
-				<Sort sortType="Pantry" pantryItems={pantryItems} setSort={setSort} />
-			</TopBar>
+			<TopBar pageTitle="Pantry" />
 			<Filter
 				filter={filter}
 				setFilter={setFilter}

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import supabase from "../config/supabaseClient";
 import Filter from "../components/Filter";
-import Sort from "../components/Sort";
 import PopOver from "../components/PopOver";
 import PantryItemList from "../components/calculations/PantryItemList";
 import { useToggleOnList } from "../hooks/useToggleOnList";
@@ -140,9 +139,7 @@ const ShoppingListPage = ({ setSort, pantryItems, setPantryItems }) => {
 
 	return (
 		<Container>
-			<TopBar pageTitle="Shopping list">
-				<Sort sortType="Pantry" pantryItems={pantryItems} setSort={setSort} />
-			</TopBar>
+			<TopBar pageTitle="Shopping list" />
 			<Filter
 				filter={filter}
 				setFilter={setFilter}
