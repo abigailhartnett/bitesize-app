@@ -212,10 +212,10 @@ const ShoppingListPage = ({ setSort, pantryItems, setPantryItems }) => {
 				) : (
 					<div className="text-center pt-4">Woohoo! All done! 🙌🏻</div>
 				)}
-			</ListView>
-			<BottomBar>
 				<Button onClick={() => triggerClearList()}>Clear list</Button>
 				<Button onClick={() => clearCheckedItems()}>Clear checked items</Button>
+			</ListView>
+			<BottomBar>
 				<Menu />
 			</BottomBar>
 		</Container>
