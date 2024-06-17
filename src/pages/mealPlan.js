@@ -39,6 +39,8 @@ const MealPlanPage = ({ recipes }) => {
 					icon="fa-plus"
 					onClick={() => navigate("/create-recipe")}
 					className="bg-[#e9e9e9]"
+					type="fa-solid"
+					size="lg"
 				/>
 			</BottomBar>
 		</Container>

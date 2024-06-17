@@ -1,5 +1,6 @@
 import React from "react";
 import supabase from "../../config/supabaseClient";
+import IconButton from "./IconButton";
 
 const StatusButton = ({
 	pantryItems,
@@ -11,10 +12,10 @@ const StatusButton = ({
 
 	const icon =
 		item.status === "out"
-			? "radio_button_unchecked"
+			? "fa-circle"
 			: item.status === "low"
-				? "radio_button_partial"
-				: "radio_button_checked";
+				? "fa-circle-half-stroke"
+				: "fa-circle";
 
 	const statusColor =
 		item.status === "out"
@@ -68,13 +69,13 @@ const StatusButton = ({
 	};
 
 	return (
-		<button onClick={() => toggleStatus(item.id)}>
-			<span
-				class={`material-symbols-outlined ${showShoppingList && item.checked ? `${statusColor}-50` : statusColor}`}
-			>
-				{icon}
-			</span>
-		</button>
+		<IconButton
+			icon={icon}
+			onClick={() => toggleStatus(item.id)}
+			className={statusColor}
+			type={item.status === "out" ? "fa-regular" : "fa-solid"}
+			size="xl"
+		/>
 	);
 };
 

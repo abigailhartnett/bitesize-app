@@ -15,24 +15,28 @@ const Menu = () => {
 				icon="fas fa-calendar"
 				onClick={() => navigate("/meal-plan")}
 				className={`${currentPage === "/meal-plan" ? "text-mustard" : ""}`}
+				size="xl"
 			/>
 			<IconButton
 				title="Go to recipes"
 				icon="fas fa-book"
 				onClick={() => navigate("/recipes")}
 				className={`${currentPage === "/recipes" ? "text-carrot" : ""}`}
+				size="xl"
 			/>
 			<IconButton
 				title="Go to shopping list"
 				icon="fas fa-list-alt"
 				onClick={() => navigate("/shopping-list")}
 				className={`${currentPage === "/shopping-list" ? "text-grape" : ""}`}
+				size="xl"
 			/>
 			<IconButton
 				title="Go to pantry"
 				icon="fas fa-apple-alt"
 				onClick={() => navigate("/pantry")}
 				className={`${currentPage === "/pantry" ? "text-tomato" : ""}`}
+				size="xl"
 			/>
 		</div>
 	);

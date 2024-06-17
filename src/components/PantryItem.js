@@ -33,6 +33,8 @@ const PantryItem = ({
 						onClick={toggleOnList}
 						icon={shoppingIcon}
 						className={`${item.onList && "text-pepper/50"}`}
+						type="fa-solid"
+						size="xl"
 					/>
 				)}
 				{checkbox && (
@@ -53,6 +55,8 @@ const PantryItem = ({
 						onClick={addToRecipe}
 						icon={recipeIcon}
 						className={item.onList && "text-pepper/50"}
+						type="fa-solid"
+						size="lg"
 					/>
 				) : (
 					""
