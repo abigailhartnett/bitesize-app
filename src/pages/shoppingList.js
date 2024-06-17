@@ -16,6 +16,7 @@ import Container from "../components/Container";
 import EditPantryItem from "../forms/EditPantryItem";
 import BottomBar from "../components/BottomBar";
 import SearchBar from "../components/SearchBar";
+import IconButton from "../components/buttons/IconButton";
 
 const ShoppingListPage = ({ pantryItems, setPantryItems }) => {
 	const [currentItem, setCurrentItem] = useState(null);
@@ -211,14 +212,21 @@ const ShoppingListPage = ({ pantryItems, setPantryItems }) => {
 					<div className="text-center pt-4">Woohoo! All done! 🙌🏻</div>
 				)}
 				<Button onClick={() => triggerClearList()}>Clear list</Button>
-				<Button onClick={() => clearCheckedItems()}>Clear checked items</Button>
 			</ListView>
 			<BottomBar>
-				<SearchBar
-					id={"searchInput"}
-					placeholder={"Search shopping list..."}
-					setSearchQuery={setSearchQuery}
-				/>
+				<div className="flex justify-between items-center gap-2 max-w-sm">
+					<SearchBar
+						id={"searchInput"}
+						placeholder={"Search shopping list..."}
+						setSearchQuery={setSearchQuery}
+					/>
+
+					<IconButton
+						icon="fa-check-double"
+						className="bg-[#e9e9e9]"
+						onClick={() => clearCheckedItems()}
+					/>
+				</div>
 				<Menu />
 			</BottomBar>
 		</Container>
