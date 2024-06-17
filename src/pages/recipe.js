@@ -143,7 +143,6 @@ const RecipePage = ({ recipes, pantryItems, setPantryItems }) => {
 	return (
 		<Container>
 			<TopBar pageTitle={recipe.title} />
-			{console.log(currentIngredient)}
 			<ListView>
 				{popoverIsOpen && (
 					<PopOver
@@ -174,10 +173,12 @@ const RecipePage = ({ recipes, pantryItems, setPantryItems }) => {
 					</PopOver>
 				)}
 				<div className="flex justify-between">
-					<div className="pt-4 font-semibold">Ingredients</div>
+					<h2 className="text-lg font-bold my-4">Ingredients</h2>
 					<IconButton
 						icon={ingredientsOpen ? "fa-chevron-up" : "fa-chevron-down"}
 						onClick={() => setIngredientsOpen(!ingredientsOpen)}
+						faStyle="fa-solid"
+						size="lg"
 					/>
 				</div>
 				<div>
@@ -196,7 +197,7 @@ const RecipePage = ({ recipes, pantryItems, setPantryItems }) => {
 					)}
 				</div>
 				<div className="mt-4">
-					<h3 className="font-semibold">Instructions:</h3>
+					<h2 className="text-lg font-bold my-4">Instructions</h2>
 					<div>{recipe.instructions}</div>
 				</div>
 			</ListView>
