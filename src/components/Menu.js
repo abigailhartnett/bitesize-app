@@ -7,7 +7,7 @@ const Menu = () => {
 
 	return (
 		<div className="h-20 max-w-sm">
-			<div className="flex items-center justify-between gap-1 mx-4">
+			<div className="flex items-center justify-between gap-1">
 				<IconButton
 					title="Go to pantry"
 					icon="fas fa-apple-alt"

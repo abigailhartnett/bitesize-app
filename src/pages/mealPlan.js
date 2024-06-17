@@ -36,7 +36,7 @@ const MealPlanPage = ({ recipes }) => {
 				</Button>
 				<SearchBar
 					id={"searchInput"}
-					placeholder={"Search pantry..."}
+					placeholder={"Search meal plan..."}
 					setSearchQuery={setSearchQuery}
 				/>
 				<Menu />

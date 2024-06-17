@@ -15,10 +15,11 @@ import ListView from "../components/ListView";
 import Container from "../components/Container";
 import EditPantryItem from "../forms/EditPantryItem";
 import BottomBar from "../components/BottomBar";
+import SearchBar from "../components/SearchBar";
 
-const ShoppingListPage = ({ setSort, pantryItems, setPantryItems }) => {
+const ShoppingListPage = ({ pantryItems, setPantryItems }) => {
 	const [currentItem, setCurrentItem] = useState(null);
-	const [filteredItems] = useSearch(pantryItems, "name");
+	const [filteredItems, setSearchQuery] = useSearch(pantryItems, "name");
 	const filterOptions = [
 		"in stock",
 		"out",
@@ -213,6 +214,11 @@ const ShoppingListPage = ({ setSort, pantryItems, setPantryItems }) => {
 				<Button onClick={() => clearCheckedItems()}>Clear checked items</Button>
 			</ListView>
 			<BottomBar>
+				<SearchBar
+					id={"searchInput"}
+					placeholder={"Search shopping list..."}
+					setSearchQuery={setSearchQuery}
+				/>
 				<Menu />
 			</BottomBar>
 		</Container>

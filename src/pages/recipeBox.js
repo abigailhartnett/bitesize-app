@@ -49,7 +49,7 @@ const RecipeBoxPage = ({ recipes }) => {
 				</Button>
 				<SearchBar
 					id={"searchInput"}
-					placeholder={"Search pantry..."}
+					placeholder={"Search recipes..."}
 					setSearchQuery={setSearchQuery}
 				/>
 				<Menu />
