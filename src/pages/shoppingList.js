@@ -9,7 +9,6 @@ import { useSearch } from "../hooks/useSearch";
 import { useFilter } from "../hooks/useFilter";
 import { usePopover } from "../hooks/usePopover";
 import Button from "../components/buttons/Button";
-import Menu from "../components/Menu";
 import TopBar from "../components/TopBar";
 import ListView from "../components/ListView";
 import Container from "../components/Container";
@@ -141,12 +140,13 @@ const ShoppingListPage = ({ pantryItems, setPantryItems }) => {
 
 	return (
 		<Container>
-			<TopBar pageTitle="Shopping list" />
-			<Filter
-				filter={filter}
-				setFilter={setFilter}
-				options={["in stock", "low", "out", "safeway", "costco", "other"]}
-			/>
+			<TopBar pageTitle="Shopping list">
+				<Filter
+					filter={filter}
+					setFilter={setFilter}
+					options={["in stock", "low", "out", "safeway", "costco", "other"]}
+				/>
+			</TopBar>
 			<ListView>
 				{popoverIsOpen && (
 					<>
@@ -214,20 +214,16 @@ const ShoppingListPage = ({ pantryItems, setPantryItems }) => {
 				<Button onClick={() => triggerClearList()}>Clear list</Button>
 			</ListView>
 			<BottomBar>
-				<div className="flex justify-between items-center gap-2 max-w-sm">
-					<SearchBar
-						id={"searchInput"}
-						placeholder={"Search shopping list..."}
-						setSearchQuery={setSearchQuery}
-					/>
-
-					<IconButton
-						icon="fa-check-double"
-						className="bg-[#e9e9e9]"
-						onClick={() => clearCheckedItems()}
-					/>
-				</div>
-				<Menu />
+				<SearchBar
+					id={"searchInput"}
+					placeholder={"Search shopping list..."}
+					setSearchQuery={setSearchQuery}
+				/>
+				<IconButton
+					icon="fa-check-double"
+					onClick={() => clearCheckedItems()}
+					className="bg-[#e9e9e9]"
+				/>
 			</BottomBar>
 		</Container>
 	);

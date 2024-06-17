@@ -6,7 +6,6 @@ import SearchBar from "../components/SearchBar";
 import CreatePantryItem from "../forms/CreatePantryItem";
 import PopOver from "../components/PopOver";
 import PantryItemList from "../components/calculations/PantryItemList";
-import Menu from "../components/Menu";
 import TopBar from "../components/TopBar";
 import ListView from "../components/ListView";
 import Container from "../components/Container";
@@ -53,12 +52,14 @@ const PantryPage = ({ setSort, pantryItems, setPantryItems }) => {
 
 	return (
 		<Container>
-			<TopBar pageTitle="Pantry" />
-			<Filter
-				filter={filter}
-				setFilter={setFilter}
-				options={["in stock", "out", "low", "safeway", "costco", "other"]}
-			/>
+			<TopBar pageTitle="Pantry">
+				<Filter
+					filter={filter}
+					setFilter={setFilter}
+					options={["in stock", "out", "low", "safeway", "costco", "other"]}
+				/>
+			</TopBar>
+
 			<ListView>
 				{popoverIsOpen && (
 					<PopOver
@@ -113,7 +114,6 @@ const PantryPage = ({ setSort, pantryItems, setPantryItems }) => {
 					placeholder={"Search pantry..."}
 					setSearchQuery={setSearchQuery}
 				/>
-				<Menu />
 			</BottomBar>
 		</Container>
 	);

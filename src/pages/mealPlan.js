@@ -4,8 +4,7 @@ import SearchBar from "../components/SearchBar";
 import RecipeItem from "../components/RecipeItem";
 import { useSearch } from "../hooks/useSearch";
 import ListView from "../components/ListView";
-import Menu from "../components/Menu";
-import Button from "../components/buttons/Button";
+import IconButton from "../components/buttons/IconButton";
 import TopBar from "../components/TopBar";
 import Container from "../components/Container";
 import BottomBar from "../components/BottomBar";
@@ -20,7 +19,7 @@ const MealPlanPage = ({ recipes }) => {
 
 	return (
 		<Container>
-			<TopBar pageTitle="Meal Plan"></TopBar>
+			<TopBar pageTitle="Meal Plan" />
 			<ListView>
 				{filteredRecipes.length > 0 ? (
 					filteredRecipes.map((item) => <RecipeItem item={item} />)
@@ -31,15 +30,16 @@ const MealPlanPage = ({ recipes }) => {
 				)}
 			</ListView>
 			<BottomBar>
-				<Button onClick={() => navigate("/create-recipe")}>
-					Create new recipe
-				</Button>
 				<SearchBar
 					id={"searchInput"}
 					placeholder={"Search meal plan..."}
 					setSearchQuery={setSearchQuery}
 				/>
-				<Menu />
+				<IconButton
+					icon="fa-plus"
+					onClick={() => navigate("/create-recipe")}
+					className="bg-[#e9e9e9]"
+				/>
 			</BottomBar>
 		</Container>
 	);

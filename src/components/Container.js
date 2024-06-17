@@ -1,8 +1,16 @@
 import React from "react";
+import { useWindowSize } from "../hooks/useWindowSize";
 
 const Container = ({ children }) => {
+	const windowSize = useWindowSize();
+
 	return (
-		<div className="fixed inset-x-0 top-0 flex flex-col justify-between mx-auto px-2">
+		<div
+			className="grid grid-rows-[auto_1fr_auto] px-4 fixed top-0 left-0 w-full"
+			style={{
+				height: `${windowSize.height}px`,
+			}}
+		>
 			{children}
 		</div>
 	);

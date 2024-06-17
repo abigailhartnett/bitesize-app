@@ -5,8 +5,7 @@ import RecipeItem from "../components/RecipeItem";
 import { useSearch } from "../hooks/useSearch";
 import { useFilter } from "../hooks/useFilter";
 import ListView from "../components/ListView";
-import Menu from "../components/Menu";
-import Button from "../components/buttons/Button";
+import IconButton from "../components/buttons/IconButton";
 import TopBar from "../components/TopBar";
 import Container from "../components/Container";
 import Filter from "../components/Filter";
@@ -26,12 +25,13 @@ const RecipeBoxPage = ({ recipes }) => {
 
 	return (
 		<Container>
-			<TopBar pageTitle="Recipes"></TopBar>
-			<Filter
-				filter={filter}
-				setFilter={setFilter}
-				options={["planned", "not planned"]}
-			/>
+			<TopBar pageTitle="Recipes">
+				<Filter
+					filter={filter}
+					setFilter={setFilter}
+					options={["planned", "not planned"]}
+				/>
+			</TopBar>
 			<ListView>
 				{filteredRecipes.length > 0 ? (
 					filteredRecipes.map((item) => (
@@ -44,15 +44,16 @@ const RecipeBoxPage = ({ recipes }) => {
 				)}
 			</ListView>
 			<BottomBar>
-				<Button onClick={() => navigate("/create-recipe")}>
-					Create new recipe
-				</Button>
 				<SearchBar
 					id={"searchInput"}
 					placeholder={"Search recipes..."}
 					setSearchQuery={setSearchQuery}
 				/>
-				<Menu />
+				<IconButton
+					icon="fa-plus"
+					onClick={() => navigate("/create-recipe")}
+					className="bg-[#e9e9e9]"
+				/>
 			</BottomBar>
 		</Container>
 	);

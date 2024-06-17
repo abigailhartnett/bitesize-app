@@ -6,7 +6,6 @@ import { useSearch } from "../hooks/useSearch";
 import Button from "../components/buttons/Button";
 import TopBar from "../components/TopBar";
 import ListView from "../components/ListView";
-import Menu from "../components/Menu";
 import Container from "../components/Container";
 import PantryItemList from "../components/calculations/PantryItemList";
 import SearchBar from "../components/SearchBar";
@@ -255,9 +254,7 @@ const CreateRecipePage = ({ pantryItems, filter }) => {
 				</Button>
 				{formError}
 			</ListView>
-			<BottomBar>
-				<Menu />
-			</BottomBar>
+			<BottomBar />
 		</Container>
 	);
 };

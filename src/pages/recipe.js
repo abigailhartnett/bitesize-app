@@ -3,7 +3,6 @@ import supabase from "../config/supabaseClient";
 import { useParams } from "react-router-dom";
 // import { useToggleOnList } from "../hooks/useToggleOnList";
 // import PantryItem from "../components/PantryItem";
-import Menu from "../components/Menu";
 import ListView from "../components/ListView";
 import TopBar from "../components/TopBar";
 import Container from "../components/Container";
@@ -209,7 +208,6 @@ const RecipePage = ({ recipes, pantryItems, setPantryItems }) => {
 						<Button onClick={() => togglePlanned()}>Add to meal plan</Button>
 					)
 				)}
-				<Menu />
 			</BottomBar>
 		</Container>
 	);

@@ -34,7 +34,7 @@ const Filter = ({ filter, setFilter }) => {
 	});
 
 	return (
-		<div className="flex gap-2 items-center overflow-x-scroll">
+		<div className="flex gap-2 items-center overflow-x-scroll w-full max-w-[calc(100vw-2rem)]">
 			<div className="flex gap-2">{tagOptions}</div>
 		</div>
 	);
