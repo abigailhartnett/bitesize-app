@@ -7,11 +7,13 @@ const Checkbox = ({ id, label, onChange, checked }) => {
 				onChange={onChange}
 				checked={checked}
 				type="checkbox"
-				className="hover:cursor-pointer appearance-none h-5 w-5 border-2 border-pepper checked:bg-pepper checked:border-transparent focus:outline-pomegranate peer shrink-0 rounded-full"
+				className="hover:cursor-pointer appearance-none h-6 w-6 border-2 border-pepper/20 checked:bg-mint checked:border-transparent peer shrink-0 rounded-full"
 				id={id}
 				aria-label={label}
 			></input>
-			<i className="fas fa-check fa-sm text-salt hidden peer-checked:block absolute pointer-events-none top-25% right-25%"></i>
+			<i
+				className={`fas fa-check fa-sm ${checked ? "text-pepper" : "text-salt"} hidden peer-checked:block absolute pointer-events-none top-25% right-25%`}
+			></i>
 		</div>
 	);
 };

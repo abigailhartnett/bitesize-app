@@ -24,9 +24,7 @@ const PantryItem = ({
 	const shoppingIcon = item.onList ? "fa-circle-minus" : "fa-circle-plus";
 
 	return (
-		<div
-			className={`grid grid-cols-[auto_1fr_auto] items-center gap-2 py-1 ${showShoppingList && item.checked ? "line-through text-pepper/50" : ""}`}
-		>
+		<div className={`grid grid-cols-[auto_1fr_auto] items-center gap-2`}>
 			<div>
 				{toggleButton && (
 					<IconButton
@@ -63,9 +61,11 @@ const PantryItem = ({
 				)}
 
 				{/* ITEM NAME */}
-				<div className="flex items-center gap-2">
-					<span className="font-semibold">{item.name}</span>
-					{aisle && <span className="text-xs">{item.aisle}</span>}
+				<div
+					className={`flex items-center gap-2 ${item.checked && item.onList ? "line-through text-pepper/50" : ""}`}
+				>
+					<span className="font-semibold capitalize">{item.name}</span>
+					{aisle && <span className="text-xs capitalize">{item.aisle}</span>}
 					{
 						<span className="text-xs">
 							{amount} {unit}

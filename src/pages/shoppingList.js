@@ -31,7 +31,7 @@ const ShoppingListPage = ({ pantryItems, setPantryItems }) => {
 	const [filter, setFilter] = useFilter(filterOptions);
 	const [popoverIsOpen, setPopoverIsOpen] = usePopover();
 	const [editing, setEditing] = useState(false);
-	const [openWarning, setOpenWarning] = useState(false);
+	// const [openWarning, setOpenWarning] = useState(false);
 
 	const location = useLocation();
 	const currentPage = location.pathname;
@@ -66,38 +66,38 @@ const ShoppingListPage = ({ pantryItems, setPantryItems }) => {
 			filteredItems.includes(item)
 	);
 
-	const clearList = async () => {
-		const itemsOnList = pantryItems?.filter((item) => item.onList);
+	// const clearList = async () => {
+	// 	const itemsOnList = pantryItems?.filter((item) => item.onList);
 
-		// Find Items
-		for (const item of itemsOnList) {
-			// Toggle the onList and status properties
-			const updatedItem = { ...item, onList: false, prevStatus: item.status };
+	// 	// Find Items
+	// 	for (const item of itemsOnList) {
+	// 		// Toggle the onList and status properties
+	// 		const updatedItem = { ...item, onList: false, prevStatus: item.status };
 
-			// Update the item in the state
-			setPantryItems((prevItems) =>
-				prevItems.map((prevItem) =>
-					prevItem.id === item.id ? updatedItem : prevItem
-				)
-			);
+	// 		// Update the item in the state
+	// 		setPantryItems((prevItems) =>
+	// 			prevItems.map((prevItem) =>
+	// 				prevItem.id === item.id ? updatedItem : prevItem
+	// 			)
+	// 		);
 
-			// Update the item in Supabase
-			const { error } = await supabase
-				.from("pantry")
-				.update({
-					onList: updatedItem.onList,
-					prevStatus: updatedItem.prevStatus,
-				})
-				.eq("id", item.id);
+	// 		// Update the item in Supabase
+	// 		const { error } = await supabase
+	// 			.from("pantry")
+	// 			.update({
+	// 				onList: updatedItem.onList,
+	// 				prevStatus: updatedItem.prevStatus,
+	// 			})
+	// 			.eq("id", item.id);
 
-			if (error) {
-				console.log(error);
-			}
-		}
+	// 		if (error) {
+	// 			console.log(error);
+	// 		}
+	// 	}
 
-		setPopoverIsOpen(false);
-		setOpenWarning(false);
-	};
+	// 	setPopoverIsOpen(false);
+	// 	setOpenWarning(false);
+	// };
 
 	const clearCheckedItems = async () => {
 		const itemsOnList = pantryItems?.filter(
@@ -133,10 +133,10 @@ const ShoppingListPage = ({ pantryItems, setPantryItems }) => {
 		setPopoverIsOpen(false);
 	};
 
-	const triggerClearList = () => {
-		setOpenWarning(true);
-		openPopover();
-	};
+	// const triggerClearList = () => {
+	// 	setOpenWarning(true);
+	// 	openPopover();
+	// };
 
 	return (
 		<Container>
@@ -150,7 +150,7 @@ const ShoppingListPage = ({ pantryItems, setPantryItems }) => {
 			<ListView>
 				{popoverIsOpen && (
 					<>
-						{openWarning ? (
+						{/* {openWarning ? (
 							<PopOver
 								setPopoverIsOpen={setPopoverIsOpen}
 								setEditing={setEditing}
@@ -161,8 +161,9 @@ const ShoppingListPage = ({ pantryItems, setPantryItems }) => {
 								</div>
 								<Button onClick={() => clearList()}>Clear list</Button>
 							</PopOver>
-						) : null}
-						{currentItem?.onList && !openWarning ? (
+						) : null} */}
+						{currentItem?.onList ? (
+							// && !openWarning
 							<PopOver
 								setPopoverIsOpen={setPopoverIsOpen}
 								setEditing={setEditing}
@@ -211,7 +212,7 @@ const ShoppingListPage = ({ pantryItems, setPantryItems }) => {
 				) : (
 					<div className="text-center pt-4">Woohoo! All done! 🙌🏻</div>
 				)}
-				<Button onClick={() => triggerClearList()}>Clear list</Button>
+				{/* <Button onClick={() => triggerClearList()}>Clear list</Button> */}
 			</ListView>
 			<BottomBar>
 				<SearchBar
