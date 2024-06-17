@@ -2,12 +2,7 @@ import React from "react";
 import supabase from "../../config/supabaseClient";
 import IconButton from "./IconButton";
 
-const StatusButton = ({
-	pantryItems,
-	setPantryItems,
-	item,
-	showShoppingList,
-}) => {
+const StatusButton = ({ pantryItems, setPantryItems, item }) => {
 	const statuses = ["in stock", "low", "out"];
 
 	const icon =
@@ -73,7 +68,7 @@ const StatusButton = ({
 			icon={icon}
 			onClick={() => toggleStatus(item.id)}
 			className={statusColor}
-			type={item.status === "out" ? "fa-regular" : "fa-solid"}
+			style={item.status === "out" ? "fa-regular" : "fa-solid"}
 			size="xl"
 		/>
 	);

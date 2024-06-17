@@ -53,7 +53,7 @@ const RecipeBoxPage = ({ recipes }) => {
 					icon="fa-plus"
 					onClick={() => navigate("/create-recipe")}
 					className="bg-[#e9e9e9]"
-					type="fa-solid"
+					faStyle="fa-solid"
 					size="lg"
 				/>
 			</BottomBar>

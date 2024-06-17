@@ -224,7 +224,7 @@ const ShoppingListPage = ({ pantryItems, setPantryItems }) => {
 					icon="fa-check-double"
 					onClick={() => clearCheckedItems()}
 					className="bg-[#e9e9e9]"
-					type="fa-solid"
+					faStyle="fa-solid"
 					size="lg"
 				/>
 			</BottomBar>

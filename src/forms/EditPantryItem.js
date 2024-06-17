@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import supabase from "../config/supabaseClient";
-import Button from "../components/buttons/Button";
+import IconButton from "../components/buttons/IconButton";
 
 const EditPantryItem = ({
 	currentItem,
 	setCurrentItem,
 	pantryItems,
+	setPantryItems,
 	setEditing,
 	editing,
 	setPopoverIsOpen,
@@ -14,7 +15,6 @@ const EditPantryItem = ({
 	const [aisle, setAisle] = useState(currentItem?.aisle);
 	const [status, setStatus] = useState(currentItem?.status);
 	const [store, setStore] = useState(currentItem?.store);
-	const [onList, setOnList] = useState(false);
 	const [formError, setFormError] = useState(null);
 	const [successMessage, setSuccessMessage] = useState("");
 
@@ -29,6 +29,12 @@ const EditPantryItem = ({
 				</option>
 			);
 		});
+
+	const storeOptions = [
+		<option>costco</option>,
+		<option>safeway</option>,
+		<option>other</option>,
+	];
 
 	const fetchEntries = async () => {
 		const { data, error } = await supabase
@@ -49,7 +55,14 @@ const EditPantryItem = ({
 		try {
 			const { error } = await supabase
 				.from("pantry")
-				.update([{ name: name, aisle: aisle, status: status, store: store }])
+				.update([
+					{
+						name: name,
+						aisle: aisle,
+						status: status,
+						store: store,
+					},
+				])
 				.eq("name", currentItem?.name);
 
 			if (error) {
@@ -73,71 +86,78 @@ const EditPantryItem = ({
 	};
 
 	return (
-		<div className="flex flex-col items-center">
-			<h2 className="text-center text-lg font-bold">Edit</h2>
-			<form onSubmit={handleSubmit} className="flex flex-col gap-4">
-				{/* <div className="flex gap-4"> */}
-				<label htmlFor="name">Name</label>
-				<input
-					type="text"
-					id="name"
-					value={name}
-					onChange={(e) => setName(e.target.value)}
+		<div className="px-4">
+			<h2 className="text-center text-lg font-bold my-8">Edit Item</h2>
+			<form
+				onSubmit={handleSubmit}
+				className="flex flex-col gap-4 w-full max-w-md mx-auto my-8"
+			>
+				<IconButton
+					icon="fa-check"
+					type="submit"
+					faStyle="fa-solid"
+					size="lg"
+					className="absolute top-2 right-4 text-pepper"
 				/>
-				<label htmlFor="aisle">Aisle</label>
-				<select
-					type="text"
-					id="aisle"
-					value={aisle}
-					onChange={(e) => setAisle(e.target.value)}
-				>
-					{aisleOptions}
-				</select>
-				<label htmlFor="status">Status</label>
-				<select
-					id="status"
-					value={status}
-					onChange={(e) => setStatus(e.target.value)}
-				>
-					<option value="out">Out</option>
-					<option value="low">Low</option>
-					<option value="in stock">In Stock</option>
-				</select>
-				<div className="flex gap-4">
-					<input
-						id="onList"
-						type="checkbox"
-						checked={onList}
-						onChange={(e) => setOnList(e.target.checked)}
-					/>
-					<label for="onList">Add to list</label>
-				</div>
-				<div className="flex gap-4" onChange={(e) => setStore(e.target.value)}>
-					<input
-						type="radio"
-						value="costco"
-						name="store"
-						checked={store === "costco"}
-					/>
-					<label htmlFor="costco">Costco</label>
 
+				<div className="flex flex-col bg-pepper/10 p-4 rounded-2xl">
+					<label htmlFor="item" className="text-xs font-semibold">
+						Item
+					</label>
 					<input
-						type="radio"
-						value="safeway"
-						name="store"
-						checked={store === "safeway"}
+						type="text"
+						id="item"
+						value={name}
+						onChange={(e) => setName(e.target.value)}
+						className="font-semibold capitalize bg-transparent"
 					/>
-					<label htmlFor="safeway">Safeway</label>
-
-					<input
-						type="radio"
-						value="other"
-						name="store"
-						checked={store === "other"}
-					/>
-					<label htmlFor="other">Other</label>
 				</div>
-				<Button type="submit">Update item</Button>
+
+				<div className="flex flex-col bg-pepper/10 p-4 rounded-2xl">
+					<label htmlFor="aisle" className="text-xs font-semibold">
+						Aisle
+					</label>
+					<select
+						type="text"
+						id="aisle"
+						value={aisle}
+						onChange={(e) => setAisle(e.target.value)}
+						className="font-semibold capitalize bg-transparent"
+					>
+						{aisleOptions}
+					</select>
+				</div>
+
+				<div className="flex flex-col bg-pepper/10 p-4 rounded-2xl">
+					<label htmlFor="store" className="text-xs font-semibold">
+						Store
+					</label>
+					<select
+						type="text"
+						id="store"
+						value={store}
+						onChange={(e) => setStore(e.target.value)}
+						className="font-semibold capitalize bg-transparent"
+					>
+						{storeOptions}
+					</select>
+				</div>
+
+				<div className="flex flex-col bg-pepper/10 p-4 rounded-2xl">
+					<label htmlFor="status" className="text-xs font-semibold">
+						Status
+					</label>
+					<select
+						id="status"
+						value={status}
+						onChange={(e) => setStatus(e.target.value)}
+						className="font-semibold capitalize bg-transparent"
+					>
+						<option value="out">Out</option>
+						<option value="low">Low</option>
+						<option value="in stock">In Stock</option>
+					</select>
+				</div>
 			</form>
 			{formError && <div>{formError}</div>}
 			{successMessage && <div>{successMessage}</div>}
