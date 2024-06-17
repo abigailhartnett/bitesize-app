@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import supabase from "../config/supabaseClient";
+import Button from "../components/buttons/Button";
+import Checkbox from "../components/inputs/Checkbox";
 
 const CreatePantryItem = ({ pantryItems }) => {
 	const [name, setName] = useState("");
@@ -21,6 +23,12 @@ const CreatePantryItem = ({ pantryItems }) => {
 				</option>
 			);
 		});
+
+	const storeOptions = [
+		<option>costco</option>,
+		<option>safeway</option>,
+		<option>other</option>,
+	];
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -59,71 +67,80 @@ const CreatePantryItem = ({ pantryItems }) => {
 	};
 
 	return (
-		<div className="flex flex-col items-center">
-			<form onSubmit={handleSubmit} className="flex flex-col gap-4">
-				<label htmlFor="name">Name</label>
-				<input
-					type="text"
-					id="name"
-					value={name}
-					onChange={(e) => setName(e.target.value)}
-				/>
-				<label htmlFor="aisle">Aisle</label>
-				<select
-					type="text"
-					id="aisle"
-					value={aisle}
-					onChange={(e) => setAisle(e.target.value)}
-				>
-					{aisleOptions}
-				</select>
-				<label htmlFor="status">Status</label>
-				<select
-					id="status"
-					value={status}
-					onChange={(e) => setStatus(e.target.value)}
-				>
-					<option value="out">Out</option>
-					<option value="low">Low</option>
-					<option value="in stock">In Stock</option>
-				</select>
-				<div className="flex gap-4">
+		<div>
+			<form onSubmit={handleSubmit} className="flex flex-col gap-4 w-full my-8">
+				<div className="flex flex-col bg-pepper/10 p-4 rounded-2xl">
+					<label htmlFor="item" className="text-xs font-semibold">
+						Item
+					</label>
 					<input
+						type="text"
+						id="item"
+						value={name}
+						onChange={(e) => setName(e.target.value)}
+						className="font-semibold capitalize bg-transparent"
+					/>
+				</div>
+
+				<div className="flex flex-col bg-pepper/10 p-4 rounded-2xl">
+					<label htmlFor="aisle" className="text-xs font-semibold">
+						Aisle
+					</label>
+					<select
+						type="text"
+						id="aisle"
+						value={aisle}
+						onChange={(e) => setAisle(e.target.value)}
+						className="font-semibold capitalize bg-transparent"
+					>
+						{aisleOptions}
+					</select>
+				</div>
+
+				<div className="flex flex-col bg-pepper/10 p-4 rounded-2xl">
+					<label htmlFor="store" className="text-xs font-semibold">
+						Store
+					</label>
+					<select
+						type="text"
+						id="store"
+						value={store}
+						onChange={(e) => setStore(e.target.value)}
+						className="font-semibold capitalize bg-transparent"
+					>
+						{storeOptions}
+					</select>
+				</div>
+
+				<div className="flex flex-col bg-pepper/10 p-4 rounded-2xl">
+					<label htmlFor="status" className="text-xs font-semibold">
+						Status
+					</label>
+					<select
+						id="status"
+						value={status}
+						onChange={(e) => setStatus(e.target.value)}
+						className="font-semibold capitalize bg-transparent"
+					>
+						<option value="out">Out</option>
+						<option value="low">Low</option>
+						<option value="in stock">In Stock</option>
+					</select>
+				</div>
+				<div className="flex gap-2 items-center">
+					<Checkbox
 						id="onList"
-						type="checkbox"
 						checked={onList}
 						onChange={(e) => setOnList(e.target.checked)}
 					/>
-					<label for="onList">Add to list</label>
+					<label
+						for="onList"
+						className="font-semibold capitalize bg-transparent"
+					>
+						Add to list
+					</label>
 				</div>
-				<div className="flex gap-4" onChange={(e) => setStore(e.target.value)}>
-					<input
-						type="radio"
-						value="costco"
-						name="store"
-						checked={store === "costco"}
-					/>
-					<label htmlFor="costco">Costco</label>
-
-					<input
-						type="radio"
-						value="safeway"
-						name="store"
-						checked={store === "safeway"}
-					/>
-					<label htmlFor="safeway">Safeway</label>
-
-					<input
-						type="radio"
-						value="other"
-						name="store"
-						checked={store === "other"}
-					/>
-					<label htmlFor="other">Other</label>
-				</div>
-				<button className="bg-pepper text-salt" type="submit">
-					Add Item
-				</button>
+				<Button type="submit">Create Item</Button>
 			</form>
 			{formError && <div>{formError}</div>}
 			{successMessage && <div>{successMessage}</div>}

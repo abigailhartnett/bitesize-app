@@ -162,40 +162,23 @@ const ShoppingListPage = ({ pantryItems, setPantryItems }) => {
 								<Button onClick={() => clearList()}>Clear list</Button>
 							</PopOver>
 						) : null} */}
-						{currentItem?.onList ? (
-							// && !openWarning
-							<PopOver
-								setPopoverIsOpen={setPopoverIsOpen}
+						<PopOver
+							setPopoverIsOpen={setPopoverIsOpen}
+							setEditing={setEditing}
+							editing={editing}
+						>
+							<EditPantryItem
+								currentItem={currentItem}
+								setCurrentItem={setCurrentItem}
+								pantryItems={pantryItems}
 								setEditing={setEditing}
-							>
-								<div className="my-4">
-									<span>{currentItem?.name}</span>
-									<button className="font-semibold flex gap-2">
-										<span class="material-symbols-outlined text-sm">edit</span>
-									</button>
-								</div>
-								<Button onClick={() => setEditing(true)}>Edit Item</Button>
-								<Button onClick={() => removeItemFromList(currentItem?.id)}>
-									Remove from list
-								</Button>
-							</PopOver>
-						) : null}
-						{editing ? (
-							<PopOver
+								editing={setEditing}
 								setPopoverIsOpen={setPopoverIsOpen}
-								setEditing={setEditing}
-								editing={editing}
-							>
-								<EditPantryItem
-									currentItem={currentItem}
-									setCurrentItem={setCurrentItem}
-									pantryItems={pantryItems}
-									setEditing={setEditing}
-									editing={setEditing}
-									setPopoverIsOpen={setPopoverIsOpen}
-								/>
-							</PopOver>
-						) : null}
+							/>
+							<Button onClick={() => removeItemFromList(currentItem?.id)}>
+								Remove from List
+							</Button>
+						</PopOver>
 					</>
 				)}
 				{filteredPantryItems?.length > 0 ? (

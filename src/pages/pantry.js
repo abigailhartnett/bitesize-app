@@ -100,11 +100,14 @@ const PantryPage = ({ setSort, pantryItems, setPantryItems }) => {
 						toggleButton
 					/>
 				) : (
-					<div className="text-center pt-4">
-						<div>
-							<span>Whoops! No items found 😱</span>
-							<CreatePantryItem pantryItems={pantryItems} />
+					<div className="w-2/3 mx-auto">
+						<div className="text-center">
+							<h2 className="text-center text-lg font-bold mb-4">
+								No Items Found
+							</h2>
+							<span>Try a different search term, or create a new item.</span>
 						</div>
+						<CreatePantryItem pantryItems={pantryItems} />
 					</div>
 				)}
 			</ListView>

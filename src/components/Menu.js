@@ -13,7 +13,7 @@ const Menu = () => {
 			<IconButton
 				title="Go to meal plan"
 				icon="fas fa-calendar"
-				onClick={() => navigate("/meal-plan")}
+				onClick={() => null}
 				className={`${currentPage === "/meal-plan" ? "text-mustard" : ""}`}
 				size="xl"
 			/>

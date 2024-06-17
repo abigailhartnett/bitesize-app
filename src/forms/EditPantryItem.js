@@ -86,12 +86,9 @@ const EditPantryItem = ({
 	};
 
 	return (
-		<div className="px-4">
-			<h2 className="text-center text-lg font-bold my-8">Edit Item</h2>
-			<form
-				onSubmit={handleSubmit}
-				className="flex flex-col gap-4 w-full max-w-md mx-auto my-8"
-			>
+		<div>
+			<h2 className="text-center text-lg font-bold my-4">Edit Item</h2>
+			<form onSubmit={handleSubmit} className="flex flex-col gap-4 w-full my-8">
 				<IconButton
 					icon="fa-check"
 					type="submit"
