@@ -68,7 +68,7 @@ const StatusButton = ({ pantryItems, setPantryItems, item }) => {
 			icon={icon}
 			onClick={() => toggleStatus(item.id)}
 			className={statusColor}
-			style={item.status === "out" ? "fa-regular" : "fa-solid"}
+			faStyle={item.status === "out" ? "fa-regular" : "fa-solid"}
 			size="xl"
 		/>
 	);
