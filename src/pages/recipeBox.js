@@ -35,7 +35,7 @@ const RecipeBoxPage = ({ recipes }) => {
 			<ListView>
 				{filteredRecipes.length > 0 ? (
 					filteredRecipes.map((item) => (
-						<RecipeItem item={item} slug={item.slug} />
+						<RecipeItem item={item} slug={item.slug} recipes={recipes} />
 					))
 				) : (
 					<div className="text-center pt-4">

@@ -14,7 +14,6 @@ import CreateRecipePage from "./pages/createRecipePage";
 import ListPage from "./components/pages/list-page/ListPage";
 import ShoppingListPage from "./pages/shoppingList";
 import MealPlanPage from "./pages/mealPlan";
-import CookRecipePage from "./pages/cookrecipe";
 
 function App() {
 	//Supabase
@@ -90,7 +89,7 @@ function App() {
 							/>
 						}
 					/>
-					<Route
+					{/* <Route
 						path="/cook-recipe/:slug"
 						element={
 							<CookRecipePage
@@ -99,7 +98,7 @@ function App() {
 								setPantryItems={setPantryItems}
 							/>
 						}
-					/>
+					/> */}
 					<Route
 						path="create-recipe"
 						element={<CreateRecipePage pantryItems={pantryItems} />}

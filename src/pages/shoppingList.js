@@ -192,7 +192,7 @@ const ShoppingListPage = ({ pantryItems, setPantryItems }) => {
 						checkbox
 					/>
 				) : (
-					<div className="text-center pt-4">Woohoo! All done! 🙌🏻</div>
+					<h2 className="text-center text-lg font-bold mb-4">No Items Found</h2>
 				)}
 				{/* <Button onClick={() => triggerClearList()}>Clear list</Button> */}
 			</ListView>

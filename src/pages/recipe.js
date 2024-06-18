@@ -43,7 +43,7 @@ const RecipePage = ({ recipes, pantryItems, setPantryItems }) => {
 		setCurrentIngredient(item);
 	};
 
-	const recipe = recipes.find((recipe) => recipe.slug === slug);
+	const recipe = recipes?.find((recipe) => recipe.slug === slug);
 
 	const recipeIngredientsList = recipeIngredients?.filter(
 		(item) => item.recipe_slug === slug
@@ -142,7 +142,7 @@ const RecipePage = ({ recipes, pantryItems, setPantryItems }) => {
 
 	return (
 		<Container>
-			<TopBar pageTitle={recipe.title} />
+			<TopBar pageTitle={recipe?.title} />
 			<ListView>
 				{popoverIsOpen && (
 					<PopOver
@@ -198,7 +198,7 @@ const RecipePage = ({ recipes, pantryItems, setPantryItems }) => {
 				</div>
 				<div className="mt-4">
 					<h2 className="text-lg font-bold my-4">Instructions</h2>
-					<div>{recipe.instructions}</div>
+					<div>{recipe?.instructions}</div>
 				</div>
 			</ListView>
 			<BottomBar>

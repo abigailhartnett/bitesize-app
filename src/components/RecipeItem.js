@@ -1,45 +1,54 @@
-import React from "react";
-// import supabase from "../config/supabaseClient";
+import React, { useState } from "react";
+import supabase from "../config/supabaseClient";
+import { useParams } from "react-router-dom";
 import IconButton from "./buttons/IconButton";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-// import ReadinessCalculation from "./calculations/readinessCalculation";
 
-const RecipeItem = ({ item }) => {
-	// const [recipeIngredients, setRecipeIngredients] = useState(null);
-	// const [fetchError, setFetchError] = useState(null);
+const RecipeItem = ({ item, recipes }) => {
+	const { slug } = useParams();
 
-	// const fetchRecipes = async () => {
-	// 	const { data, error } = await supabase.from("recipeIngredients").select();
+	const [currentRecipe, setCurrentRecipe] = useState(
+		recipes?.find((recipe) => recipe.slug === slug)
+	);
 
-	// 	if (error) {
-	// 		setFetchError("Could not fetch recipe ingredients");
-	// 		setRecipeIngredients(null);
-	// 		console.log(fetchError, error);
-	// 	}
-	// 	if (data) {
-	// 		setRecipeIngredients(data);
-	// 		setFetchError(null);
-	// 	}
-	// };
+	const icon =
+		currentRecipe && currentRecipe?.status === "planned"
+			? "fa-circle-minus"
+			: "fa-circle-plus";
+
+	const togglePlanned = async () => {
+		const newStatus =
+			currentRecipe?.status === "planned" ? "not planned" : "planned";
+		setCurrentRecipe((prevItem) => ({ ...prevItem, status: newStatus }));
+
+		try {
+			await supabase
+				.from("recipes")
+				.update({ status: newStatus })
+				.eq("slug", slug);
+		} catch (error) {
+			console.error("Error adding recipe to meal plan:", error);
+			setCurrentRecipe((prevItem) => ({
+				...prevItem,
+				status: currentRecipe?.status,
+			}));
+		}
+	};
+
 	return (
-		<div className="flex py-1 justify-between">
-			<Link to={item.slug} className="flex-grow">
-				<div className="hover:bg-gray-100 active:bg-gray-500 px-4">
-					<div className="gap-4 items-center">
-						<div className="flex flex-col">
-							<h2>{item.title}</h2>
-							<span className="text-xs">
-								{/* <ReadinessCalculation id={id} /> */}
-								{item.status}
-							</span>
-						</div>
-					</div>
+		<div className={`flex items-center gap-2`}>
+			<Link to={`/recipes/${item.slug}`} className="flex-grow">
+				<div className="flex flex-col">
+					<span className="font-semibold capitalize">{item.title}</span>
+					<span className="text-xs">{item.status}</span>
 				</div>
 			</Link>
-			<div>
-				<IconButton icon={faPlus} />
-			</div>
+			<IconButton
+				onClick={() => togglePlanned()}
+				icon={icon}
+				faStyle="fa-solid"
+				size="xl"
+			/>
 		</div>
 	);
 };

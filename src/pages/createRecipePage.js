@@ -5,6 +5,7 @@ import { useLocation } from "react-router-dom";
 import { useSearch } from "../hooks/useSearch";
 import Button from "../components/buttons/Button";
 import TopBar from "../components/TopBar";
+import IconButton from "../components/buttons/IconButton";
 import ListView from "../components/ListView";
 import Container from "../components/Container";
 import PantryItemList from "../components/calculations/PantryItemList";
@@ -81,8 +82,13 @@ const CreateRecipePage = ({ pantryItems, filter }) => {
 
 	const ingredientList = ingredients.map((ingredient, index) => {
 		return (
-			<div className="flex gap-4" key={ingredient.name}>
-				{ingredient.name}
+			<div
+				className="grid grid-cols-[1fr_auto_auto] gap-4"
+				key={ingredient.name}
+			>
+				<div className="font-semibold bg-transparent capitalize my-1">
+					{ingredient.name}
+				</div>
 				<label for="amount" className="hidden">
 					Amount
 				</label>
@@ -90,7 +96,7 @@ const CreateRecipePage = ({ pantryItems, filter }) => {
 					id={`amount-${index}`}
 					type="number"
 					step="0.25"
-					className="w-20"
+					className="font-semibold bg-transparent capitalize w-16"
 					value={ingredient.amount}
 					onChange={(e) => handleAmountChange(e, index)}
 				></input>
@@ -101,6 +107,7 @@ const CreateRecipePage = ({ pantryItems, filter }) => {
 					id={`unit-${index}`}
 					value={ingredient.unit}
 					onChange={(e) => handleUnitChange(e, index)}
+					className="font-semibold bg-transparent w-16"
 				>
 					<option>g</option>
 					<option>cup</option>
@@ -146,7 +153,7 @@ const CreateRecipePage = ({ pantryItems, filter }) => {
 		const recipeIngredients = ingredients.map((ingredient) => ({
 			recipe_slug: slug,
 			recipe_name: title,
-			pantry_item_name: ingredient.name,
+			name: ingredient.name,
 			amount: ingredient.amount,
 			unit: ingredient.unit,
 		}));
@@ -174,85 +181,103 @@ const CreateRecipePage = ({ pantryItems, filter }) => {
 		<Container>
 			<TopBar pageTitle="Create a recipe"></TopBar>
 			<ListView>
-				<div className="flex justify-between">
-					<div className="flex gap-2 align-items mt-4">
-						<label for="title">Recipe Title:</label>
+				<div className="flex flex-col gap-4 w-full">
+					<div className="flex flex-col bg-pepper/10 p-4 rounded-2xl">
+						<label for="title" className="text-xs font-semibold">
+							Recipe Title
+						</label>
 						<input
 							type="text"
 							name="title"
 							value={title}
 							onChange={handleTitleChange}
+							className="font-semibold capitalize bg-transparent"
 						/>
 					</div>
 					{titleError && <div>{titleError}</div>}
-				</div>
-				<div className="flex gap-2 align-items mt-4">
-					<label for="slug">Recipe slug:</label>
-					<input
-						type="text"
-						name="slug"
-						value={slug}
-						onChange={handleSlugChange}
-					/>
-				</div>
-				{slugError && <div>{slugError}</div>}
-				<div className="flex gap-2 align-items mt-4">
-					<label for="servings">Servings</label>
-					<input
-						type="number"
-						name="servings"
-						value={servings}
-						onChange={handleServingsChange}
-					/>
-				</div>
 
-				<div className="my-4">
-					<label>Ingredients:</label>
-					<ul>
-						<div>{ingredientList}</div>
-					</ul>
-					<Button onClick={openPopover}>Add ingredients</Button>
-					{popoverIsOpen && (
-						<PopOver setPopoverIsOpen={setPopoverIsOpen}>
-							<div className="mt-4 h-52 overflow-y-auto overflow-x-visible flex-grow pb-8">
-								{filteredPantryItems.length > 0 ? (
-									<PantryItemList
-										filteredPantryItems={filteredPantryItems}
-										addToRecipe={addToRecipe}
-										currentPage={currentPage}
-									/>
-								) : (
-									<div className="text-center pt-4">
-										<div>
-											<span>Whoops! No items found 😱</span>
-											<CreatePantryItem />
+					<div className="flex flex-col bg-pepper/10 p-4 rounded-2xl">
+						<label for="slug" className="text-xs font-semibold">
+							Recipe slug
+						</label>
+						<input
+							type="text"
+							name="slug"
+							value={slug}
+							onChange={handleSlugChange}
+							className="font-semibold lowercase bg-transparent"
+						/>
+					</div>
+					{slugError && <div>{slugError}</div>}
+					<div className="flex flex-col bg-pepper/10 p-4 rounded-2xl">
+						<label for="servings" className="text-xs font-semibold">
+							Servings
+						</label>
+						<input
+							type="number"
+							name="servings"
+							value={servings}
+							onChange={handleServingsChange}
+							className="font-semibold lowercase bg-transparent"
+						/>
+					</div>
+
+					<div className="flex flex-col gap-2">
+						<label className="text-xs font-semibold">Ingredients</label>
+						<ul className="mb-4">
+							<div>{ingredientList}</div>
+						</ul>
+						<IconButton
+							onClick={openPopover}
+							icon="fa-add"
+							faStyle="fa-solid"
+							size="lg"
+							className="bg-pepper/10 self-end"
+						/>
+						{popoverIsOpen && (
+							<PopOver setPopoverIsOpen={setPopoverIsOpen}>
+								<div className="mt-4 h-3/4 overflow-y-auto overflow-x-visible">
+									{filteredPantryItems.length > 0 ? (
+										<PantryItemList
+											filteredPantryItems={filteredPantryItems}
+											addToRecipe={addToRecipe}
+											currentPage={currentPage}
+										/>
+									) : (
+										<div className="text-center pt-4">
+											<div>
+												<span>Whoops! No items found 😱</span>
+												<CreatePantryItem />
+											</div>
 										</div>
-									</div>
-								)}
-							</div>
-							<SearchBar
-								id={"searchInput"}
-								placeholder={"Search pantry..."}
-								pantryItems={pantryItems}
-								setSearchQuery={setSearchQuery}
-							/>
-						</PopOver>
-					)}
+									)}
+								</div>
+								<SearchBar
+									id={"searchInput"}
+									placeholder={"Search pantry..."}
+									pantryItems={pantryItems}
+									setSearchQuery={setSearchQuery}
+								/>
+							</PopOver>
+						)}
+					</div>
+					<div className="flex flex-col gap-2">
+						<label for="instructions" className="text-xs font-semibold">
+							Instructions
+						</label>
+						<textarea
+							id="instructions"
+							className="border border-solid border-pepper/10 h-72 rounded-2xl p-4"
+							placeholder="Write recipe instructions here..."
+							value={instructions}
+							onChange={handleInstructionsChange}
+						></textarea>
+					</div>
+					<Button type={"submit"} onClick={submitRecipe}>
+						Submit
+					</Button>
+					{formError}
 				</div>
-				<div className="flex flex-col gap-2">
-					<label for="instructions">Instructions:</label>
-					<textarea
-						id="instructions"
-						className="border-2 border-solid border-pepper h-72"
-						placeholder="Write recipe instructions here..."
-						value={instructions}
-						onChange={handleInstructionsChange}
-					></textarea>
-				</div>
-				<Button type={"submit"} onClick={submitRecipe}>
-					Submit
-				</Button>
-				{formError}
 			</ListView>
 			<BottomBar />
 		</Container>

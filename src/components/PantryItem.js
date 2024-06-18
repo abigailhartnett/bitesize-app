@@ -26,6 +26,17 @@ const PantryItem = ({
 	return (
 		<div className={`grid grid-cols-[auto_1fr_auto] items-center gap-2`}>
 			<div>
+				{currentPage === "/create-recipe" ? (
+					<IconButton
+						onClick={addToRecipe}
+						icon={recipeIcon}
+						className={item.onList && "text-pepper/50"}
+						faStyle="fa-solid"
+						size="lg"
+					/>
+				) : (
+					""
+				)}
 				{toggleButton && (
 					<IconButton
 						onClick={toggleOnList}
@@ -45,21 +56,9 @@ const PantryItem = ({
 			</div>
 
 			<div
-				className={`hover:font-medium cursor-pointer`}
-				onClick={() => openPopover(item.id)}
+				className={`hover:font-medium ${currentPage !== "/create-recipe" && "cursor-pointer"}`}
+				onClick={() => currentPage !== "/create-recipe" && openPopover(item.id)}
 			>
-				{currentPage === "/create-recipe" ? (
-					<IconButton
-						onClick={addToRecipe}
-						icon={recipeIcon}
-						className={item.onList && "text-pepper/50"}
-						faStyle="fa-solid"
-						size="lg"
-					/>
-				) : (
-					""
-				)}
-
 				{/* ITEM NAME */}
 				<div
 					className={`flex items-center gap-2 ${item.checked && item.onList ? "line-through text-pepper/50" : ""}`}
