@@ -61,8 +61,7 @@ const ShoppingListPage = ({ pantryItems, setPantryItems }) => {
 	const filteredPantryItems = pantryItems.filter(
 		(item) =>
 			item?.onList &&
-			filter?.includes(item.status) &&
-			(filter?.includes(item.store) || item.store === null) &&
+			(filter?.includes(item.status) || filter?.includes(item.store)) &&
 			filteredItems.includes(item)
 	);
 

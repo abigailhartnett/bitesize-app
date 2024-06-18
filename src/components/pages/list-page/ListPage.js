@@ -9,7 +9,6 @@ import { useFilter } from "../../../hooks/useFilter";
 const ListPage = ({
 	pantryItems,
 	setSort,
-	pageTitle,
 	children,
 	// toggleShoppingList,
 }) => {

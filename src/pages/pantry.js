@@ -46,7 +46,9 @@ const PantryPage = ({ setSort, pantryItems, setPantryItems }) => {
 
 	const filteredPantryItems = pantryItems.filter(
 		(item) =>
-			item && filter?.includes(item.status) && filteredItems.includes(item)
+			item &&
+			(filter?.includes(item.status) || filter?.includes(item.store)) &&
+			filteredItems.includes(item)
 	);
 
 	return (
