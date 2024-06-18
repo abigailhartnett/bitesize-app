@@ -6,7 +6,7 @@ const Container = ({ children }) => {
 
 	return (
 		<div
-			className="grid grid-rows-[auto_1fr_auto] px-4 fixed top-0 left-0 w-full"
+			className="grid grid-rows-[auto_1fr_auto] px-2 fixed top-0 left-0 w-full"
 			style={{
 				height: `${windowSize.height}px`,
 			}}
