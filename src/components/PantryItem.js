@@ -50,7 +50,7 @@ const PantryItem = ({
 					<Checkbox
 						onChange={onChange}
 						checked={item.checked && true}
-						label="Check off item"
+						ariaLabel="Check off item"
 					/>
 				)}
 			</div>

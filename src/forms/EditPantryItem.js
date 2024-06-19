@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import supabase from "../config/supabaseClient";
 import IconButton from "../components/buttons/IconButton";
+import Form from "../components/Form";
+import TextInput from "../components/inputs/TextInput";
+import Select from "../components/inputs/Select";
 
 const EditPantryItem = ({
 	currentItem,
 	setCurrentItem,
 	pantryItems,
-	setPantryItems,
 	setEditing,
 	editing,
 	setPopoverIsOpen,
@@ -18,23 +20,23 @@ const EditPantryItem = ({
 	const [formError, setFormError] = useState(null);
 	const [successMessage, setSuccessMessage] = useState("");
 
-	const aisleOptions = [
-		...new Set(pantryItems?.map((item) => item.aisle || "")),
-	]
-		.sort((a, b) => a.localeCompare(b))
-		.map((aisle, index) => {
-			return (
-				<option key={index} value={aisle}>
-					{aisle}
-				</option>
-			);
-		});
+	const aisles = [
+		...new Set(
+			pantryItems?.map((item) => item?.aisle?.trim().toLowerCase() || "")
+		),
+	].sort((a, b) => a.localeCompare(b));
 
-	const storeOptions = [
-		<option>costco</option>,
-		<option>safeway</option>,
-		<option>other</option>,
-	];
+	const stores = [
+		...new Set(
+			pantryItems?.map((item) => item?.store?.trim().toLowerCase() || "")
+		),
+	].sort((a, b) => a.localeCompare(b));
+
+	const statuses = [
+		...new Set(
+			pantryItems?.map((item) => item?.status?.trim().toLowerCase() || "")
+		),
+	].sort((a, b) => a.localeCompare(b));
 
 	const fetchEntries = async () => {
 		const { data, error } = await supabase
@@ -88,7 +90,11 @@ const EditPantryItem = ({
 	return (
 		<div>
 			<h2 className="text-center text-lg font-bold my-4">Edit Item</h2>
-			<form onSubmit={handleSubmit} className="flex flex-col gap-4 w-full my-8">
+			<Form
+				onSubmit={handleSubmit}
+				successMessage={successMessage}
+				formError={formError}
+			>
 				<IconButton
 					icon="fa-check"
 					type="submit"
@@ -96,68 +102,33 @@ const EditPantryItem = ({
 					size="lg"
 					className="absolute top-2 right-4 text-pepper"
 				/>
+				<TextInput
+					label="Item"
+					value={name}
+					onChange={(e) => setName(e.target.value)}
+				/>
 
-				<div className="flex flex-col bg-pepper/10 p-4 rounded-2xl">
-					<label htmlFor="item" className="text-xs font-semibold">
-						Item
-					</label>
-					<input
-						type="text"
-						id="item"
-						value={name}
-						onChange={(e) => setName(e.target.value)}
-						className="font-semibold capitalize bg-transparent"
-					/>
-				</div>
+				<Select
+					label="Aisle"
+					options={aisles}
+					value={aisle}
+					onChange={(e) => setAisle(e.target.value)}
+				/>
 
-				<div className="flex flex-col bg-pepper/10 p-4 rounded-2xl">
-					<label htmlFor="aisle" className="text-xs font-semibold">
-						Aisle
-					</label>
-					<select
-						type="text"
-						id="aisle"
-						value={aisle}
-						onChange={(e) => setAisle(e.target.value)}
-						className="font-semibold capitalize bg-transparent"
-					>
-						{aisleOptions}
-					</select>
-				</div>
+				<Select
+					label="Store"
+					options={stores}
+					value={store}
+					onChange={(e) => setStore(e.target.value)}
+				/>
 
-				<div className="flex flex-col bg-pepper/10 p-4 rounded-2xl">
-					<label htmlFor="store" className="text-xs font-semibold">
-						Store
-					</label>
-					<select
-						type="text"
-						id="store"
-						value={store}
-						onChange={(e) => setStore(e.target.value)}
-						className="font-semibold capitalize bg-transparent"
-					>
-						{storeOptions}
-					</select>
-				</div>
-
-				<div className="flex flex-col bg-pepper/10 p-4 rounded-2xl">
-					<label htmlFor="status" className="text-xs font-semibold">
-						Status
-					</label>
-					<select
-						id="status"
-						value={status}
-						onChange={(e) => setStatus(e.target.value)}
-						className="font-semibold capitalize bg-transparent"
-					>
-						<option value="out">Out</option>
-						<option value="low">Low</option>
-						<option value="in stock">In Stock</option>
-					</select>
-				</div>
-			</form>
-			{formError && <div>{formError}</div>}
-			{successMessage && <div>{successMessage}</div>}
+				<Select
+					label="Status"
+					options={statuses}
+					value={status}
+					onChange={(e) => setStatus(e.target.value)}
+				/>
+			</Form>
 		</div>
 	);
 };

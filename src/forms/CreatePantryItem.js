@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import supabase from "../config/supabaseClient";
-import Button from "../components/buttons/Button";
-import Checkbox from "../components/inputs/Checkbox";
-import Select from "../components/inputs/Select";
+import Form from "../components/Form";
 import TextInput from "../components/inputs/TextInput";
+import Select from "../components/inputs/Select";
+import Checkbox from "../components/inputs/Checkbox";
+import Button from "../components/buttons/Button";
 
 const CreatePantryItem = ({ pantryItems }) => {
 	const [name, setName] = useState("");
@@ -69,50 +70,43 @@ const CreatePantryItem = ({ pantryItems }) => {
 	};
 
 	return (
-		<div>
-			<form onSubmit={handleSubmit} className="flex flex-col gap-4 w-full my-8">
-				<TextInput
-					label="Item"
-					value={name}
-					onChange={(e) => setName(e.target.value)}
-				/>
-				<Select
-					label="Aisle"
-					options={aisles}
-					value={aisle}
-					onChange={(e) => setAisle(e.target.value)}
-				/>
-				<Select
-					label="Store"
-					options={stores}
-					value={store}
-					onChange={(e) => setStore(e.target.value)}
-				/>
-				<Select
-					label="Status"
-					options={statuses}
-					value={status}
-					onChange={(e) => setStatus(e.target.value)}
-				/>
-
-				<div className="flex gap-2 items-center">
-					<Checkbox
-						id="onList"
-						checked={onList}
-						onChange={(e) => setOnList(e.target.checked)}
-					/>
-					<label
-						for="onList"
-						className="font-semibold capitalize bg-transparent"
-					>
-						Add to list
-					</label>
-				</div>
-				<Button type="submit">Create Item</Button>
-			</form>
-			{formError && <div>{formError}</div>}
-			{successMessage && <div>{successMessage}</div>}
-		</div>
+		<Form
+			onSubmit={handleSubmit}
+			successMessage={successMessage}
+			formError={formError}
+		>
+			<TextInput
+				label="Item"
+				value={name}
+				onChange={(e) => setName(e.target.value)}
+			/>
+			<Select
+				label="Aisle"
+				options={aisles}
+				value={aisle}
+				onChange={(e) => setAisle(e.target.value)}
+			/>
+			<Select
+				label="Store"
+				options={stores}
+				value={store}
+				onChange={(e) => setStore(e.target.value)}
+			/>
+			<Select
+				label="Status"
+				options={statuses}
+				value={status}
+				onChange={(e) => setStatus(e.target.value)}
+			/>
+			<Checkbox
+				id="onList"
+				checked={onList}
+				onChange={(e) => setOnList(e.target.checked)}
+				forInput="onList"
+				label="Add to list"
+			/>
+			<Button type="submit">Create Item</Button>
+		</Form>
 	);
 };
 

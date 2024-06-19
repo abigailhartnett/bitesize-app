@@ -13,6 +13,12 @@ import SearchBar from "../components/SearchBar";
 import CreatePantryItem from "../forms/CreatePantryItem";
 import BottomBar from "../components/BottomBar";
 
+// Form
+// import Form from "../components/Form";
+import TextInput from "../components/inputs/TextInput";
+import Number from "../components/inputs/Number";
+import LongTextInput from "../components/inputs/LongTextInput";
+
 const CreateRecipePage = ({ pantryItems, filter }) => {
 	const [formError, setFormError] = useState(null);
 	const [titleError, setTitleError] = useState(null);
@@ -182,97 +188,73 @@ const CreateRecipePage = ({ pantryItems, filter }) => {
 			<TopBar pageTitle="Create a recipe"></TopBar>
 			<ListView>
 				<div className="flex flex-col gap-4 w-full">
-					<div className="flex flex-col bg-pepper/10 p-4 rounded-2xl">
-						<label for="title" className="text-xs font-semibold">
-							Recipe Title
-						</label>
-						<input
-							type="text"
-							name="title"
-							value={title}
-							onChange={handleTitleChange}
-							className="font-semibold capitalize bg-transparent"
-						/>
-					</div>
+					<TextInput
+						label="Recipe Title"
+						value={title}
+						onChange={handleTitleChange}
+						id="title"
+					/>
 					{titleError && <div>{titleError}</div>}
 
-					<div className="flex flex-col bg-pepper/10 p-4 rounded-2xl">
-						<label for="slug" className="text-xs font-semibold">
-							Recipe slug
-						</label>
-						<input
-							type="text"
-							name="slug"
-							value={slug}
-							onChange={handleSlugChange}
-							className="font-semibold lowercase bg-transparent"
-						/>
-					</div>
+					<TextInput
+						label="Recipe slug"
+						value={slug}
+						onChange={handleSlugChange}
+						id="slug"
+					/>
 					{slugError && <div>{slugError}</div>}
-					<div className="flex flex-col bg-pepper/10 p-4 rounded-2xl">
-						<label for="servings" className="text-xs font-semibold">
-							Servings
-						</label>
-						<input
-							type="number"
-							name="servings"
-							value={servings}
-							onChange={handleServingsChange}
-							className="font-semibold lowercase bg-transparent"
-						/>
-					</div>
 
-					<div className="flex flex-col gap-2">
-						<label className="text-xs font-semibold">Ingredients</label>
-						<ul className="mb-4">
-							<div>{ingredientList}</div>
-						</ul>
-						<IconButton
-							onClick={openPopover}
-							icon="fa-add"
-							faStyle="fa-solid"
-							size="lg"
-							className="bg-pepper/10 self-end"
-						/>
-						{popoverIsOpen && (
-							<PopOver setPopoverIsOpen={setPopoverIsOpen}>
-								<div className="mt-4 h-3/4 overflow-y-auto overflow-x-visible">
-									{filteredPantryItems.length > 0 ? (
-										<PantryItemList
-											filteredPantryItems={filteredPantryItems}
-											addToRecipe={addToRecipe}
-											currentPage={currentPage}
-										/>
-									) : (
-										<div className="text-center pt-4">
-											<div>
-												<span>Whoops! No items found 😱</span>
-												<CreatePantryItem />
-											</div>
+					<Number
+						label="Servings"
+						value={servings}
+						onChange={handleServingsChange}
+						name="servings"
+					/>
+
+					<label className="text-xs font-semibold">Ingredients</label>
+					<ul className="mb-4">
+						<div>{ingredientList}</div>
+					</ul>
+					<IconButton
+						onClick={openPopover}
+						icon="fa-add"
+						faStyle="fa-solid"
+						size="lg"
+						className="bg-pepper/10 self-end"
+					/>
+					{popoverIsOpen && (
+						<PopOver setPopoverIsOpen={setPopoverIsOpen}>
+							<div className="mt-4 h-3/4 overflow-y-auto overflow-x-visible">
+								{filteredPantryItems.length > 0 ? (
+									<PantryItemList
+										filteredPantryItems={filteredPantryItems}
+										addToRecipe={addToRecipe}
+										currentPage={currentPage}
+									/>
+								) : (
+									<div className="text-center pt-4">
+										<div>
+											<span>Whoops! No items found 😱</span>
+											<CreatePantryItem />
 										</div>
-									)}
-								</div>
-								<SearchBar
-									id={"searchInput"}
-									placeholder={"Search pantry..."}
-									pantryItems={pantryItems}
-									setSearchQuery={setSearchQuery}
-								/>
-							</PopOver>
-						)}
-					</div>
-					<div className="flex flex-col gap-2">
-						<label for="instructions" className="text-xs font-semibold">
-							Instructions
-						</label>
-						<textarea
-							id="instructions"
-							className="border border-solid border-pepper/10 h-72 rounded-2xl p-4"
-							placeholder="Write recipe instructions here..."
-							value={instructions}
-							onChange={handleInstructionsChange}
-						></textarea>
-					</div>
+									</div>
+								)}
+							</div>
+							<SearchBar
+								id={"searchInput"}
+								placeholder={"Search pantry..."}
+								pantryItems={pantryItems}
+								setSearchQuery={setSearchQuery}
+							/>
+						</PopOver>
+					)}
+					<LongTextInput
+						label="Instructions"
+						value={instructions}
+						onChange={handleInstructionsChange}
+						placeholder="Write recipe instructions here..."
+						id="instructions"
+					/>
 					<Button type={"submit"} onClick={submitRecipe}>
 						Submit
 					</Button>
