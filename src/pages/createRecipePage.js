@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import supabase from "../config/supabaseClient";
 import PopOver from "../components/PopOver";
 import { useLocation } from "react-router-dom";
@@ -33,6 +34,8 @@ const CreateRecipePage = ({ pantryItems }) => {
 	const location = useLocation();
 	const currentPage = location.pathname;
 	const [filteredItems, setSearchQuery] = useSearch(pantryItems, "name");
+
+	const navigate = useNavigate();
 
 	const findItemById = (id) => {
 		const item = pantryItems.find((item) => item.id === id);
@@ -177,6 +180,8 @@ const CreateRecipePage = ({ pantryItems }) => {
 		setFormError(null);
 		setTitleError(null);
 		setSlugError(null);
+
+		navigate(`/recipes/${slug}`);
 	};
 
 	return (

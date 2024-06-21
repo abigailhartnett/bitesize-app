@@ -31,7 +31,6 @@ const PantryItem = ({
 					<IconButton
 						onClick={addToRecipe}
 						icon={recipeIcon}
-						className={item.onList && "text-pepper/50"}
 						faStyle="fa-solid"
 						size="lg"
 					/>

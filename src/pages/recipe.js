@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import supabase from "../config/supabaseClient";
 import { useParams } from "react-router-dom";
-// import { useToggleOnList } from "../hooks/useToggleOnList";
-// import PantryItem from "../components/PantryItem";
 import ListView from "../components/ListView";
 import TopBar from "../components/TopBar";
 import Container from "../components/Container";
@@ -26,7 +24,11 @@ const RecipePage = ({ recipes, pantryItems, setPantryItems }) => {
 	const [popoverIsOpen, setPopoverIsOpen] = useState(false);
 	const [editing, setEditing] = useState(false);
 
-	// const toggle = useToggleOnList(pantryItems, setPantryItems);
+	const recipe = recipes?.find((recipe) => recipe.slug === slug);
+
+	const recipeIngredientsList = recipeIngredients?.filter(
+		(item) => item.recipe_slug === slug
+	);
 
 	const findIngredientByName = (name) => {
 		const item = pantryItems.find((item) => item.name === name);
@@ -48,38 +50,6 @@ const RecipePage = ({ recipes, pantryItems, setPantryItems }) => {
 		setPopoverIsOpen(true);
 		setCurrentRecipe(recipe);
 	};
-
-	const recipe = recipes?.find((recipe) => recipe.slug === slug);
-
-	const recipeIngredientsList = recipeIngredients?.filter(
-		(item) => item.recipe_slug === slug
-	);
-
-	// const checkOffItem = async (isChecked, id) => {
-	// 	// Find Item
-	// 	const item = recipeIngredients.find((item) => item.id === id);
-
-	// 	// Toggle checked property
-	// 	const updatedItem = {
-	// 		...item,
-	// 		checked: isChecked,
-	// 	};
-
-	// 	// Update the item in the state
-	// 	setRecipeIngredients((prevItems) =>
-	// 		prevItems?.map((item) => (item.id === id ? updatedItem : item))
-	// 	);
-
-	// 	// Update the item in Supabase
-	// 	const { error } = await supabase
-	// 		.from("recipeIngredients")
-	// 		.update({ checked: updatedItem.checked })
-	// 		.eq("id", id);
-
-	// 	if (error) {
-	// 		console.log(error);
-	// 	}
-	// };
 
 	useEffect(() => {
 		const fetchRecipeIngredients = async () => {
@@ -116,31 +86,6 @@ const RecipePage = ({ recipes, pantryItems, setPantryItems }) => {
 			}));
 		}
 	};
-
-	// const ingredients = recipeIngredientsList?.map((recipeIngredient, id) => {
-	// 	const pantryItem = pantryItems.find(
-	// 		(item) => item.name === recipeIngredient.name
-	// 	);
-
-	// 	if (pantryItem) {
-	// 		return (
-	// 			<PantryItem
-	// 				key={id}
-	// 				item={pantryItem}
-	// 				toggleOnList={() => toggle(pantryItem.name)}
-	// 				pantryItems={pantryItems}
-	// 				setPantryItems={setPantryItems}
-	// 				openPopover={openPopover}
-	// 				status
-	// 				checkbox
-	// 				amount={recipeIngredient.amount}
-	// 				unit={recipeIngredient.unit}
-	// 				onChange={(e) => checkOffItem(e.target.checked, recipeIngredient.id)}
-	// 			/>
-	// 		);
-	// 	}
-	// 	return null;
-	// });
 
 	if (!recipeIngredients) {
 		return <div>Loading...</div>;
