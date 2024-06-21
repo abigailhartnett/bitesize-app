@@ -134,12 +134,26 @@ const EditRecipe = ({ pantryItems, recipe, recipeIngredientsList }) => {
 		setIngredients(ingredientArray);
 	};
 
+	const removeFromRecipe = (id) => {
+		const newIngredients = ingredients.filter(
+			(ingredient) => ingredient.id !== id
+		);
+		setIngredients(newIngredients);
+	};
+
 	const ingredientList = ingredients?.map((ingredient, index) => {
 		return (
 			<div
-				className="grid grid-cols-[1fr_auto_auto] gap-4"
+				className="grid grid-cols-[auto_1fr_auto_auto] gap-4"
 				key={ingredient.name}
 			>
+				<IconButton
+					icon="fa-trash"
+					faStyle="fa-solid"
+					size="sm"
+					className="text-tomato"
+					onClick={() => removeFromRecipe(ingredient.id)}
+				/>
 				<div className="font-semibold bg-transparent capitalize my-1">
 					{ingredient.name}
 				</div>
