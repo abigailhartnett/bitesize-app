@@ -4,7 +4,7 @@ const TextButton = ({ children, onClick, type, className }) => {
 	return (
 		<button
 			onClick={onClick}
-			type={type}
+			type={type ? type : "button"}
 			className={`underline font-semibold ${className}`}
 		>
 			{children}
