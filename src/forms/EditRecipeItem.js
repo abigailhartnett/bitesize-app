@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import supabase from "../config/supabaseClient";
 import PopOver from "../components/PopOver";
 import { useLocation } from "react-router-dom";
@@ -27,10 +28,13 @@ const EditRecipe = ({ pantryItems, recipe, recipeIngredientsList }) => {
 	const [ingredients, setIngredients] = useState(recipeIngredientsList || []);
 	const [instructions, setInstructions] = useState(recipe?.instructions || "");
 	const [popoverIsOpen, setPopoverIsOpen] = useState(false);
+	const [warningIsOpen, setWarningIsOpen] = useState(false);
 
 	const location = useLocation();
 	const currentPage = location.pathname;
 	const [filteredItems, setSearchQuery] = useSearch(pantryItems, "name");
+
+	const navigate = useNavigate();
 
 	const findItemById = (id) => {
 		const item = pantryItems.find((item) => item.id === id);
@@ -141,6 +145,20 @@ const EditRecipe = ({ pantryItems, recipe, recipeIngredientsList }) => {
 		setIngredients(newIngredients);
 	};
 
+	const deleteRecipe = async (id) => {
+		const { error } = await supabase
+			.from("recipes")
+			.delete()
+			.match({ id: recipe.id });
+
+		if (error) {
+			console.error("Error deleting recipe", error);
+			return;
+		}
+
+		navigate("/recipes");
+	};
+
 	const ingredientList = ingredients?.map((ingredient, index) => {
 		return (
 			<div
@@ -249,82 +267,101 @@ const EditRecipe = ({ pantryItems, recipe, recipeIngredientsList }) => {
 	};
 
 	return (
-		<Form
-			successMessage={successMessage}
-			onSubmit={submitRecipe}
-			formError={formError}
-			formTitle={"Edit Recipe"}
-		>
-			<TextInput
-				label="Recipe Title"
-				value={title}
-				onChange={handleTitleChange}
-				id="title"
-			/>
-			{titleError && <div>{titleError}</div>}
-
-			<TextInput
-				label="Recipe slug"
-				value={slug}
-				onChange={handleSlugChange}
-				id="slug"
-			/>
-			{slugError && <div>{slugError}</div>}
-
-			<Number
-				label="Servings"
-				value={servings}
-				onChange={handleServingsChange}
-				name="servings"
-			/>
-
-			<label className="text-xs font-semibold">Ingredients</label>
-			<ul className="mb-4">
-				<div>{ingredientList}</div>
-			</ul>
-			<IconButton
-				onClick={openPopover}
-				icon="fa-add"
-				faStyle="fa-solid"
-				size="lg"
-				className="bg-pepper/10 self-end"
-			/>
-			{popoverIsOpen && (
+		<>
+			{warningIsOpen && (
 				<PopOver setPopoverIsOpen={setPopoverIsOpen}>
-					<div className="mt-4 h-3/4 overflow-y-auto overflow-x-visible">
-						{filteredPantryItems.length > 0 ? (
-							<PantryItemList
-								filteredPantryItems={filteredPantryItems}
-								addToRecipe={addToRecipe}
-								currentPage={currentPage}
-								recipeIngredient
-							/>
-						) : (
-							<div className="text-center pt-4">
-								<div>
-									<span>Whoops! No items found 😱</span>
-									<CreatePantryItem />
-								</div>
-							</div>
-						)}
+					<div className="text-center flex flex-col gap-2">
+						<div>Are you sure you want to delete this recipe?</div>
+						<Button
+							onClick={() => deleteRecipe(recipe.id)}
+							className="bg-tomato"
+						>
+							Yes
+						</Button>
+						<Button onClick={() => setWarningIsOpen(false)}>No</Button>
 					</div>
-					<SearchBar
-						id={"searchInput"}
-						placeholder={"Search pantry..."}
-						pantryItems={pantryItems}
-						setSearchQuery={setSearchQuery}
-					/>
 				</PopOver>
 			)}
-			<LongTextInput
-				label="Instructions"
-				value={instructions}
-				onChange={handleInstructionsChange}
-				placeholder="Write recipe instructions here..."
-				id="instructions"
-			/>
-			<Button type={"submit"}>Submit</Button>
-		</Form>
+			<Form
+				successMessage={successMessage}
+				onSubmit={submitRecipe}
+				formError={formError}
+				formTitle={"Edit Recipe"}
+			>
+				<TextInput
+					label="Recipe Title"
+					value={title}
+					onChange={handleTitleChange}
+					id="title"
+				/>
+				{titleError && <div>{titleError}</div>}
+
+				<TextInput
+					label="Recipe slug"
+					value={slug}
+					onChange={handleSlugChange}
+					id="slug"
+				/>
+				{slugError && <div>{slugError}</div>}
+
+				<Number
+					label="Servings"
+					value={servings}
+					onChange={handleServingsChange}
+					name="servings"
+				/>
+
+				<label className="text-xs font-semibold">Ingredients</label>
+				<ul className="mb-4">
+					<div>{ingredientList}</div>
+				</ul>
+				<IconButton
+					onClick={openPopover}
+					icon="fa-add"
+					faStyle="fa-solid"
+					size="lg"
+					className="bg-pepper/10 self-end"
+				/>
+				{popoverIsOpen && (
+					<PopOver setPopoverIsOpen={setPopoverIsOpen}>
+						<div className="mt-4 h-3/4 overflow-y-auto overflow-x-visible">
+							{filteredPantryItems.length > 0 ? (
+								<PantryItemList
+									filteredPantryItems={filteredPantryItems}
+									addToRecipe={addToRecipe}
+									currentPage={currentPage}
+									recipeIngredient
+								/>
+							) : (
+								<div className="text-center pt-4">
+									<div>
+										<span>Whoops! No items found 😱</span>
+										<CreatePantryItem />
+									</div>
+								</div>
+							)}
+						</div>
+						<SearchBar
+							id={"searchInput"}
+							placeholder={"Search pantry..."}
+							pantryItems={pantryItems}
+							setSearchQuery={setSearchQuery}
+						/>
+					</PopOver>
+				)}
+				<LongTextInput
+					label="Instructions"
+					value={instructions}
+					onChange={handleInstructionsChange}
+					placeholder="Write recipe instructions here..."
+					id="instructions"
+				/>
+				<Button type={"submit"}>Submit</Button>
+			</Form>
+			<Button className="bg-tomato" onClick={() => setWarningIsOpen(true)}>
+				Delete recipe
+			</Button>
+		</>
 	);
 };
 
