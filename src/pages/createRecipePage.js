@@ -230,6 +230,7 @@ const CreateRecipePage = ({ pantryItems, filter }) => {
 										filteredPantryItems={filteredPantryItems}
 										addToRecipe={addToRecipe}
 										currentPage={currentPage}
+										recipeIngredient
 									/>
 								) : (
 									<div className="text-center pt-4">

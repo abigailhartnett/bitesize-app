@@ -19,6 +19,7 @@ const PantryItem = ({
 	toggleButton,
 	amount,
 	unit,
+	recipeIngredient,
 }) => {
 	const recipeIcon = "fa-circle-plus";
 	const shoppingIcon = item.onList ? "fa-circle-minus" : "fa-circle-plus";
@@ -26,7 +27,7 @@ const PantryItem = ({
 	return (
 		<div className={`grid grid-cols-[auto_1fr_auto] items-center gap-2`}>
 			<div>
-				{currentPage === "/create-recipe" ? (
+				{recipeIngredient ? (
 					<IconButton
 						onClick={addToRecipe}
 						icon={recipeIcon}

@@ -4,14 +4,10 @@ import PopOver from "../components/PopOver";
 import { useLocation } from "react-router-dom";
 import { useSearch } from "../hooks/useSearch";
 import Button from "../components/buttons/Button";
-import TopBar from "../components/TopBar";
 import IconButton from "../components/buttons/IconButton";
-import ListView from "../components/ListView";
-import Container from "../components/Container";
 import PantryItemList from "../components/calculations/PantryItemList";
 import SearchBar from "../components/SearchBar";
 import CreatePantryItem from "../forms/CreatePantryItem";
-import BottomBar from "../components/BottomBar";
 
 // Form
 import Form from "../components/Form";
@@ -50,10 +46,21 @@ const EditRecipe = ({ pantryItems, recipe, recipeIngredientsList }) => {
 	);
 
 	const detectIngredientChanges = () => {
-		const added = ingredients.filter(
+		const addedIngredients = ingredients.filter(
 			(ingredient) =>
 				!recipeIngredientsList?.some((orig) => orig.id === ingredient.id)
 		);
+
+		const added = addedIngredients.map((ingredient) => {
+			return {
+				recipe_slug: slug,
+				recipe_name: title,
+				name: ingredient.name,
+				amount: ingredient.amount,
+				unit: ingredient.unit,
+			};
+		});
+
 		const removed = recipeIngredientsList?.filter(
 			(orig) => !ingredients.some((ingredient) => ingredient.id === orig.id)
 		);
@@ -114,7 +121,16 @@ const EditRecipe = ({ pantryItems, recipe, recipeIngredientsList }) => {
 
 	const addToRecipe = (id) => {
 		const item = findItemById(id);
-		const ingredientArray = [...ingredients, { ...item, amount: 0, unit: "g" }];
+		const ingredientArray = [
+			...ingredients,
+			{
+				...item,
+				amount: 0,
+				unit: "g",
+				recipe_slug: recipe.slug,
+				recipe_name: recipe.title,
+			},
+		];
 		setIngredients(ingredientArray);
 	};
 
@@ -165,7 +181,7 @@ const EditRecipe = ({ pantryItems, recipe, recipeIngredientsList }) => {
 
 		const { added, removed, updated } = detectIngredientChanges();
 
-		// Create recipe
+		// Update recipe
 		if (!title || !instructions || !slug || !servings) {
 			setFormError("Please fill out all fields");
 			return;
@@ -191,10 +207,10 @@ const EditRecipe = ({ pantryItems, recipe, recipeIngredientsList }) => {
 			setSuccessMessage(`🙌🏻 Updated ${title}`);
 		}
 
-		// Update ingredients
 		for (const ingredient of added) {
 			await supabase.from("recipeIngredients").insert([ingredient]);
 		}
+
 		for (const ingredient of removed) {
 			await supabase
 				.from("recipeIngredients")
@@ -267,6 +283,7 @@ const EditRecipe = ({ pantryItems, recipe, recipeIngredientsList }) => {
 								filteredPantryItems={filteredPantryItems}
 								addToRecipe={addToRecipe}
 								currentPage={currentPage}
+								recipeIngredient
 							/>
 						) : (
 							<div className="text-center pt-4">
