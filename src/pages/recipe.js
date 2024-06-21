@@ -12,6 +12,7 @@ import EditPantryItem from "../forms/EditPantryItem";
 import BottomBar from "../components/BottomBar";
 import IconButton from "../components/buttons/IconButton";
 import RecipeItemList from "../components/RecipeItemList";
+import EditRecipeForm from "../forms/EditRecipeItem";
 
 const RecipePage = ({ recipes, pantryItems, setPantryItems }) => {
 	const { slug } = useParams();
@@ -41,6 +42,12 @@ const RecipePage = ({ recipes, pantryItems, setPantryItems }) => {
 		setPopoverIsOpen(true);
 		const item = findIngredientByName(name);
 		setCurrentIngredient(item);
+	};
+
+	const editRecipe = (recipe) => {
+		setPopoverIsOpen(true);
+		setCurrentRecipe(recipe);
+		console.log("Recipe:", recipe);
 	};
 
 	const recipe = recipes?.find((recipe) => recipe.slug === slug);
@@ -170,6 +177,13 @@ const RecipePage = ({ recipes, pantryItems, setPantryItems }) => {
 								)}
 							</>
 						)}
+						{recipe && (
+							<EditRecipeForm
+								pantryItems={pantryItems}
+								recipe={recipe}
+								recipeIngredientsList={recipeIngredientsList}
+							/>
+						)}
 					</PopOver>
 				)}
 				<div className="flex justify-between">
@@ -200,6 +214,7 @@ const RecipePage = ({ recipes, pantryItems, setPantryItems }) => {
 					<h2 className="text-lg font-bold my-4">Instructions</h2>
 					<div>{recipe?.instructions}</div>
 				</div>
+				<Button onClick={() => editRecipe(recipe)}>Edit recipe</Button>
 			</ListView>
 			<BottomBar>
 				{currentRecipe && currentRecipe?.status === "planned" ? (
