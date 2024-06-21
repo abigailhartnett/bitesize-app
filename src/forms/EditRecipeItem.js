@@ -127,7 +127,7 @@ const EditRecipe = ({ pantryItems, recipe, recipeIngredientsList }) => {
 				<div className="font-semibold bg-transparent capitalize my-1">
 					{ingredient.name}
 				</div>
-				<label HTMLfor="amount" className="hidden">
+				<label htmlFor="amount" className="hidden">
 					Amount
 				</label>
 				<input
@@ -138,7 +138,7 @@ const EditRecipe = ({ pantryItems, recipe, recipeIngredientsList }) => {
 					value={ingredient.amount}
 					onChange={(e) => handleAmountChange(e, index)}
 				></input>
-				<label HTMLfor="unit" className="hidden">
+				<label htmlFor="unit" className="hidden">
 					Unit
 				</label>
 				<select

@@ -95,7 +95,7 @@ const CreateRecipePage = ({ pantryItems, filter }) => {
 				<div className="font-semibold bg-transparent capitalize my-1">
 					{ingredient.name}
 				</div>
-				<label for="amount" className="hidden">
+				<label htmlFor="amount" className="hidden">
 					Amount
 				</label>
 				<input
@@ -106,7 +106,7 @@ const CreateRecipePage = ({ pantryItems, filter }) => {
 					value={ingredient.amount}
 					onChange={(e) => handleAmountChange(e, index)}
 				></input>
-				<label for="unit" className="hidden">
+				<label htmlFor="unit" className="hidden">
 					Unit
 				</label>
 				<select

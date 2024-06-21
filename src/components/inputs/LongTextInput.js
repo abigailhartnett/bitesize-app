@@ -3,7 +3,7 @@ import React from "react";
 const LongTextInput = ({ label, value, onChange, placeholder, id }) => {
 	return (
 		<div className="flex flex-col gap-2">
-			<label for={id} className="text-xs font-semibold">
+			<label htmlFor={id} className="text-xs font-semibold">
 				{label}
 			</label>
 			<textarea

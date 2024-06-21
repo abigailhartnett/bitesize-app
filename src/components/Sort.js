@@ -45,7 +45,7 @@ const Sort = ({ sortType, pantryItems, setSort }) => {
 		<div className="flex pl-1">
 			{sortType === "Pantry" ? (
 				<div className="flex items-center gap-2 font-semibold">
-					<label for="sort" className="text-xs">
+					<label htmlFor="sort" className="text-xs">
 						Sort by
 					</label>
 					<select
@@ -62,7 +62,7 @@ const Sort = ({ sortType, pantryItems, setSort }) => {
 				</div>
 			) : sortType === "Recipes" ? (
 				<div className="flex items-center gap-2 font-semibold">
-					<label for="sort" className="text-xs">
+					<label htmlFor="sort" className="text-xs">
 						Sort by
 					</label>
 					<select className="flex items-center gap-4 text-sm" id="sort">

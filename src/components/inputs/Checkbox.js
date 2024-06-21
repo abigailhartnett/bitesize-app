@@ -16,7 +16,10 @@ const Checkbox = ({ id, ariaLabel, label, onChange, checked, forInput }) => {
 					className={`fas fa-check fa-sm ${checked ? "text-pepper" : "text-salt"} hidden peer-checked:block absolute pointer-events-none top-25% right-25%`}
 				></i>
 			</div>
-			<label for={forInput} className="font-semibold capitalize bg-transparent">
+			<label
+				htmlFor={forInput}
+				className="font-semibold capitalize bg-transparent"
+			>
 				{label}
 			</label>
 		</div>
