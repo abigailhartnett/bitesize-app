@@ -4,6 +4,9 @@ import IconButton from "../components/buttons/IconButton";
 import Form from "../components/Form";
 import TextInput from "../components/inputs/TextInput";
 import Select from "../components/inputs/Select";
+import Button from "../components/buttons/Button";
+import TextButton from "../components/buttons/TextButton";
+import PopOver from "../components/PopOver";
 
 const EditPantryItem = ({
 	currentItem,
@@ -19,6 +22,7 @@ const EditPantryItem = ({
 	const [store, setStore] = useState(currentItem?.store);
 	const [formError, setFormError] = useState(null);
 	const [successMessage, setSuccessMessage] = useState("");
+	const [warningIsOpen, setWarningIsOpen] = useState(false);
 
 	const aisles = [
 		...new Set(
@@ -49,6 +53,17 @@ const EditPantryItem = ({
 		} else {
 			setCurrentItem(data);
 		}
+	};
+
+	const deleteItem = async (id) => {
+		const { error } = await supabase.from("pantry").delete().match({ id: id });
+
+		if (error) {
+			console.error("Error deleting item", error);
+			return;
+		}
+		setWarningIsOpen(false);
+		setPopoverIsOpen(false);
 	};
 
 	const handleSubmit = async (e) => {
@@ -89,10 +104,25 @@ const EditPantryItem = ({
 
 	return (
 		<div>
+			{warningIsOpen && (
+				<PopOver setPopoverIsOpen={setWarningIsOpen}>
+					<div className="text-center flex flex-col gap-2">
+						<div>Are you sure you want to delete this item?</div>
+						<Button
+							onClick={() => deleteItem(currentItem?.id)}
+							className="bg-tomato"
+						>
+							Yes
+						</Button>
+						<Button onClick={() => setWarningIsOpen(false)}>No</Button>
+					</div>
+				</PopOver>
+			)}
 			<Form
 				onSubmit={handleSubmit}
 				successMessage={successMessage}
 				formError={formError}
+				formTitle="Edit Pantry Item"
 			>
 				<IconButton
 					icon="fa-check"
@@ -127,6 +157,13 @@ const EditPantryItem = ({
 					value={status}
 					onChange={(e) => setStatus(e.target.value)}
 				/>
+				<TextButton
+					type="button"
+					className="text-tomato"
+					onClick={() => setWarningIsOpen(true)}
+				>
+					Delete Pantry Item
+				</TextButton>
 			</Form>
 		</div>
 	);

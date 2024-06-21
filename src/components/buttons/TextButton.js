@@ -1,8 +1,15 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
-const TextButton = ({ text }) => {
-	return <Link className="font-semibold">{text}</Link>;
+const TextButton = ({ children, onClick, type, className }) => {
+	return (
+		<button
+			onClick={onClick}
+			type={type}
+			className={`underline font-semibold ${className}`}
+		>
+			{children}
+		</button>
+	);
 };
 
 export default TextButton;

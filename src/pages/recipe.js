@@ -181,6 +181,7 @@ const RecipePage = ({ recipes, pantryItems, setPantryItems }) => {
 								pantryItems={pantryItems}
 								recipe={recipe}
 								recipeIngredientsList={recipeIngredientsList}
+								setPopoverIsOpen={setPopoverIsOpen}
 							/>
 						)}
 					</PopOver>

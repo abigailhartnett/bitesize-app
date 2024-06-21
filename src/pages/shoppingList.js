@@ -174,7 +174,10 @@ const ShoppingListPage = ({ pantryItems, setPantryItems }) => {
 								editing={setEditing}
 								setPopoverIsOpen={setPopoverIsOpen}
 							/>
-							<Button onClick={() => removeItemFromList(currentItem?.id)}>
+							<Button
+								onClick={() => removeItemFromList(currentItem?.id)}
+								className="bg-carrot"
+							>
 								Remove from List
 							</Button>
 						</PopOver>

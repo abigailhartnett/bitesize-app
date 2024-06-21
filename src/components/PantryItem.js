@@ -58,10 +58,7 @@ const PantryItem = ({
 
 			<div
 				className={`hover:font-medium ${currentPage !== "/create-recipe" && "cursor-pointer"}`}
-				onClick={() =>
-					currentPage === "/pantry" ||
-					(currentPage === "/shopping-list" && openPopover(item.id))
-				}
+				onClick={() => !recipeIngredient && openPopover(item.id)}
 			>
 				{/* ITEM NAME */}
 				<div

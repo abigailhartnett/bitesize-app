@@ -4,6 +4,7 @@ import supabase from "../config/supabaseClient";
 import PopOver from "../components/PopOver";
 import { useLocation } from "react-router-dom";
 import { useSearch } from "../hooks/useSearch";
+import TextButton from "../components/buttons/TextButton";
 import Button from "../components/buttons/Button";
 import IconButton from "../components/buttons/IconButton";
 import PantryItemList from "../components/calculations/PantryItemList";
@@ -16,7 +17,13 @@ import TextInput from "../components/inputs/TextInput";
 import Number from "../components/inputs/Number";
 import LongTextInput from "../components/inputs/LongTextInput";
 
-const EditRecipe = ({ pantryItems, recipe, recipeIngredientsList }) => {
+const EditRecipe = ({
+	pantryItems,
+	recipe,
+	recipeIngredientsList,
+	popoverIsOpen,
+	setPopoverIsOpen,
+}) => {
 	const [successMessage, setSuccessMessage] = useState("");
 	const [formError, setFormError] = useState(null);
 	const [titleError, setTitleError] = useState(null);
@@ -27,7 +34,6 @@ const EditRecipe = ({ pantryItems, recipe, recipeIngredientsList }) => {
 	const [slug, setSlug] = useState(recipe?.slug || "");
 	const [ingredients, setIngredients] = useState(recipeIngredientsList || []);
 	const [instructions, setInstructions] = useState(recipe?.instructions || "");
-	const [popoverIsOpen, setPopoverIsOpen] = useState(false);
 	const [warningIsOpen, setWarningIsOpen] = useState(false);
 
 	const location = useLocation();
@@ -156,6 +162,8 @@ const EditRecipe = ({ pantryItems, recipe, recipeIngredientsList }) => {
 			return;
 		}
 
+		setWarningIsOpen(false);
+		setPopoverIsOpen(false);
 		navigate("/recipes");
 	};
 
@@ -269,7 +277,7 @@ const EditRecipe = ({ pantryItems, recipe, recipeIngredientsList }) => {
 	return (
 		<>
 			{warningIsOpen && (
-				<PopOver setPopoverIsOpen={setPopoverIsOpen}>
+				<PopOver setPopoverIsOpen={setWarningIsOpen}>
 					<div className="text-center flex flex-col gap-2">
 						<div>Are you sure you want to delete this recipe?</div>
 						<Button
@@ -286,7 +294,7 @@ const EditRecipe = ({ pantryItems, recipe, recipeIngredientsList }) => {
 				successMessage={successMessage}
 				onSubmit={submitRecipe}
 				formError={formError}
-				formTitle={"Edit Recipe"}
+				formTitle="Edit Recipe"
 			>
 				<TextInput
 					label="Recipe Title"
@@ -357,10 +365,13 @@ const EditRecipe = ({ pantryItems, recipe, recipeIngredientsList }) => {
 					id="instructions"
 				/>
 				<Button type={"submit"}>Submit</Button>
+				<TextButton
+					className="text-tomato"
+					onClick={() => setWarningIsOpen(true)}
+				>
+					Delete recipe
+				</TextButton>
 			</Form>
-			<Button className="bg-tomato" onClick={() => setWarningIsOpen(true)}>
-				Delete recipe
-			</Button>
 		</>
 	);
 };

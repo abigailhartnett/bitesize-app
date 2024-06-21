@@ -74,6 +74,7 @@ const CreatePantryItem = ({ pantryItems }) => {
 			onSubmit={handleSubmit}
 			successMessage={successMessage}
 			formError={formError}
+			formTitle="Create Pantry Item"
 		>
 			<TextInput
 				label="Item"

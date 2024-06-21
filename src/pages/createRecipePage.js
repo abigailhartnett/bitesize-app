@@ -19,7 +19,7 @@ import TextInput from "../components/inputs/TextInput";
 import Number from "../components/inputs/Number";
 import LongTextInput from "../components/inputs/LongTextInput";
 
-const CreateRecipePage = ({ pantryItems, filter }) => {
+const CreateRecipePage = ({ pantryItems }) => {
 	const [formError, setFormError] = useState(null);
 	const [titleError, setTitleError] = useState(null);
 	const [slugError, setSlugError] = useState(null);
