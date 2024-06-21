@@ -26,7 +26,6 @@ const CreateRecipePage = ({ pantryItems }) => {
 	// const [ingredientError, setIngredientError] = useState(null);
 	const [title, setTitle] = useState("");
 	const [servings, setServings] = useState(4);
-	const [slug, setSlug] = useState("");
 	const [ingredients, setIngredients] = useState([]);
 	const [instructions, setInstructions] = useState("");
 	const [popoverIsOpen, setPopoverIsOpen] = useState(false);
@@ -50,10 +49,6 @@ const CreateRecipePage = ({ pantryItems }) => {
 
 	const handleTitleChange = (e) => {
 		setTitle(e.target.value);
-	};
-
-	const handleSlugChange = (e) => {
-		setSlug(e.target.value);
 	};
 
 	const handleServingsChange = (e) => {
@@ -132,10 +127,12 @@ const CreateRecipePage = ({ pantryItems }) => {
 		e.preventDefault();
 
 		// Create recipe
-		if (!title || !instructions || !slug || !servings) {
+		if (!title || !instructions || !servings) {
 			setFormError("Please fill out all fields");
 			return;
 		}
+
+		const slug = title.toLowerCase().replace(/\s/g, "-");
 
 		const { error: recipeError } = await supabase
 			.from("recipes")
@@ -174,7 +171,6 @@ const CreateRecipePage = ({ pantryItems }) => {
 		}
 
 		setTitle("");
-		setSlug("");
 		setServings(4);
 		setInstructions("");
 		setIngredients([]);
@@ -195,13 +191,6 @@ const CreateRecipePage = ({ pantryItems }) => {
 						id="title"
 					/>
 					{titleError && <div>{titleError}</div>}
-
-					<TextInput
-						label="Recipe slug"
-						value={slug}
-						onChange={handleSlugChange}
-						id="slug"
-					/>
 					{slugError && <div>{slugError}</div>}
 
 					<Number
