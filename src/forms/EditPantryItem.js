@@ -89,7 +89,6 @@ const EditPantryItem = ({
 
 	return (
 		<div>
-			<h2 className="text-center text-lg font-bold my-4">Edit Item</h2>
 			<Form
 				onSubmit={handleSubmit}
 				successMessage={successMessage}

@@ -47,7 +47,6 @@ const RecipePage = ({ recipes, pantryItems, setPantryItems }) => {
 	const editRecipe = (recipe) => {
 		setPopoverIsOpen(true);
 		setCurrentRecipe(recipe);
-		console.log("Recipe:", recipe);
 	};
 
 	const recipe = recipes?.find((recipe) => recipe.slug === slug);

@@ -219,86 +219,81 @@ const EditRecipe = ({ pantryItems, recipe, recipeIngredientsList }) => {
 	};
 
 	return (
-		<Container>
-			<TopBar pageTitle="Create a recipe"></TopBar>
-			<ListView>
-				<Form
-					successMessage={successMessage}
-					onSubmit={submitRecipe}
-					formError={formError}
-				>
-					<TextInput
-						label="Recipe Title"
-						value={title}
-						onChange={handleTitleChange}
-						id="title"
-					/>
-					{titleError && <div>{titleError}</div>}
+		<Form
+			successMessage={successMessage}
+			onSubmit={submitRecipe}
+			formError={formError}
+			formTitle={"Edit Recipe"}
+		>
+			<TextInput
+				label="Recipe Title"
+				value={title}
+				onChange={handleTitleChange}
+				id="title"
+			/>
+			{titleError && <div>{titleError}</div>}
 
-					<TextInput
-						label="Recipe slug"
-						value={slug}
-						onChange={handleSlugChange}
-						id="slug"
-					/>
-					{slugError && <div>{slugError}</div>}
+			<TextInput
+				label="Recipe slug"
+				value={slug}
+				onChange={handleSlugChange}
+				id="slug"
+			/>
+			{slugError && <div>{slugError}</div>}
 
-					<Number
-						label="Servings"
-						value={servings}
-						onChange={handleServingsChange}
-						name="servings"
-					/>
+			<Number
+				label="Servings"
+				value={servings}
+				onChange={handleServingsChange}
+				name="servings"
+			/>
 
-					<label className="text-xs font-semibold">Ingredients</label>
-					<ul className="mb-4">
-						<div>{ingredientList}</div>
-					</ul>
-					<IconButton
-						onClick={openPopover}
-						icon="fa-add"
-						faStyle="fa-solid"
-						size="lg"
-						className="bg-pepper/10 self-end"
-					/>
-					{popoverIsOpen && (
-						<PopOver setPopoverIsOpen={setPopoverIsOpen}>
-							<div className="mt-4 h-3/4 overflow-y-auto overflow-x-visible">
-								{filteredPantryItems.length > 0 ? (
-									<PantryItemList
-										filteredPantryItems={filteredPantryItems}
-										addToRecipe={addToRecipe}
-										currentPage={currentPage}
-									/>
-								) : (
-									<div className="text-center pt-4">
-										<div>
-											<span>Whoops! No items found 😱</span>
-											<CreatePantryItem />
-										</div>
-									</div>
-								)}
-							</div>
-							<SearchBar
-								id={"searchInput"}
-								placeholder={"Search pantry..."}
-								pantryItems={pantryItems}
-								setSearchQuery={setSearchQuery}
+			<label className="text-xs font-semibold">Ingredients</label>
+			<ul className="mb-4">
+				<div>{ingredientList}</div>
+			</ul>
+			<IconButton
+				onClick={openPopover}
+				icon="fa-add"
+				faStyle="fa-solid"
+				size="lg"
+				className="bg-pepper/10 self-end"
+			/>
+			{popoverIsOpen && (
+				<PopOver setPopoverIsOpen={setPopoverIsOpen}>
+					<div className="mt-4 h-3/4 overflow-y-auto overflow-x-visible">
+						{filteredPantryItems.length > 0 ? (
+							<PantryItemList
+								filteredPantryItems={filteredPantryItems}
+								addToRecipe={addToRecipe}
+								currentPage={currentPage}
 							/>
-						</PopOver>
-					)}
-					<LongTextInput
-						label="Instructions"
-						value={instructions}
-						onChange={handleInstructionsChange}
-						placeholder="Write recipe instructions here..."
-						id="instructions"
+						) : (
+							<div className="text-center pt-4">
+								<div>
+									<span>Whoops! No items found 😱</span>
+									<CreatePantryItem />
+								</div>
+							</div>
+						)}
+					</div>
+					<SearchBar
+						id={"searchInput"}
+						placeholder={"Search pantry..."}
+						pantryItems={pantryItems}
+						setSearchQuery={setSearchQuery}
 					/>
-					<Button type={"submit"}>Submit</Button>
-				</Form>
-			</ListView>
-			<BottomBar />
-		</Container>
+				</PopOver>
+			)}
+			<LongTextInput
+				label="Instructions"
+				value={instructions}
+				onChange={handleInstructionsChange}
+				placeholder="Write recipe instructions here..."
+				id="instructions"
+			/>
+			<Button type={"submit"}>Submit</Button>
+		</Form>
 	);
 };
 
