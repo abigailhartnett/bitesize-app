@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import supabase from "../config/supabaseClient";
-import IconButton from "../components/buttons/IconButton";
 import Form from "../components/Form";
 import TextInput from "../components/inputs/TextInput";
 import Select from "../components/inputs/Select";
@@ -99,7 +98,6 @@ const EditPantryItem = ({
 
 		fetchEntries();
 		editing && setEditing(false);
-		setPopoverIsOpen(false);
 	};
 
 	return (
@@ -124,13 +122,6 @@ const EditPantryItem = ({
 				formError={formError}
 				formTitle="Edit Pantry Item"
 			>
-				<IconButton
-					icon="fa-check"
-					type="submit"
-					faStyle="fa-solid"
-					size="lg"
-					className="absolute top-2 right-4 text-pepper"
-				/>
 				<TextInput
 					label="Item"
 					value={name}
@@ -157,13 +148,19 @@ const EditPantryItem = ({
 					value={status}
 					onChange={(e) => setStatus(e.target.value)}
 				/>
-				<TextButton
-					type="button"
-					className="text-tomato"
-					onClick={() => setWarningIsOpen(true)}
-				>
-					Delete Pantry Item
-				</TextButton>
+				<div>
+					<i class="fa-solid fa-warning text-tomato mx-2" />{" "}
+					<TextButton
+						type="button"
+						className="text-tomato"
+						onClick={() => setWarningIsOpen(true)}
+					>
+						Delete Pantry Item
+					</TextButton>
+				</div>
+				<Button variant="primary" type="submit">
+					Done
+				</Button>
 			</Form>
 		</div>
 	);

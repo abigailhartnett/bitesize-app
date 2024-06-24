@@ -11,6 +11,8 @@ import ListView from "../components/ListView";
 import Container from "../components/Container";
 import EditPantryItem from "../forms/EditPantryItem";
 import BottomBar from "../components/BottomBar";
+import Button from "../components/buttons/Button";
+import PantryItemCard from "./PantryItemCard";
 
 const PantryPage = ({ setSort, pantryItems, setPantryItems }) => {
 	const [popoverIsOpen, setPopoverIsOpen] = useState(false);
@@ -71,22 +73,26 @@ const PantryPage = ({ setSort, pantryItems, setPantryItems }) => {
 					>
 						{currentItem && (
 							<>
-								{/* {editing ? ( */}
-								<EditPantryItem
-									currentItem={currentItem}
-									setCurrentItem={setCurrentItem}
-									pantryItems={pantryItems}
-									setPantryItems={setPantryItems}
-									setEditing={setEditing}
-									setPopoverIsOpen={setPopoverIsOpen}
-									editing={editing}
-								/>
-								{/* // ) : (
-								// 	<div className="my-4 font-semibold">
-								// 		<span className="mb-4 capitalize">{currentItem?.name}</span>
-								// 		<Button onClick={() => setEditing(true)}>Edit Item</Button>
-								// 	</div>
-								// )} */}
+								{editing ? (
+									<EditPantryItem
+										currentItem={currentItem}
+										setCurrentItem={setCurrentItem}
+										pantryItems={pantryItems}
+										setPantryItems={setPantryItems}
+										setEditing={setEditing}
+										setPopoverIsOpen={setPopoverIsOpen}
+										editing={editing}
+									/>
+								) : (
+									<PantryItemCard item={currentItem}>
+										<Button
+											onClick={() => setEditing(true)}
+											variant="secondary"
+										>
+											Edit Item
+										</Button>
+									</PantryItemCard>
+								)}
 							</>
 						)}
 					</PopOver>

@@ -1,11 +1,16 @@
 import React from "react";
 
-const Button = ({ children, onClick, type, className }) => {
+const Button = ({ children, onClick, type, className, variant }) => {
+	const buttonVariant = {
+		primary: "bg-pepper text-salt",
+		secondary: "bg-pepper/10 text-pepper",
+	};
+
 	return (
 		<button
 			onClick={onClick}
 			type={type}
-			className={`bg-pepper text-salt p-4 text-center font-semibold rounded-2xl w-full ${className}`}
+			className={`p-4 text-center font-semibold rounded-2xl w-full ${buttonVariant[variant]} ${className}`}
 		>
 			{children}
 		</button>

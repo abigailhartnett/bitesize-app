@@ -16,6 +16,7 @@ import EditPantryItem from "../forms/EditPantryItem";
 import BottomBar from "../components/BottomBar";
 import SearchBar from "../components/SearchBar";
 import IconButton from "../components/buttons/IconButton";
+import PantryItemCard from "./PantryItemCard";
 
 const ShoppingListPage = ({ pantryItems, setPantryItems }) => {
 	const [currentItem, setCurrentItem] = useState(null);
@@ -166,20 +167,28 @@ const ShoppingListPage = ({ pantryItems, setPantryItems }) => {
 							setEditing={setEditing}
 							editing={editing}
 						>
-							<EditPantryItem
-								currentItem={currentItem}
-								setCurrentItem={setCurrentItem}
-								pantryItems={pantryItems}
-								setEditing={setEditing}
-								editing={setEditing}
-								setPopoverIsOpen={setPopoverIsOpen}
-							/>
-							<Button
-								onClick={() => removeItemFromList(currentItem?.id)}
-								className="bg-carrot"
-							>
-								Remove from List
-							</Button>
+							{editing ? (
+								<EditPantryItem
+									currentItem={currentItem}
+									setCurrentItem={setCurrentItem}
+									pantryItems={pantryItems}
+									setEditing={setEditing}
+									editing={setEditing}
+									setPopoverIsOpen={setPopoverIsOpen}
+								/>
+							) : (
+								<PantryItemCard item={currentItem}>
+									<Button
+										onClick={() => removeItemFromList(currentItem?.id)}
+										variant="primary"
+									>
+										Remove from List
+									</Button>
+									<Button onClick={() => setEditing(true)} variant="secondary">
+										Edit Item
+									</Button>
+								</PantryItemCard>
+							)}
 						</PopOver>
 					</>
 				)}
