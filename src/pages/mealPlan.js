@@ -1,17 +1,13 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import SearchBar from "../components/SearchBar";
 import RecipeItem from "../components/RecipeItem";
 import { useSearch } from "../hooks/useSearch";
 import ListView from "../components/ListView";
-import IconButton from "../components/buttons/IconButton";
 import TopBar from "../components/TopBar";
 import Container from "../components/Container";
-import BottomBar from "../components/BottomBar";
 import Menu from "../components/Menu";
 
 const MealPlanPage = ({ recipes }) => {
-	const navigate = useNavigate();
 	const [filteredItems, setSearchQuery] = useSearch(recipes, "title");
 
 	const filteredRecipes = recipes.filter(
