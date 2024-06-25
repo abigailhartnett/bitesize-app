@@ -250,7 +250,12 @@ const CreateRecipePage = ({ pantryItems }) => {
 						placeholder="Write recipe instructions here..."
 						id="instructions"
 					/>
-					<Button type={"submit"} onClick={submitRecipe}>
+					<Button
+						type={"submit"}
+						onClick={submitRecipe}
+						variant="primary"
+						className="mb-4"
+					>
 						Submit
 					</Button>
 					{formError}

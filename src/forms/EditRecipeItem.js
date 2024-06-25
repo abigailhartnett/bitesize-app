@@ -129,9 +129,6 @@ const EditRecipe = ({
 
 	const openPopover = () => {
 		setPopoverIsOpen(true);
-		{
-			console.log("popoverIsOpen", popoverIsOpen);
-		}
 	};
 
 	const addToRecipe = (id) => {
@@ -369,9 +366,11 @@ const EditRecipe = ({
 					placeholder="Write recipe instructions here..."
 					id="instructions"
 				/>
-				<Button type={"submit"}>Submit</Button>
+				<Button type={"submit"} variant="primary">
+					Submit
+				</Button>
 				<TextButton
-					className="text-tomato"
+					className="text-tomato mb-8"
 					onClick={() => setWarningIsOpen(true)}
 				>
 					Delete recipe

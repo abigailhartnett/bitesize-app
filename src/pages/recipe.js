@@ -96,10 +96,11 @@ const RecipePage = ({ recipes, pantryItems, setPantryItems }) => {
 			<TopBar pageTitle={recipe?.title}>
 				{currentRecipe && currentRecipe?.status === "planned" ? (
 					<div className="flex items-center">
-						<IconButton
-							onClick={() => togglePlanned()}
-							icon="fas fa-circle-check"
-						/>
+						<IconButton onClick={() => togglePlanned()}>
+							{" "}
+							<i class="fa-solid fa-check fa-stack-1x fa-md text-broccoli"></i>
+							<i class="fa-duotone fa-circle fa-xl text-mint"></i>
+						</IconButton>
 						<span>Planned</span>
 					</div>
 				) : (
@@ -109,6 +110,7 @@ const RecipePage = ({ recipes, pantryItems, setPantryItems }) => {
 								onClick={() => togglePlanned()}
 								icon="fas fa-circle-dashed"
 								className="text-pepper/20"
+								size="lg"
 							/>
 							<span>Add to meal plan</span>
 						</div>

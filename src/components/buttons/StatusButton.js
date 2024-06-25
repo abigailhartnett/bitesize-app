@@ -7,16 +7,16 @@ const StatusButton = ({ pantryItems, setPantryItems, item }) => {
 
 	const icon =
 		item.status === "out"
-			? "fa-circle"
+			? "fa-circle-dashed"
 			: item.status === "low"
-				? "fa-circle-half-stroke"
-				: "fa-circle";
+				? "fa-duotone fa-circle-quarter-stroke"
+				: "fa-duotone fa-circle-notch";
 
 	const statusColor =
 		item.status === "out"
-			? "text-tomato"
+			? "text-pepper/20"
 			: item.status === "low"
-				? "text-mustard"
+				? "text-carrot"
 				: "text-broccoli";
 
 	const toggleStatus = async (id) => {
@@ -63,7 +63,12 @@ const StatusButton = ({ pantryItems, setPantryItems, item }) => {
 		}
 	};
 
-	return (
+	return item.status === "in stock" ? (
+		<IconButton onClick={() => toggleStatus(item.id)} className={statusColor}>
+			<i class="fas fa-circle fa-stack-1x fa-md"></i>
+			<i class="fa-duotone fa-circle-notch fa-xl"></i>
+		</IconButton>
+	) : (
 		<IconButton
 			icon={icon}
 			onClick={() => toggleStatus(item.id)}

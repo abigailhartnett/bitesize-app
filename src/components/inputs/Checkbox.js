@@ -2,7 +2,7 @@ import React from "react";
 
 const Checkbox = ({ id, ariaLabel, label, onChange, checked, forInput }) => {
 	return (
-		<div className="flex gap-2 items-center">
+		<div className="flex items-center">
 			<div className="relative p-4 h-12 w-12 flex items-center justify-center">
 				<input
 					onChange={onChange}

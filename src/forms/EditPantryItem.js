@@ -158,7 +158,7 @@ const EditPantryItem = ({
 						Delete Pantry Item
 					</TextButton>
 				</div>
-				<Button variant="primary" type="submit">
+				<Button variant="primary" type="submit" className="mb-8">
 					Done
 				</Button>
 			</Form>

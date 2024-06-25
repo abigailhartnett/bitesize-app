@@ -9,7 +9,6 @@ import IconButton from "../components/buttons/IconButton";
 import TopBar from "../components/TopBar";
 import Container from "../components/Container";
 import Filter from "../components/Filter";
-import BottomBar from "../components/BottomBar";
 import Menu from "../components/Menu";
 
 const RecipeBoxPage = ({ recipes }) => {
@@ -38,6 +37,13 @@ const RecipeBoxPage = ({ recipes }) => {
 						placeholder={"Search recipes..."}
 						setSearchQuery={setSearchQuery}
 					/>
+					<IconButton
+						icon="fa-plus"
+						onClick={() => navigate("/create-recipe")}
+						variant="secondary"
+						faStyle="fa-solid"
+						size="lg"
+					/>
 				</div>
 			</TopBar>
 			<ListView grid>
@@ -50,14 +56,6 @@ const RecipeBoxPage = ({ recipes }) => {
 						<span>Whoops! No items found 😱</span>
 					</div>
 				)}
-				<IconButton
-					icon="fa-plus"
-					onClick={() => navigate("/create-recipe")}
-					variant={"primary"}
-					className="absolute bottom-24 right-4"
-					faStyle="fa-solid"
-					size="lg"
-				/>
 			</ListView>
 			<Menu />
 		</Container>

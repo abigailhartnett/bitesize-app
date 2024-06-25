@@ -13,28 +13,28 @@ const Menu = () => {
 			<div className="flex items-center justify-between gap-1">
 				<IconButton
 					title="Go to pantry"
-					icon="fas fa-crate-apple"
+					icon={`${currentPage === "/pantry" ? "fa-solid" : "fa-regular"} fa-crate-apple`}
 					onClick={() => navigate("/pantry")}
 					className={`${currentPage === "/pantry" ? "text-pomegranate" : "text-pepper/80"}`}
 					size="xl"
 				/>
 				<IconButton
 					title="Go to shopping list"
-					icon="fas fa-square-list"
+					icon={`${currentPage === "/shopping-list" ? "fa-solid" : "fa-regular"} fa-square-list`}
 					onClick={() => navigate("/shopping-list")}
 					className={`${currentPage === "/shopping-list" ? "text-pomegranate" : "text-pepper/80"}`}
 					size="xl"
 				/>
 				<IconButton
 					title="Go to recipes"
-					icon="fas fa-hat-chef"
+					icon={`${currentPage.includes("/recipes") ? "fa-solid" : "fa-regular"} fa-hat-chef`}
 					onClick={() => navigate("/recipes")}
-					className={`${currentPage === "/recipes" ? "text-pomegranate" : "text-pepper/80"}`}
+					className={`${currentPage.includes("/recipes") ? "text-pomegranate" : "text-pepper/80"}`}
 					size="xl"
 				/>
 				<IconButton
 					title="Go to meal plan"
-					icon="fa-regular fa-calendar-lines"
+					icon={`${currentPage === "/meal-plan" ? "fa-solid" : "fa-regular"} fa-calendar-lines`}
 					onClick={() => null}
 					className={`${currentPage === "/meal-plan" ? "text-pomegranate" : "text-pepper/80"}`}
 					size="xl"

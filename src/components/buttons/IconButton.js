@@ -8,6 +8,7 @@ const IconButton = ({
 	size,
 	type,
 	variant,
+	children,
 }) => {
 	const buttonVariant = {
 		primary: "bg-pepper text-salt",
@@ -17,10 +18,14 @@ const IconButton = ({
 	return (
 		<button
 			onClick={onClick}
-			className={`cursor-pointer h-12 w-12 flex justify-center items-center active:text-salt rounded-lg px-4 ${buttonVariant[variant]} ${className}`}
+			className={`relative cursor-pointer h-12 w-12 flex justify-center items-center active:text-salt rounded-lg px-4 ${buttonVariant[variant]} ${className}`}
 			type={type ? type : "button"}
 		>
-			<i className={`${icon} ${faStyle} fa-${size}`}></i>
+			{children ? (
+				children
+			) : (
+				<i className={`${icon} ${faStyle} fa-${size}`}></i>
+			)}
 		</button>
 	);
 };
