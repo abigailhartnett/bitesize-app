@@ -23,7 +23,7 @@ const RecipeItemList = ({
 }) => {
 	const toggle = useToggleOnList(pantryItems, setPantryItems);
 
-	return recipeIngredientsList.map((recipeIngredient, id) => {
+	return recipeIngredientsList?.map((recipeIngredient) => {
 		// const pantryItem = pantryItems.find(
 		// 	(item) => item.name === recipeIngredient.name
 		// );

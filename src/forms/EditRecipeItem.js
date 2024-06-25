@@ -21,8 +21,7 @@ const EditRecipe = ({
 	pantryItems,
 	recipe,
 	recipeIngredientsList,
-	popoverIsOpen,
-	setPopoverIsOpen,
+	// setPopoverIsOpen,
 }) => {
 	const [successMessage, setSuccessMessage] = useState("");
 	const [formError, setFormError] = useState(null);
@@ -35,10 +34,13 @@ const EditRecipe = ({
 	const [ingredients, setIngredients] = useState(recipeIngredientsList || []);
 	const [instructions, setInstructions] = useState(recipe?.instructions || "");
 	const [warningIsOpen, setWarningIsOpen] = useState(false);
+	const [popoverIsOpen, setPopoverIsOpen] = useState(false);
 
 	const location = useLocation();
 	const currentPage = location.pathname;
 	const [filteredItems, setSearchQuery] = useSearch(pantryItems, "name");
+
+	console.log(popoverIsOpen);
 
 	const navigate = useNavigate();
 
@@ -127,6 +129,9 @@ const EditRecipe = ({
 
 	const openPopover = () => {
 		setPopoverIsOpen(true);
+		{
+			console.log("popoverIsOpen", popoverIsOpen);
+		}
 	};
 
 	const addToRecipe = (id) => {

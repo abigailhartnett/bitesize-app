@@ -8,6 +8,7 @@ import IconButton from "../components/buttons/IconButton";
 import TopBar from "../components/TopBar";
 import Container from "../components/Container";
 import BottomBar from "../components/BottomBar";
+import Menu from "../components/Menu";
 
 const MealPlanPage = ({ recipes }) => {
 	const navigate = useNavigate();
@@ -19,7 +20,13 @@ const MealPlanPage = ({ recipes }) => {
 
 	return (
 		<Container>
-			<TopBar pageTitle="Meal Plan" />
+			<TopBar pageTitle="Meal Plan">
+				<SearchBar
+					id={"searchInput"}
+					placeholder={"Search meal plan..."}
+					setSearchQuery={setSearchQuery}
+				/>
+			</TopBar>
 			<ListView>
 				{filteredRecipes.length > 0 ? (
 					filteredRecipes.map((item) => <RecipeItem item={item} />)
@@ -29,20 +36,8 @@ const MealPlanPage = ({ recipes }) => {
 					</div>
 				)}
 			</ListView>
-			<BottomBar>
-				<SearchBar
-					id={"searchInput"}
-					placeholder={"Search meal plan..."}
-					setSearchQuery={setSearchQuery}
-				/>
-				<IconButton
-					icon="fa-plus"
-					onClick={() => navigate("/create-recipe")}
-					className="bg-[#e9e9e9]"
-					faStyle="fa-solid"
-					size="lg"
-				/>
-			</BottomBar>
+
+			<Menu />
 		</Container>
 	);
 };

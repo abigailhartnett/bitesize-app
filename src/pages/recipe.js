@@ -11,7 +11,6 @@ import Menu from "../components/Menu";
 import IconButton from "../components/buttons/IconButton";
 import RecipeItemList from "../components/RecipeItemList";
 import EditRecipeForm from "../forms/EditRecipeItem";
-import TextButton from "../components/buttons/TextButton";
 
 const RecipePage = ({ recipes, pantryItems, setPantryItems }) => {
 	const { slug } = useParams();
@@ -183,7 +182,11 @@ const RecipePage = ({ recipes, pantryItems, setPantryItems }) => {
 					<h2 className="text-lg font-bold">Instructions</h2>
 					<div>{recipe?.instructions}</div>
 				</div>
-				<Button onClick={() => editRecipe(recipe)} variant="secondary">
+				<Button
+					onClick={() => editRecipe(recipe)}
+					variant="secondary"
+					className="mb-4"
+				>
 					Edit recipe
 				</Button>
 			</ListView>
