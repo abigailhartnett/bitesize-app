@@ -7,10 +7,11 @@ import Container from "../components/Container";
 import PopOver from "../components/PopOver";
 import Button from "../components/buttons/Button";
 import EditPantryItem from "../forms/EditPantryItem";
-import BottomBar from "../components/BottomBar";
+import Menu from "../components/Menu";
 import IconButton from "../components/buttons/IconButton";
 import RecipeItemList from "../components/RecipeItemList";
 import EditRecipeForm from "../forms/EditRecipeItem";
+import TextButton from "../components/buttons/TextButton";
 
 const RecipePage = ({ recipes, pantryItems, setPantryItems }) => {
 	const { slug } = useParams();
@@ -93,7 +94,28 @@ const RecipePage = ({ recipes, pantryItems, setPantryItems }) => {
 
 	return (
 		<Container>
-			<TopBar pageTitle={recipe?.title} />
+			<TopBar pageTitle={recipe?.title}>
+				{currentRecipe && currentRecipe?.status === "planned" ? (
+					<div className="flex items-center">
+						<IconButton
+							onClick={() => togglePlanned()}
+							icon="fas fa-circle-check"
+						/>
+						<span>Planned</span>
+					</div>
+				) : (
+					currentRecipe && (
+						<div className="flex items-center">
+							<IconButton
+								onClick={() => togglePlanned()}
+								icon="fas fa-circle-dashed"
+								className="text-pepper/20"
+							/>
+							<span>Add to meal plan</span>
+						</div>
+					)
+				)}
+			</TopBar>
 			<ListView>
 				{popoverIsOpen && (
 					<PopOver
@@ -126,50 +148,46 @@ const RecipePage = ({ recipes, pantryItems, setPantryItems }) => {
 								pantryItems={pantryItems}
 								recipe={recipe}
 								recipeIngredientsList={recipeIngredientsList}
-								setPopoverIsOpen={setPopoverIsOpen}
+								// setPopoverIsOpen={setPopoverIsOpen}
 							/>
 						)}
 					</PopOver>
 				)}
-				<div className="flex justify-between">
-					<h2 className="text-lg font-bold my-4">Ingredients</h2>
-					<IconButton
-						icon={ingredientsOpen ? "fa-chevron-up" : "fa-chevron-down"}
-						onClick={() => setIngredientsOpen(!ingredientsOpen)}
-						faStyle="fa-solid"
-						size="lg"
-					/>
-				</div>
-				<div>
-					{ingredientsOpen && (
-						<RecipeItemList
-							pantryItems={pantryItems}
-							setPantryItems={setPantryItems}
-							openPopover={openPopover}
-							recipeIngredients={recipeIngredients}
-							setRecipeIngredients={setRecipeIngredients}
-							slug={slug}
-							checkbox
-							recipeIngredientsList={recipeIngredientsList}
-							// status={currentIngredient.status}
+				<div className="my-4 bg-white border border-solid border-pepper/20 rounded-2xl px-1 py-4">
+					<div className="flex justify-between items-center">
+						<h2 className="text-lg font-bold pl-3">Ingredients</h2>
+						<IconButton
+							icon={ingredientsOpen ? "fa-chevron-up" : "fa-chevron-down"}
+							onClick={() => setIngredientsOpen(!ingredientsOpen)}
+							faStyle="fa-solid"
+							size="lg"
 						/>
-					)}
+					</div>
+					<div>
+						{ingredientsOpen && (
+							<RecipeItemList
+								pantryItems={pantryItems}
+								setPantryItems={setPantryItems}
+								openPopover={openPopover}
+								recipeIngredients={recipeIngredients}
+								setRecipeIngredients={setRecipeIngredients}
+								slug={slug}
+								checkbox
+								recipeIngredientsList={recipeIngredientsList}
+								// status={currentIngredient.status}
+							/>
+						)}
+					</div>
 				</div>
-				<div className="mt-4">
-					<h2 className="text-lg font-bold my-4">Instructions</h2>
+				<div className="my-4 bg-white border border-solid border-pepper/20 rounded-2xl p-4">
+					<h2 className="text-lg font-bold">Instructions</h2>
 					<div>{recipe?.instructions}</div>
 				</div>
-				<Button onClick={() => editRecipe(recipe)}>Edit recipe</Button>
+				<Button onClick={() => editRecipe(recipe)} variant="secondary">
+					Edit recipe
+				</Button>
 			</ListView>
-			<BottomBar>
-				{currentRecipe && currentRecipe?.status === "planned" ? (
-					<Button onClick={() => togglePlanned()}>Remove from meal plan</Button>
-				) : (
-					currentRecipe && (
-						<Button onClick={() => togglePlanned()}>Add to meal plan</Button>
-					)
-				)}
-			</BottomBar>
+			<Menu />
 		</Container>
 	);
 };

@@ -10,7 +10,7 @@ import TopBar from "../components/TopBar";
 import ListView from "../components/ListView";
 import Container from "../components/Container";
 import EditPantryItem from "../forms/EditPantryItem";
-import BottomBar from "../components/BottomBar";
+import Menu from "../components/Menu";
 import Button from "../components/buttons/Button";
 import PantryItemCard from "./PantryItemCard";
 
@@ -60,6 +60,11 @@ const PantryPage = ({ setSort, pantryItems, setPantryItems }) => {
 					filter={filter}
 					setFilter={setFilter}
 					options={["in stock", "out", "low", "safeway", "costco", "other"]}
+				/>
+				<SearchBar
+					id={"searchInput"}
+					placeholder={"Search pantry..."}
+					setSearchQuery={setSearchQuery}
 				/>
 			</TopBar>
 
@@ -119,13 +124,7 @@ const PantryPage = ({ setSort, pantryItems, setPantryItems }) => {
 					</div>
 				)}
 			</ListView>
-			<BottomBar>
-				<SearchBar
-					id={"searchInput"}
-					placeholder={"Search pantry..."}
-					setSearchQuery={setSearchQuery}
-				/>
-			</BottomBar>
+			<Menu />
 		</Container>
 	);
 };

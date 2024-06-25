@@ -25,7 +25,7 @@ const PantryItem = ({
 	const shoppingIcon = item.onList ? "fa-circle-minus" : "fa-circle-plus";
 
 	return (
-		<div className={`grid grid-cols-[auto_1fr_auto] items-center gap-2`}>
+		<div className={`grid grid-cols-[auto_1fr_auto] items-center`}>
 			<div>
 				{recipeIngredient ? (
 					<IconButton

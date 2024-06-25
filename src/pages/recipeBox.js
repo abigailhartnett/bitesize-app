@@ -10,6 +10,7 @@ import TopBar from "../components/TopBar";
 import Container from "../components/Container";
 import Filter from "../components/Filter";
 import BottomBar from "../components/BottomBar";
+import Menu from "../components/Menu";
 
 const RecipeBoxPage = ({ recipes }) => {
 	const navigate = useNavigate();
@@ -31,19 +32,6 @@ const RecipeBoxPage = ({ recipes }) => {
 					setFilter={setFilter}
 					options={["planned", "not planned"]}
 				/>
-			</TopBar>
-			<ListView>
-				{filteredRecipes.length > 0 ? (
-					filteredRecipes.map((item) => (
-						<RecipeItem item={item} slug={item.slug} recipes={recipes} />
-					))
-				) : (
-					<div className="text-center pt-4">
-						<span>Whoops! No items found 😱</span>
-					</div>
-				)}
-			</ListView>
-			<BottomBar>
 				<SearchBar
 					id={"searchInput"}
 					placeholder={"Search recipes..."}
@@ -56,7 +44,19 @@ const RecipeBoxPage = ({ recipes }) => {
 					faStyle="fa-solid"
 					size="lg"
 				/>
-			</BottomBar>
+			</TopBar>
+			<ListView>
+				{filteredRecipes.length > 0 ? (
+					filteredRecipes.map((item) => (
+						<RecipeItem item={item} slug={item.slug} recipes={recipes} />
+					))
+				) : (
+					<div className="text-center pt-4">
+						<span>Whoops! No items found 😱</span>
+					</div>
+				)}
+			</ListView>
+			<Menu />
 		</Container>
 	);
 };

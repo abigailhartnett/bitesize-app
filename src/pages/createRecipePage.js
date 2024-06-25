@@ -12,7 +12,7 @@ import Container from "../components/Container";
 import PantryItemList from "../components/calculations/PantryItemList";
 import SearchBar from "../components/SearchBar";
 import CreatePantryItem from "../forms/CreatePantryItem";
-import BottomBar from "../components/BottomBar";
+import Menu from "../components/Menu";
 
 // Form
 // import Form from "../components/Form";
@@ -256,7 +256,7 @@ const CreateRecipePage = ({ pantryItems }) => {
 					{formError}
 				</div>
 			</ListView>
-			<BottomBar />
+			<Menu />
 		</Container>
 	);
 };

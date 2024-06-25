@@ -13,10 +13,11 @@ import TopBar from "../components/TopBar";
 import ListView from "../components/ListView";
 import Container from "../components/Container";
 import EditPantryItem from "../forms/EditPantryItem";
-import BottomBar from "../components/BottomBar";
+
 import SearchBar from "../components/SearchBar";
 import IconButton from "../components/buttons/IconButton";
 import PantryItemCard from "./PantryItemCard";
+import Menu from "../components/Menu";
 
 const ShoppingListPage = ({ pantryItems, setPantryItems }) => {
 	const [currentItem, setCurrentItem] = useState(null);
@@ -146,6 +147,18 @@ const ShoppingListPage = ({ pantryItems, setPantryItems }) => {
 					setFilter={setFilter}
 					options={["in stock", "low", "out", "safeway", "costco", "other"]}
 				/>
+				<SearchBar
+					id={"searchInput"}
+					placeholder={"Search shopping list..."}
+					setSearchQuery={setSearchQuery}
+				/>
+				<IconButton
+					icon="fa-check-double"
+					onClick={() => clearCheckedItems()}
+					className="bg-[#e9e9e9]"
+					faStyle="fa-solid"
+					size="lg"
+				/>
 			</TopBar>
 			<ListView>
 				{popoverIsOpen && (
@@ -208,20 +221,7 @@ const ShoppingListPage = ({ pantryItems, setPantryItems }) => {
 				)}
 				{/* <Button onClick={() => triggerClearList()}>Clear list</Button> */}
 			</ListView>
-			<BottomBar>
-				<SearchBar
-					id={"searchInput"}
-					placeholder={"Search shopping list..."}
-					setSearchQuery={setSearchQuery}
-				/>
-				<IconButton
-					icon="fa-check-double"
-					onClick={() => clearCheckedItems()}
-					className="bg-[#e9e9e9]"
-					faStyle="fa-solid"
-					size="lg"
-				/>
-			</BottomBar>
+			<Menu />
 		</Container>
 	);
 };
