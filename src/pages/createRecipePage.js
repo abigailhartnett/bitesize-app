@@ -113,14 +113,17 @@ const CreateRecipePage = ({ pantryItems }) => {
 					onChange={(e) => handleUnitChange(e, index)}
 					className="font-semibold bg-transparent w-16"
 				>
-					<option>g</option>
-					<option>cup</option>
 					<option>tsp</option>
 					<option>tbsp</option>
+					<option>cup</option>
+					<option>g</option>
 					<option>oz</option>
+					<option>lb</option>
 					<option>whole</option>
+					<option>clove</option>
 					<option>package</option>
 					<option>can</option>
+					<option>to taste</option>
 				</select>
 			</div>
 		);
@@ -250,6 +253,7 @@ const CreateRecipePage = ({ pantryItems }) => {
 						placeholder="Write recipe instructions here..."
 						id="instructions"
 					/>
+					{formError}
 					<Button
 						type={"submit"}
 						onClick={submitRecipe}
@@ -258,7 +262,6 @@ const CreateRecipePage = ({ pantryItems }) => {
 					>
 						Submit
 					</Button>
-					{formError}
 				</div>
 			</ListView>
 			<Menu />

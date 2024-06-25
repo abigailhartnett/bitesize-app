@@ -6,7 +6,9 @@ const PantryItemRelatedRecipes = ({ item }) => {
 	return (
 		<div>
 			<h2 className="capitalize font-bold text-lg p-4">{item.name}</h2>
-			<SectionHeading icon={"hat-chef"}>Related recipes</SectionHeading>
+			<SectionHeading icon={"fa-regular fa-hat-chef"} color={"text-pepper/30"}>
+				Related recipes
+			</SectionHeading>
 			<ListView></ListView>
 		</div>
 	);

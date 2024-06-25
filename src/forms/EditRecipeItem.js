@@ -40,8 +40,6 @@ const EditRecipe = ({
 	const currentPage = location.pathname;
 	const [filteredItems, setSearchQuery] = useSearch(pantryItems, "name");
 
-	console.log(popoverIsOpen);
-
 	const navigate = useNavigate();
 
 	const findItemById = (id) => {
@@ -205,14 +203,17 @@ const EditRecipe = ({
 					onChange={(e) => handleUnitChange(e, index)}
 					className="font-semibold bg-transparent w-16"
 				>
-					<option>g</option>
-					<option>cup</option>
 					<option>tsp</option>
 					<option>tbsp</option>
+					<option>cup</option>
+					<option>g</option>
 					<option>oz</option>
+					<option>lb</option>
 					<option>whole</option>
+					<option>clove</option>
 					<option>package</option>
 					<option>can</option>
+					<option>to taste</option>
 				</select>
 			</div>
 		);
@@ -274,6 +275,7 @@ const EditRecipe = ({
 		setFormError(null);
 		setTitleError(null);
 		setSlugError(null);
+		navigate(`/recipes/${slug}`);
 	};
 
 	return (

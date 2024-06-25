@@ -63,7 +63,7 @@ const PantryItem = ({
 				<div
 					className={`flex items-center gap-2 ${item.checked && item.onList ? "line-through text-pepper/50" : ""}`}
 				>
-					<span className="font-semibold capitalize">{item.name}</span>
+					<span className="capitalize">{item.name}</span>
 					{aisle && <span className="text-xs capitalize">{item.aisle}</span>}
 					{
 						<span className="text-xs">
