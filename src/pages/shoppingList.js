@@ -147,18 +147,20 @@ const ShoppingListPage = ({ pantryItems, setPantryItems }) => {
 					setFilter={setFilter}
 					options={["in stock", "low", "out", "safeway", "costco", "other"]}
 				/>
-				<SearchBar
-					id={"searchInput"}
-					placeholder={"Search shopping list..."}
-					setSearchQuery={setSearchQuery}
-				/>
-				<IconButton
-					icon="fa-check-double"
-					onClick={() => clearCheckedItems()}
-					className="bg-[#e9e9e9]"
-					faStyle="fa-solid"
-					size="lg"
-				/>
+				<div className="flex items-center gap-2">
+					<SearchBar
+						id={"searchInput"}
+						placeholder={"Search shopping list..."}
+						setSearchQuery={setSearchQuery}
+					/>
+					<IconButton
+						icon="fa-check-double"
+						onClick={() => clearCheckedItems()}
+						className="bg-[#e9e9e9] rounded-2xl"
+						faStyle="fa-solid"
+						size="lg"
+					/>
+				</div>
 			</TopBar>
 			<ListView>
 				{popoverIsOpen && (

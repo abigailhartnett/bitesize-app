@@ -32,29 +32,32 @@ const RecipeBoxPage = ({ recipes }) => {
 					setFilter={setFilter}
 					options={["planned", "not planned"]}
 				/>
-				<SearchBar
-					id={"searchInput"}
-					placeholder={"Search recipes..."}
-					setSearchQuery={setSearchQuery}
-				/>
-				<IconButton
-					icon="fa-plus"
-					onClick={() => navigate("/create-recipe")}
-					className="bg-[#e9e9e9]"
-					faStyle="fa-solid"
-					size="lg"
-				/>
+				<div className="flex items-center gap-2">
+					<SearchBar
+						id={"searchInput"}
+						placeholder={"Search recipes..."}
+						setSearchQuery={setSearchQuery}
+					/>
+				</div>
 			</TopBar>
-			<ListView>
+			<ListView grid>
 				{filteredRecipes.length > 0 ? (
 					filteredRecipes.map((item) => (
-						<RecipeItem item={item} slug={item.slug} recipes={recipes} />
+						<RecipeItem item={item} slug={item.slug} recipes={recipes} grid />
 					))
 				) : (
 					<div className="text-center pt-4">
 						<span>Whoops! No items found 😱</span>
 					</div>
 				)}
+				<IconButton
+					icon="fa-plus"
+					onClick={() => navigate("/create-recipe")}
+					variant={"primary"}
+					className="absolute bottom-24 right-4"
+					faStyle="fa-solid"
+					size="lg"
+				/>
 			</ListView>
 			<Menu />
 		</Container>
