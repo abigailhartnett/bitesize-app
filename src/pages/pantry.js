@@ -65,6 +65,7 @@ const PantryPage = ({ setSort, pantryItems, setPantryItems }) => {
 					id={"searchInput"}
 					placeholder={"Search pantry..."}
 					setSearchQuery={setSearchQuery}
+					pantryItems={pantryItems}
 				/>
 			</TopBar>
 

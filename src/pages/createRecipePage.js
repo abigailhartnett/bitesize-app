@@ -221,7 +221,7 @@ const CreateRecipePage = ({ pantryItems }) => {
 					/>
 					{popoverIsOpen && (
 						<PopOver setPopoverIsOpen={setPopoverIsOpen}>
-							<div className="mt-4 h-3/4 overflow-y-auto overflow-x-visible">
+							<div className="h-3/4 overflow-y-auto overflow-x-visible">
 								{filteredPantryItems.length > 0 ? (
 									<PantryItemList
 										filteredPantryItems={filteredPantryItems}
@@ -232,8 +232,7 @@ const CreateRecipePage = ({ pantryItems }) => {
 								) : (
 									<div className="text-center pt-4">
 										<div>
-											<span>Whoops! No items found 😱</span>
-											<CreatePantryItem />
+											<CreatePantryItem pantryItems={pantryItems} />
 										</div>
 									</div>
 								)}

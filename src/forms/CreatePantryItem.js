@@ -106,7 +106,9 @@ const CreatePantryItem = ({ pantryItems }) => {
 				forInput="onList"
 				label="Add to list"
 			/>
-			<Button type="submit">Create Item</Button>
+			<Button type="submit" variant="primary">
+				Create Item
+			</Button>
 		</Form>
 	);
 };
