@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import supabase from "../config/supabaseClient";
 import { useParams } from "react-router-dom";
 import ListView from "../components/ListView";
@@ -13,6 +14,7 @@ import RecipeItemList from "../components/RecipeItemList";
 import EditRecipeForm from "../forms/EditRecipeItem";
 
 const RecipePage = ({ recipes, pantryItems, setPantryItems }) => {
+	const navigate = useNavigate();
 	const { slug } = useParams();
 	const [recipeIngredients, setRecipeIngredients] = useState(null);
 	const [ingredientsOpen, setIngredientsOpen] = useState(true);
@@ -98,31 +100,6 @@ const RecipePage = ({ recipes, pantryItems, setPantryItems }) => {
 			</div>
 		));
 	}, []);
-
-	const clearCheckedIngredients = async () => {
-		const checkedIngredients = recipeIngredientsList.filter(
-			(item) => item.ingredient_checked === true
-		);
-
-		checkedIngredients.forEach(async (ingredient) => {
-			const { error } = await supabase
-				.from("recipeIngredients")
-				.update({ ingredient_checked: false })
-				.eq("id", ingredient.id);
-
-			if (error) {
-				console.error("Error updating ingredient:", error);
-			}
-
-			const updatedIngredients = recipeIngredientsList.map((item) =>
-				item.id === ingredient.id
-					? { ...item, ingredient_checked: false }
-					: item
-			);
-
-			setRecipeIngredients(updatedIngredients);
-		});
-	};
 
 	if (!recipeIngredients) {
 		return <div>Loading...</div>;
@@ -227,14 +204,14 @@ const RecipePage = ({ recipes, pantryItems, setPantryItems }) => {
 					variant="secondary"
 					className="mb-4"
 				>
-					Edit recipe
+					Edit Recipe
 				</Button>
 				<Button
-					onClick={() => clearCheckedIngredients()}
+					onClick={() => navigate(`/cook-recipe/${slug}`)}
 					variant="secondary"
 					className="mb-4"
 				>
-					Clear checked ingredients
+					Cook Recipe
 				</Button>
 			</ListView>
 			<Menu />

@@ -27,9 +27,9 @@ const Menu = () => {
 				/>
 				<IconButton
 					title="Go to recipes"
-					icon={`${currentPage.includes("/recipes") ? "fa-solid" : "fa-regular"} fa-hat-chef`}
+					icon={`${currentPage.includes("recipe") ? "fa-solid" : "fa-regular"} fa-hat-chef`}
 					onClick={() => navigate("/recipes")}
-					className={`${currentPage.includes("/recipes") ? "text-pomegranate" : "text-pepper/80"}`}
+					className={`${currentPage.includes("recipe") ? "text-pomegranate" : "text-pepper/80"}`}
 					size="xl"
 				/>
 				<IconButton

@@ -18,7 +18,7 @@ const IconButton = ({
 	return (
 		<button
 			onClick={onClick}
-			className={`relative cursor-pointer h-12 w-12 flex justify-center items-center active:text-salt rounded-lg px-4 ${buttonVariant[variant]} ${className}`}
+			className={`relative cursor-pointer ${size === "md" ? "h-8 w-8 px-2" : "h-12 w-12 px-4"} flex justify-center items-center active:text-salt rounded-lg  ${buttonVariant[variant]} ${className}`}
 			type={type ? type : "button"}
 		>
 			{children ? (
