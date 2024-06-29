@@ -87,6 +87,18 @@ const RecipePage = ({ recipes, pantryItems, setPantryItems }) => {
 		}
 	};
 
+	const formattedRecipeInstructions = (instructions) => {
+		const paragraphs = instructions
+			.split("\n")
+			.filter((instruction) => instruction.trim() !== "");
+		return paragraphs.map((instruction, index) => (
+			<div key={index}>
+				<p>{instruction}</p>
+				<br />
+			</div>
+		));
+	};
+
 	if (!recipeIngredients) {
 		return <div>Loading...</div>;
 	}
@@ -175,14 +187,14 @@ const RecipePage = ({ recipes, pantryItems, setPantryItems }) => {
 								slug={slug}
 								checkbox
 								recipeIngredientsList={recipeIngredientsList}
-								// status={currentIngredient.status}
+								// status
 							/>
 						)}
 					</div>
 				</div>
 				<div className="my-4 bg-white border border-solid border-pepper/20 rounded-2xl p-4">
 					<h2 className="text-lg font-bold">Instructions</h2>
-					<div>{recipe?.instructions}</div>
+					<div>{formattedRecipeInstructions(recipe?.instructions)}</div>
 				</div>
 				<Button
 					onClick={() => editRecipe(recipe)}
