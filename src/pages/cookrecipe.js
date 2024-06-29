@@ -71,13 +71,11 @@ const CookRecipePage = ({ recipes, pantryItems, setPantryItems }) => {
 		fetchRecipeIngredients();
 	}, [fetchError, setFetchError]);
 
-	const formattedRecipeInstructions = useCallback((instructions) => {
-		const paragraphs = instructions
-			.split("\n")
-			.filter((instruction) => instruction.trim() !== "");
-		return paragraphs.map((instruction, index) => (
+	const formattedText = useCallback((text) => {
+		const paragraphs = text?.split("\n").filter((text) => text.trim() !== "");
+		return paragraphs?.map((text, index) => (
 			<div key={index}>
-				<p>{instruction}</p>
+				<p>{text}</p>
 				<br />
 			</div>
 		));
@@ -160,7 +158,7 @@ const CookRecipePage = ({ recipes, pantryItems, setPantryItems }) => {
 							onClick={() => setIngredientsOpen(!ingredientsOpen)}
 							faStyle="fa-solid"
 							size="md"
-							className={`border-2 radius-2xl border-pepper/5 ${ingredientsOpen ? "text-pepper/10" : "bg-pepper/20"}`}
+							className={`border-2 radius-2xl border-pepper/10 ${ingredientsOpen ? "text-pepper/20" : "bg-pepper/20"}`}
 						/>
 					</div>
 
@@ -168,7 +166,7 @@ const CookRecipePage = ({ recipes, pantryItems, setPantryItems }) => {
 						{ingredientsOpen && (
 							<div>
 								<div className="border-b border-solid border-pepper/20 m-4">
-									{formattedRecipeInstructions(recipe?.instructions)}
+									{formattedText(recipe?.instructions)}
 								</div>
 								<RecipeItemList
 									pantryItems={pantryItems}
@@ -187,7 +185,7 @@ const CookRecipePage = ({ recipes, pantryItems, setPantryItems }) => {
 				</div>
 				<Button
 					onClick={() => clearCheckedIngredients()}
-					variant="secondary"
+					variant="primary"
 					className="mb-4"
 				>
 					Clear checked ingredients

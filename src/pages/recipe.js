@@ -89,13 +89,11 @@ const RecipePage = ({ recipes, pantryItems, setPantryItems }) => {
 		}
 	};
 
-	const formattedRecipeInstructions = useCallback((instructions) => {
-		const paragraphs = instructions
-			.split("\n")
-			.filter((instruction) => instruction.trim() !== "");
-		return paragraphs.map((instruction, index) => (
+	const formattedText = useCallback((text) => {
+		const paragraphs = text.split("\n").filter((text) => text.trim() !== "");
+		return paragraphs.map((text, index) => (
 			<div key={index}>
-				<p>{instruction}</p>
+				<p>{text}</p>
 				<br />
 			</div>
 		));
@@ -178,7 +176,7 @@ const RecipePage = ({ recipes, pantryItems, setPantryItems }) => {
 							size="lg"
 						/>
 					</div>
-					<div>
+					<div className="ml-3">
 						{ingredientsOpen && (
 							<RecipeItemList
 								pantryItems={pantryItems}
@@ -187,7 +185,6 @@ const RecipePage = ({ recipes, pantryItems, setPantryItems }) => {
 								recipeIngredients={recipeIngredients}
 								setRecipeIngredients={setRecipeIngredients}
 								slug={slug}
-								checkbox
 								recipeIngredientsList={recipeIngredientsList}
 								status
 								ingredient
@@ -197,21 +194,25 @@ const RecipePage = ({ recipes, pantryItems, setPantryItems }) => {
 				</div>
 				<div className="my-4 bg-white border border-solid border-pepper/20 rounded-2xl p-4">
 					<h2 className="text-lg font-bold">Instructions</h2>
-					<div>{formattedRecipeInstructions(recipe?.instructions)}</div>
+					<div>{formattedText(recipe?.instructions)}</div>
 				</div>
+				<div className="my-4 bg-white border border-solid border-pepper/20 rounded-2xl p-4">
+					<h2 className="text-lg font-bold">Notes</h2>
+					<div>{formattedText(recipe?.notes)}</div>
+				</div>
+				<Button
+					onClick={() => navigate(`/cook-recipe/${slug}`)}
+					variant="primary"
+					className="mb-4"
+				>
+					Cook Recipe
+				</Button>
 				<Button
 					onClick={() => editRecipe(recipe)}
 					variant="secondary"
 					className="mb-4"
 				>
 					Edit Recipe
-				</Button>
-				<Button
-					onClick={() => navigate(`/cook-recipe/${slug}`)}
-					variant="secondary"
-					className="mb-4"
-				>
-					Cook Recipe
 				</Button>
 			</ListView>
 			<Menu />

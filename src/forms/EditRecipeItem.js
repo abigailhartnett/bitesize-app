@@ -33,6 +33,7 @@ const EditRecipe = ({
 	const [slug, setSlug] = useState(recipe?.slug || "");
 	const [ingredients, setIngredients] = useState(recipeIngredientsList || []);
 	const [instructions, setInstructions] = useState(recipe?.instructions || "");
+	const [notes, setNotes] = useState(recipe?.notes || "");
 	const [warningIsOpen, setWarningIsOpen] = useState(false);
 	const [popoverIsOpen, setPopoverIsOpen] = useState(false);
 
@@ -101,6 +102,10 @@ const EditRecipe = ({
 
 	const handleInstructionsChange = (e) => {
 		setInstructions(e.target.value);
+	};
+
+	const handleNotesChange = (e) => {
+		setNotes(e.target.value);
 	};
 
 	const handleAmountChange = (e, index) => {
@@ -232,7 +237,7 @@ const EditRecipe = ({
 
 		const { error: recipeError } = await supabase
 			.from("recipes")
-			.update([{ title, instructions, slug, servings }])
+			.update([{ title, instructions, slug, servings, notes }])
 			.eq("id", recipe.id);
 
 		if (recipeError) {
@@ -368,6 +373,13 @@ const EditRecipe = ({
 					onChange={handleInstructionsChange}
 					placeholder="Write recipe instructions here..."
 					id="instructions"
+				/>
+				<LongTextInput
+					label="Notes"
+					value={notes}
+					onChange={handleNotesChange}
+					placeholder="Write notes here..."
+					id="notes"
 				/>
 				<Button type={"submit"} variant="primary">
 					Submit
