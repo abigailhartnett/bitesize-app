@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import supabase from "../config/supabaseClient";
 import { useParams } from "react-router-dom";
 import ListView from "../components/ListView";
@@ -87,7 +87,7 @@ const RecipePage = ({ recipes, pantryItems, setPantryItems }) => {
 		}
 	};
 
-	const formattedRecipeInstructions = (instructions) => {
+	const formattedRecipeInstructions = useCallback((instructions) => {
 		const paragraphs = instructions
 			.split("\n")
 			.filter((instruction) => instruction.trim() !== "");
@@ -97,6 +97,31 @@ const RecipePage = ({ recipes, pantryItems, setPantryItems }) => {
 				<br />
 			</div>
 		));
+	}, []);
+
+	const clearCheckedIngredients = async () => {
+		const checkedIngredients = recipeIngredientsList.filter(
+			(item) => item.ingredient_checked === true
+		);
+
+		checkedIngredients.forEach(async (ingredient) => {
+			const { error } = await supabase
+				.from("recipeIngredients")
+				.update({ ingredient_checked: false })
+				.eq("id", ingredient.id);
+
+			if (error) {
+				console.error("Error updating ingredient:", error);
+			}
+
+			const updatedIngredients = recipeIngredientsList.map((item) =>
+				item.id === ingredient.id
+					? { ...item, ingredient_checked: false }
+					: item
+			);
+
+			setRecipeIngredients(updatedIngredients);
+		});
 	};
 
 	if (!recipeIngredients) {
@@ -187,7 +212,8 @@ const RecipePage = ({ recipes, pantryItems, setPantryItems }) => {
 								slug={slug}
 								checkbox
 								recipeIngredientsList={recipeIngredientsList}
-								// status
+								status
+								ingredient
 							/>
 						)}
 					</div>
@@ -202,6 +228,13 @@ const RecipePage = ({ recipes, pantryItems, setPantryItems }) => {
 					className="mb-4"
 				>
 					Edit recipe
+				</Button>
+				<Button
+					onClick={() => clearCheckedIngredients()}
+					variant="secondary"
+					className="mb-4"
+				>
+					Clear checked ingredients
 				</Button>
 			</ListView>
 			<Menu />

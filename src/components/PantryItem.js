@@ -5,6 +5,7 @@ import Checkbox from "./inputs/Checkbox";
 
 const PantryItem = ({
 	item,
+	ingredientItem,
 	onChange,
 	showShoppingList,
 	toggleOnList,
@@ -19,7 +20,7 @@ const PantryItem = ({
 	toggleButton,
 	amount,
 	unit,
-	recipeIngredient,
+	ingredient,
 }) => {
 	const recipeIcon = "fa-circle-plus";
 	const shoppingIcon = item.onList ? "fa-circle-minus" : "fa-circle-plus";
@@ -27,7 +28,7 @@ const PantryItem = ({
 	return (
 		<div className={`grid grid-cols-[auto_1fr_auto] items-center`}>
 			<div>
-				{recipeIngredient ? (
+				{toggleButton && ingredient ? (
 					<IconButton
 						onClick={addToRecipe}
 						icon={recipeIcon}
@@ -35,29 +36,36 @@ const PantryItem = ({
 						size="lg"
 					/>
 				) : (
-					""
+					toggleButton && (
+						<IconButton
+							onClick={toggleOnList}
+							icon={shoppingIcon}
+							className={`${item.onList && "text-pepper/50"}`}
+							faStyle="fa-solid"
+							size="xl"
+						/>
+					)
 				)}
-				{toggleButton && (
-					<IconButton
-						onClick={toggleOnList}
-						icon={shoppingIcon}
-						className={`${item.onList && "text-pepper/50"}`}
-						faStyle="fa-solid"
-						size="xl"
-					/>
-				)}
-				{checkbox && (
+				{checkbox && ingredient ? (
 					<Checkbox
 						onChange={onChange}
-						checked={item.checked && true}
+						checked={ingredientItem?.ingredient_checked && true}
 						ariaLabel="Check off item"
 					/>
+				) : (
+					checkbox && (
+						<Checkbox
+							onChange={onChange}
+							checked={item.checked && true}
+							ariaLabel="Check off item"
+						/>
+					)
 				)}
 			</div>
 
 			<div
 				className={`hover:font-medium ${currentPage !== "/create-recipe" && "cursor-pointer"}`}
-				onClick={() => !recipeIngredient && openPopover(item.id)}
+				onClick={() => !ingredient && openPopover(item.id)}
 			>
 				{/* ITEM NAME */}
 				<div

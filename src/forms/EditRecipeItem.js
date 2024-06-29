@@ -343,7 +343,8 @@ const EditRecipe = ({
 									filteredPantryItems={filteredPantryItems}
 									addToRecipe={addToRecipe}
 									currentPage={currentPage}
-									recipeIngredient
+									ingredient
+									toggleButton
 								/>
 							) : (
 								<div className="text-center pt-4">

@@ -16,7 +16,7 @@ const PantryItemList = ({
 	status,
 	toggleButton,
 	checkbox,
-	recipeIngredient,
+	ingredient,
 }) => {
 	const toggle = useToggleOnList(pantryItems, setPantryItems);
 
@@ -125,7 +125,7 @@ const PantryItemList = ({
 							aisle={aisle}
 							status={status}
 							toggleButton={toggleButton}
-							recipeIngredient={recipeIngredient}
+							ingredient={ingredient}
 						/>
 					))}
 				</div>
