@@ -47,7 +47,6 @@ const PantryPage = ({ pantryItems, setPantryItems }) => {
 					id={"searchInput"}
 					placeholder={"Search pantry..."}
 					setSearchQuery={setSearchQuery}
-					pantryItems={pantryItems}
 				/>
 			</TopBar>
 
@@ -61,10 +60,9 @@ const PantryPage = ({ pantryItems, setPantryItems }) => {
 										currentItem={currentItem}
 										setCurrentItem={setCurrentItem}
 										pantryItems={pantryItems}
-										setPantryItems={setPantryItems}
+										editing={editing}
 										setEditing={setEditing}
 										setPopoverIsOpen={setPopoverIsOpen}
-										editing={editing}
 									/>
 								) : (
 									<PantryItemCard item={currentItem}>
@@ -82,11 +80,10 @@ const PantryPage = ({ pantryItems, setPantryItems }) => {
 				)}
 				{filteredPantryItems.length > 0 ? (
 					<PantryItemList
-						filteredPantryItems={filteredPantryItems}
 						pantryItems={pantryItems}
 						setPantryItems={setPantryItems}
+						filteredPantryItems={filteredPantryItems}
 						openPopover={openPopover}
-						aisle
 						status
 						toggleButton
 					/>

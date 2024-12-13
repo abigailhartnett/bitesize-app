@@ -100,12 +100,11 @@ const ShoppingListPage = ({ pantryItems, setPantryItems }) => {
 				)}
 				{shoppingListItems?.length > 0 ? (
 					<PantryItemList
-						filteredPantryItems={shoppingListItems}
 						pantryItems={pantryItems}
 						setPantryItems={setPantryItems}
+						filteredPantryItems={shoppingListItems}
 						openPopover={openPopover}
 						currentPage={currentPage}
-						aisle
 						status
 						checkbox
 					/>

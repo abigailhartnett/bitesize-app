@@ -14,7 +14,6 @@ const PantryItemList = ({
 	openPopover,
 	addToRecipe,
 	currentPage,
-	aisle,
 	status,
 	toggleButton,
 	checkbox,
