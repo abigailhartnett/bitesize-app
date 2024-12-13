@@ -1,15 +1,18 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import SearchBar from "../components/SearchBar";
-import RecipeItem from "../components/RecipeItem";
-import { useSearch } from "../hooks/useSearch";
-import { useFilter } from "../hooks/useFilter";
-import ListView from "../components/ListView";
-import IconButton from "../components/buttons/IconButton";
-import TopBar from "../components/TopBar";
-import Container from "../components/Container";
-import Filter from "../components/Filter";
-import Menu from "../components/Menu";
+
+import {
+	SearchBar,
+	RecipeItem,
+	ListView,
+	IconButton,
+	TopBar,
+	Container,
+	Filter,
+	Menu,
+} from "bitesize-app/components";
+
+import { useSearch, useFilter } from "bitesize-app/hooks";
 
 const RecipeBoxPage = ({ recipes }) => {
 	const navigate = useNavigate();

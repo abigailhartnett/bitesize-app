@@ -1,11 +1,15 @@
 import React from "react";
-import SearchBar from "../components/SearchBar";
-import RecipeItem from "../components/RecipeItem";
-import { useSearch } from "../hooks/useSearch";
-import ListView from "../components/ListView";
-import TopBar from "../components/TopBar";
-import Container from "../components/Container";
-import Menu from "../components/Menu";
+
+import {
+	SearchBar,
+	RecipeItem,
+	ListView,
+	TopBar,
+	Container,
+	Menu,
+} from "bitesize-app/components";
+
+import { useSearch } from "bitesize-app/hooks";
 
 const MealPlanPage = ({ recipes }) => {
 	const [filteredItems, setSearchQuery] = useSearch(recipes, "title");

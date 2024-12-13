@@ -1,6 +1,6 @@
 import React from "react";
-import SectionHeading from "../components/SectionHeading";
-import ListView from "../components/ListView";
+
+import { SectionHeading, ListView } from "bitesize-app/components";
 
 const PantryItemRelatedRecipes = ({ item }) => {
 	return (

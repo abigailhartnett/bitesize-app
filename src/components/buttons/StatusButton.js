@@ -1,6 +1,6 @@
 import React from "react";
 import supabase from "../../config/supabaseClient";
-import IconButton from "./IconButton";
+import { IconButton } from "bitesize-app/components";
 
 const StatusButton = ({ pantryItems, setPantryItems, item }) => {
 	const statuses = ["in stock", "low", "out"];

@@ -1,16 +1,21 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import supabase from "../config/supabaseClient";
-import { useParams } from "react-router-dom";
-import ListView from "../components/ListView";
-import TopBar from "../components/TopBar";
-import Container from "../components/Container";
-import PopOver from "../components/PopOver";
-import Button from "../components/buttons/Button";
-import EditPantryItem from "../forms/EditPantryItem";
-import Menu from "../components/Menu";
-import IconButton from "../components/buttons/IconButton";
-import RecipeItemList from "../components/RecipeItemList";
+
+import {
+	ListView,
+	TopBar,
+	Container,
+	PopOver,
+	Button,
+	Menu,
+	IconButton,
+	RecipeItemList,
+} from "bitesize-app/components";
+
+import { EditPantryItem } from "bitesize-app/forms";
+
+// todo: fix this import
 import EditRecipeForm from "../forms/EditRecipeItem";
 
 const RecipePage = ({ recipes, pantryItems, setPantryItems }) => {
