@@ -1,6 +1,5 @@
 import React from "react";
 import supabase from "../config/supabaseClient";
-// import { useToggleOnList } from "../hooks/useToggleOnList";
 
 import { PantryItem } from "bitesize-app/components";
 
@@ -21,8 +20,6 @@ const RecipeItemList = ({
 	status,
 	ingredient,
 }) => {
-	// const toggle = useToggleOnList(pantryItems, setPantryItems);
-
 	return recipeIngredientsList?.map((recipeIngredient) => {
 		const pantryItem = pantryItems.find(
 			(item) => item.name === recipeIngredient.name

@@ -1,7 +1,7 @@
 import React from "react";
 import supabase from "../../config/supabaseClient";
 
-import { useToggleOnList } from "bitesize-app/hooks";
+import { useListFunctions } from "bitesize-app/hooks";
 import { SectionHeading, PantryItem } from "bitesize-app/components";
 
 import { AISLES } from "../../constants";
@@ -20,7 +20,7 @@ const PantryItemList = ({
 	checkbox,
 	ingredient,
 }) => {
-	const toggle = useToggleOnList(pantryItems, setPantryItems);
+	const { toggleOnList } = useListFunctions(pantryItems, setPantryItems);
 
 	const aisleNames = AISLES.map((aisle) => aisle.name);
 	const aisleIcons = AISLES.reduce((acc, aisle) => {
@@ -60,7 +60,7 @@ const PantryItemList = ({
 						<PantryItem
 							key={item.id}
 							item={item}
-							toggleOnList={() => toggle(item.name)}
+							toggleOnList={() => toggleOnList(item.name)}
 							addToRecipe={() => addToRecipe(item.id)}
 							checkbox={checkbox}
 							showShoppingList={showShoppingList}
