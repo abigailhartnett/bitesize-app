@@ -18,7 +18,7 @@ import {
 } from "bitesize-app/components";
 
 import { CreatePantryItem } from "bitesize-app/forms";
-import { useSearch } from "bitesize-app/hooks";
+import { useSearch, useFindItem } from "bitesize-app/hooks";
 
 const CreateRecipePage = ({ pantryItems }) => {
 	const [formError, setFormError] = useState(null);
@@ -36,15 +36,7 @@ const CreateRecipePage = ({ pantryItems }) => {
 	const [filteredItems, setSearchQuery] = useSearch(pantryItems, "name");
 
 	const navigate = useNavigate();
-
-	const findItemById = (id) => {
-		const item = pantryItems.find((item) => item.id === id);
-		if (!item) {
-			console.log(`Item with id ${id} not found`);
-			return;
-		}
-		return item;
-	};
+	const findItemById = useFindItem(pantryItems);
 
 	const filteredPantryItems = pantryItems.filter(
 		(item) => item && filteredItems?.includes(item)

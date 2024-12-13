@@ -19,6 +19,7 @@ import {
 	useSearch,
 	useFilter,
 	usePopover,
+	useFindItem,
 } from "bitesize-app/hooks";
 import { EditPantryItem } from "bitesize-app/forms";
 import PantryItemCard from "./PantryItemCard";
@@ -31,21 +32,12 @@ const ShoppingListPage = ({ pantryItems, setPantryItems }) => {
 	const [filter, setFilter] = useFilter(PANTRY_FILTER_OPTIONS);
 	const [popoverIsOpen, setPopoverIsOpen] = usePopover();
 	const [editing, setEditing] = useState(false);
-	// const [openWarning, setOpenWarning] = useState(false);
 
 	const location = useLocation();
 	const currentPage = location.pathname;
 
 	const toggle = useToggleOnList(pantryItems, setPantryItems);
-
-	const findItemById = (id) => {
-		const item = pantryItems?.find((item) => item.id === id);
-		if (!item) {
-			console.log(`Item with id ${id} not found`);
-			return;
-		}
-		return item;
-	};
+	const findItemById = useFindItem(pantryItems);
 
 	const openPopover = (id) => {
 		setPopoverIsOpen(true);
@@ -64,39 +56,6 @@ const ShoppingListPage = ({ pantryItems, setPantryItems }) => {
 			(filter?.includes(item.status) || filter?.includes(item.store)) &&
 			filteredItems.includes(item)
 	);
-
-	// const clearList = async () => {
-	// 	const itemsOnList = pantryItems?.filter((item) => item.onList);
-
-	// 	// Find Items
-	// 	for (const item of itemsOnList) {
-	// 		// Toggle the onList and status properties
-	// 		const updatedItem = { ...item, onList: false, prevStatus: item.status };
-
-	// 		// Update the item in the state
-	// 		setPantryItems((prevItems) =>
-	// 			prevItems.map((prevItem) =>
-	// 				prevItem.id === item.id ? updatedItem : prevItem
-	// 			)
-	// 		);
-
-	// 		// Update the item in Supabase
-	// 		const { error } = await supabase
-	// 			.from("pantry")
-	// 			.update({
-	// 				onList: updatedItem.onList,
-	// 				prevStatus: updatedItem.prevStatus,
-	// 			})
-	// 			.eq("id", item.id);
-
-	// 		if (error) {
-	// 			console.log(error);
-	// 		}
-	// 	}
-
-	// 	setPopoverIsOpen(false);
-	// 	setOpenWarning(false);
-	// };
 
 	const clearCheckedItems = async () => {
 		const itemsOnList = pantryItems?.filter(
@@ -131,11 +90,6 @@ const ShoppingListPage = ({ pantryItems, setPantryItems }) => {
 
 		setPopoverIsOpen(false);
 	};
-
-	// const triggerClearList = () => {
-	// 	setOpenWarning(true);
-	// 	openPopover();
-	// };
 
 	return (
 		<Container>

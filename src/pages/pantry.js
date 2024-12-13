@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useSearch, useFilter } from "bitesize-app/hooks";
+import { useSearch, useFilter, useFindItem } from "bitesize-app/hooks";
 
 import {
 	Filter,
@@ -17,23 +17,14 @@ import PantryItemCard from "./PantryItemCard";
 
 import { PANTRY_FILTER_OPTIONS } from "../constants";
 
-const PantryPage = ({ setSort, pantryItems, setPantryItems }) => {
+const PantryPage = ({ pantryItems, setPantryItems }) => {
 	const [popoverIsOpen, setPopoverIsOpen] = useState(false);
 	const [currentItem, setCurrentItem] = useState(null);
 	const [editing, setEditing] = useState(false);
-
 	const [filteredItems, setSearchQuery] = useSearch(pantryItems, "name");
-
 	const [filter, setFilter] = useFilter(PANTRY_FILTER_OPTIONS);
 
-	const findItemById = (id) => {
-		const item = pantryItems.find((item) => item.id === id);
-		if (!item) {
-			console.log(`Item with id ${id} not found`);
-			return;
-		}
-		return item;
-	};
+	const findItemById = useFindItem(pantryItems);
 
 	const openPopover = (id) => {
 		setPopoverIsOpen(true);
@@ -51,11 +42,7 @@ const PantryPage = ({ setSort, pantryItems, setPantryItems }) => {
 	return (
 		<Container>
 			<TopBar pageTitle="Pantry">
-				<Filter
-					filter={filter}
-					setFilter={setFilter}
-					options={["in stock", "out", "low", "safeway", "costco", "other"]}
-				/>
+				<Filter filter={filter} setFilter={setFilter} />
 				<SearchBar
 					id={"searchInput"}
 					placeholder={"Search pantry..."}

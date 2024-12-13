@@ -15,21 +15,15 @@ import {
 	LongTextInput,
 } from "bitesize-app/components";
 
-import { useSearch } from "bitesize-app/hooks";
+import { useSearch, useFindItem } from "bitesize-app/hooks";
 
 import { CreatePantryItem } from "bitesize-app/forms";
 
-const EditRecipe = ({
-	pantryItems,
-	recipe,
-	recipeIngredientsList,
-	// setPopoverIsOpen,
-}) => {
+const EditRecipe = ({ pantryItems, recipe, recipeIngredientsList }) => {
 	const [successMessage, setSuccessMessage] = useState("");
 	const [formError, setFormError] = useState(null);
 	const [titleError, setTitleError] = useState(null);
 	const [slugError, setSlugError] = useState(null);
-	// const [ingredientError, setIngredientError] = useState(null);
 	const [title, setTitle] = useState(recipe?.title || "");
 	const [servings, setServings] = useState(4);
 	const [slug, setSlug] = useState(recipe?.slug || "");
@@ -44,15 +38,7 @@ const EditRecipe = ({
 	const [filteredItems, setSearchQuery] = useSearch(pantryItems, "name");
 
 	const navigate = useNavigate();
-
-	const findItemById = (id) => {
-		const item = pantryItems.find((item) => item.id === id);
-		if (!item) {
-			console.log(`Item with id ${id} not found`);
-			return;
-		}
-		return item;
-	};
+	const findItemById = useFindItem(pantryItems);
 
 	const filteredPantryItems = pantryItems.filter(
 		(item) => item && filteredItems?.includes(item)
