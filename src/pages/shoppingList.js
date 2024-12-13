@@ -19,6 +19,7 @@ import {
 	useFilter,
 	usePopover,
 	useFindItem,
+	usePantryItems,
 } from "bitesize-app/hooks";
 import { EditPantryItem } from "bitesize-app/forms";
 import PantryItemCard from "./PantryItemCard";
@@ -43,11 +44,10 @@ const ShoppingListPage = ({ pantryItems, setPantryItems }) => {
 	const { popoverIsOpen, setPopoverIsOpen, openPopover, closePopover } =
 		usePopover(pantryItems, setCurrentItem);
 
-	const filteredPantryItems = pantryItems.filter(
-		(item) =>
-			item?.onList &&
-			(filter?.includes(item.status) || filter?.includes(item.store)) &&
-			filteredItems.includes(item)
+	const { shoppingListItems } = usePantryItems(
+		pantryItems,
+		filter,
+		filteredItems
 	);
 
 	return (
@@ -98,9 +98,9 @@ const ShoppingListPage = ({ pantryItems, setPantryItems }) => {
 						</PopOver>
 					</>
 				)}
-				{filteredPantryItems?.length > 0 ? (
+				{shoppingListItems?.length > 0 ? (
 					<PantryItemList
-						filteredPantryItems={filteredPantryItems}
+						filteredPantryItems={shoppingListItems}
 						pantryItems={pantryItems}
 						setPantryItems={setPantryItems}
 						openPopover={openPopover}
@@ -112,7 +112,6 @@ const ShoppingListPage = ({ pantryItems, setPantryItems }) => {
 				) : (
 					<h2 className="text-center text-lg font-bold mb-4">No Items Found</h2>
 				)}
-				{/* <Button onClick={() => triggerClearList()}>Clear list</Button> */}
 			</ListView>
 			<Menu />
 		</Container>

@@ -4,3 +4,4 @@ export { useSearch } from "./useSearch";
 export { useWindowSize } from "./useWindowSize";
 export { useFindItem } from "./useFindItem";
 export { useListFunctions } from "./useListFunctions";
+export { usePantryItems } from "./usePantryItems";

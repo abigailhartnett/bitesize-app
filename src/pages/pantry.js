@@ -4,6 +4,7 @@ import {
 	useFilter,
 	useFindItem,
 	usePopover,
+	usePantryItems,
 } from "bitesize-app/hooks";
 
 import {
@@ -32,11 +33,10 @@ const PantryPage = ({ pantryItems, setPantryItems }) => {
 	const { popoverIsOpen, setPopoverIsOpen, openPopover, closePopover } =
 		usePopover(pantryItems, setCurrentItem);
 
-	const filteredPantryItems = pantryItems.filter(
-		(item) =>
-			item &&
-			(filter?.includes(item.status) || filter?.includes(item.store)) &&
-			filteredItems.includes(item)
+	const { filteredPantryItems } = usePantryItems(
+		pantryItems,
+		filter,
+		filteredItems
 	);
 
 	return (
