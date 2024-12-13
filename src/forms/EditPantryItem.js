@@ -101,12 +101,13 @@ const EditPantryItem = ({
 
 		fetchEntries();
 		editing && setEditing(false);
+		setPopoverIsOpen(false);
 	};
 
 	return (
 		<div>
 			{warningIsOpen && (
-				<PopOver setPopoverIsOpen={setWarningIsOpen}>
+				<PopOver>
 					<div className="text-center flex flex-col gap-2">
 						<div>Are you sure you want to delete this item?</div>
 						<Button

@@ -38,7 +38,7 @@ const EditRecipe = ({ pantryItems, recipe, recipeIngredientsList }) => {
 	const [filteredItems, setSearchQuery] = useSearch(pantryItems, "name");
 
 	const navigate = useNavigate();
-	const findItemById = useFindItem(pantryItems);
+	const { findItemById } = useFindItem(pantryItems);
 
 	const filteredPantryItems = pantryItems.filter(
 		(item) => item && filteredItems?.includes(item)

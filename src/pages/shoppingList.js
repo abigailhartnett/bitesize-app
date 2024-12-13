@@ -27,23 +27,18 @@ import PantryItemCard from "./PantryItemCard";
 import { PANTRY_FILTER_OPTIONS } from "../constants";
 
 const ShoppingListPage = ({ pantryItems, setPantryItems }) => {
-	const [currentItem, setCurrentItem] = useState(null);
+	const { currentItem, setCurrentItem } = useFindItem();
 	const [filteredItems, setSearchQuery] = useSearch(pantryItems, "name");
 	const [filter, setFilter] = useFilter(PANTRY_FILTER_OPTIONS);
-	const [popoverIsOpen, setPopoverIsOpen] = usePopover();
+
 	const [editing, setEditing] = useState(false);
 
 	const location = useLocation();
 	const currentPage = location.pathname;
 
 	const toggle = useToggleOnList(pantryItems, setPantryItems);
-	const findItemById = useFindItem(pantryItems);
-
-	const openPopover = (id) => {
-		setPopoverIsOpen(true);
-		const item = findItemById(id);
-		setCurrentItem(item);
-	};
+	const { popoverIsOpen, setPopoverIsOpen, openPopover, closePopover } =
+		usePopover(pantryItems, setCurrentItem);
 
 	const removeItemFromList = () => {
 		toggle(currentItem.name);
@@ -94,11 +89,7 @@ const ShoppingListPage = ({ pantryItems, setPantryItems }) => {
 	return (
 		<Container>
 			<TopBar pageTitle="Shopping list">
-				<Filter
-					filter={filter}
-					setFilter={setFilter}
-					options={["in stock", "low", "out", "safeway", "costco", "other"]}
-				/>
+				<Filter filter={filter} setFilter={setFilter} />
 				<div className="flex items-center gap-2">
 					<SearchBar
 						id={"searchInput"}
@@ -117,23 +108,7 @@ const ShoppingListPage = ({ pantryItems, setPantryItems }) => {
 			<ListView>
 				{popoverIsOpen && (
 					<>
-						{/* {openWarning ? (
-							<PopOver
-								setPopoverIsOpen={setPopoverIsOpen}
-								setEditing={setEditing}
-							>
-								<div className="my-4">
-									Are you sure you want to clear your entire list? <br />
-									This cannot be undone.
-								</div>
-								<Button onClick={() => clearList()}>Clear list</Button>
-							</PopOver>
-						) : null} */}
-						<PopOver
-							setPopoverIsOpen={setPopoverIsOpen}
-							setEditing={setEditing}
-							editing={editing}
-						>
+						<PopOver closePopover={closePopover}>
 							{editing ? (
 								<EditPantryItem
 									currentItem={currentItem}

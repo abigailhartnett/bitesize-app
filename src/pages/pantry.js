@@ -1,5 +1,10 @@
 import React, { useState } from "react";
-import { useSearch, useFilter, useFindItem } from "bitesize-app/hooks";
+import {
+	useSearch,
+	useFilter,
+	useFindItem,
+	usePopover,
+} from "bitesize-app/hooks";
 
 import {
 	Filter,
@@ -18,19 +23,14 @@ import PantryItemCard from "./PantryItemCard";
 import { PANTRY_FILTER_OPTIONS } from "../constants";
 
 const PantryPage = ({ pantryItems, setPantryItems }) => {
-	const [popoverIsOpen, setPopoverIsOpen] = useState(false);
-	const [currentItem, setCurrentItem] = useState(null);
 	const [editing, setEditing] = useState(false);
+
+	const { currentItem, setCurrentItem } = useFindItem();
 	const [filteredItems, setSearchQuery] = useSearch(pantryItems, "name");
 	const [filter, setFilter] = useFilter(PANTRY_FILTER_OPTIONS);
 
-	const findItemById = useFindItem(pantryItems);
-
-	const openPopover = (id) => {
-		setPopoverIsOpen(true);
-		const item = findItemById(id);
-		setCurrentItem(item);
-	};
+	const { popoverIsOpen, setPopoverIsOpen, openPopover, closePopover } =
+		usePopover(pantryItems, setCurrentItem);
 
 	const filteredPantryItems = pantryItems.filter(
 		(item) =>
@@ -53,12 +53,7 @@ const PantryPage = ({ pantryItems, setPantryItems }) => {
 
 			<ListView>
 				{popoverIsOpen && (
-					<PopOver
-						setPopoverIsOpen={setPopoverIsOpen}
-						currentItem={currentItem}
-						setEditing={setEditing}
-						editing={editing}
-					>
+					<PopOver closePopover={closePopover}>
 						{currentItem && (
 							<>
 								{editing ? (
