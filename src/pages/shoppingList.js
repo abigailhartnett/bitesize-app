@@ -14,30 +14,21 @@ import {
 	IconButton,
 	Menu,
 } from "bitesize-app/components";
-
 import {
 	useToggleOnList,
 	useSearch,
 	useFilter,
 	usePopover,
 } from "bitesize-app/hooks";
-
 import { EditPantryItem } from "bitesize-app/forms";
-
 import PantryItemCard from "./PantryItemCard";
+
+import { PANTRY_FILTER_OPTIONS } from "../constants";
 
 const ShoppingListPage = ({ pantryItems, setPantryItems }) => {
 	const [currentItem, setCurrentItem] = useState(null);
 	const [filteredItems, setSearchQuery] = useSearch(pantryItems, "name");
-	const filterOptions = [
-		"in stock",
-		"out",
-		"low",
-		"safeway",
-		"costco",
-		"other",
-	];
-	const [filter, setFilter] = useFilter(filterOptions);
+	const [filter, setFilter] = useFilter(PANTRY_FILTER_OPTIONS);
 	const [popoverIsOpen, setPopoverIsOpen] = usePopover();
 	const [editing, setEditing] = useState(false);
 	// const [openWarning, setOpenWarning] = useState(false);

@@ -2,9 +2,9 @@ import React from "react";
 import supabase from "../../config/supabaseClient";
 import { IconButton } from "bitesize-app/components";
 
-const StatusButton = ({ pantryItems, setPantryItems, item }) => {
-	const statuses = ["in stock", "low", "out"];
+import { STATUSES } from "../../constants";
 
+const StatusButton = ({ pantryItems, setPantryItems, item }) => {
 	const icon =
 		item.status === "out"
 			? "fa-circle-dashed"
@@ -29,11 +29,11 @@ const StatusButton = ({ pantryItems, setPantryItems, item }) => {
 
 		// Get status index
 		const getNextStatus = (currentStatus) => {
-			const currentIndex = statuses.indexOf(currentStatus);
-			if (currentIndex === -1 || currentIndex === statuses.length - 1) {
-				return statuses[0];
+			const currentIndex = STATUSES.indexOf(currentStatus);
+			if (currentIndex === -1 || currentIndex === STATUSES.length - 1) {
+				return STATUSES[0];
 			} else {
-				return statuses[currentIndex + 1];
+				return STATUSES[currentIndex + 1];
 			}
 		};
 

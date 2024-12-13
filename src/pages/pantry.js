@@ -12,10 +12,10 @@ import {
 	Menu,
 	Button,
 } from "bitesize-app/components";
-
 import { EditPantryItem, CreatePantryItem } from "bitesize-app/forms";
-
 import PantryItemCard from "./PantryItemCard";
+
+import { PANTRY_FILTER_OPTIONS } from "../constants";
 
 const PantryPage = ({ setSort, pantryItems, setPantryItems }) => {
 	const [popoverIsOpen, setPopoverIsOpen] = useState(false);
@@ -24,15 +24,7 @@ const PantryPage = ({ setSort, pantryItems, setPantryItems }) => {
 
 	const [filteredItems, setSearchQuery] = useSearch(pantryItems, "name");
 
-	const filterOptions = [
-		"in stock",
-		"out",
-		"low",
-		"safeway",
-		"costco",
-		"other",
-	];
-	const [filter, setFilter] = useFilter(filterOptions);
+	const [filter, setFilter] = useFilter(PANTRY_FILTER_OPTIONS);
 
 	const findItemById = (id) => {
 		const item = pantryItems.find((item) => item.id === id);

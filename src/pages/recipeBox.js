@@ -14,12 +14,13 @@ import {
 
 import { useSearch, useFilter } from "bitesize-app/hooks";
 
+import { RECIPE_FILTER_OPTIONS } from "bitesize-app/constants";
+
 const RecipeBoxPage = ({ recipes }) => {
 	const navigate = useNavigate();
 	const [filteredItems, setSearchQuery] = useSearch(recipes, "title");
 
-	const filterOptions = ["planned", "not planned"];
-	const [filter, setFilter] = useFilter(filterOptions);
+	const [filter, setFilter] = useFilter(RECIPE_FILTER_OPTIONS);
 
 	const filteredRecipes = recipes.filter(
 		(item) =>

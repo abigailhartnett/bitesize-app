@@ -4,6 +4,8 @@ import supabase from "../../config/supabaseClient";
 import { useToggleOnList } from "bitesize-app/hooks";
 import { SectionHeading, PantryItem } from "bitesize-app/components";
 
+import { AISLES } from "../../constants";
+
 const PantryItemList = ({
 	pantryItems,
 	setPantryItems,
@@ -20,66 +22,11 @@ const PantryItemList = ({
 }) => {
 	const toggle = useToggleOnList(pantryItems, setPantryItems);
 
-	const aisleOrder = [
-		"produce",
-		"bakery",
-		"meat",
-		"seafood",
-		"deli",
-		"dairy",
-		"condiments",
-		"canned goods",
-		"ethnic",
-		"baking",
-		"dried goods",
-		"cereal",
-		"snacks",
-		"spices",
-		"desserts",
-		"frozen",
-		"drinks",
-		"sauces",
-		"tea",
-		"water",
-		"alcohol",
-		"paper goods",
-		"health",
-		"hygiene",
-		"pharmacy",
-		"other",
-	];
-
-	const aisleIcons = {
-		produce: {
-			icon: "fa-solid fa-salad",
-			color: "text-broccoli",
-		},
-		bakery: { icon: "fa-solid fa-bread-slice", color: "text-pepper/40" },
-		meat: { icon: "fa-solid fa-drumstick", color: "text-tomato" },
-		seafood: { icon: "fa-solid fa-fish", color: "text-mustard" },
-		deli: { icon: "fa-solid fa-cheese", color: "text-mustard" },
-		dairy: { icon: "fa-solid fa-cheese" },
-		condiments: { icon: "fa-solid fa-pepper" },
-		"canned goods": { icon: "fa-solid fa-can" },
-		ethnic: { icon: "fa-solid fa-globe" },
-		baking: { icon: "fa-solid fa-cookie" },
-		"dried goods": { icon: "fa-solid fa-shopping-bag" },
-		cereal: { icon: "fa-solid fa-bowl" },
-		snacks: { icon: "fa-solid fa-cookie" },
-		spices: { icon: "fa-solid fa-pepper" },
-		desserts: { icon: "fa-solid fa-cookie" },
-		frozen: { icon: "fa-solid fa-snowflake" },
-		drinks: { icon: "fa-solid fa-glass" },
-		sauces: { icon: "fa-solid fa-pepper" },
-		tea: { icon: "fa-solid fa-mug" },
-		water: { icon: "fa-solid fa-tint" },
-		alcohol: { icon: "fa-solid fa-wine-bottle" },
-		"paper goods": { icon: "fa-solid fa-toilet-paper" },
-		health: { icon: "fa-solid fa-heart" },
-		hygiene: { icon: "fa-solid fa-soap" },
-		pharmacy: { icon: "fa-solid fa-prescription-bottle" },
-		other: { icon: "fa-solid fa-question" },
-	};
+	const aisleNames = AISLES.map((aisle) => aisle.name);
+	const aisleIcons = AISLES.reduce((acc, aisle) => {
+		acc[aisle.name] = aisle.icon;
+		return acc;
+	}, {});
 
 	// Group items by aisle
 	const groupedByAisle = filteredPantryItems.reduce((acc, item) => {
@@ -94,13 +41,13 @@ const PantryItemList = ({
 
 	const sortedAisles = Object.entries(groupedByAisle).sort((a, b) => {
 		const indexA =
-			aisleOrder.indexOf(a[0]) !== -1
-				? aisleOrder.indexOf(a[0])
-				: aisleOrder.length;
+			aisleNames.indexOf(a[0]) !== -1
+				? aisleNames.indexOf(a[0])
+				: AISLES.length;
 		const indexB =
-			aisleOrder.indexOf(b[0]) !== -1
-				? aisleOrder.indexOf(b[0])
-				: aisleOrder.length;
+			aisleNames.indexOf(b[0]) !== -1
+				? aisleNames.indexOf(b[0])
+				: AISLES.length;
 		return indexA - indexB;
 	});
 
@@ -108,7 +55,7 @@ const PantryItemList = ({
 		<div>
 			{sortedAisles.map(([aisle, items]) => (
 				<div key={aisle}>
-					<SectionHeading icon={aisleIcons[aisle].icon}>{aisle}</SectionHeading>
+					<SectionHeading icon={aisleIcons[aisle]}>{aisle}</SectionHeading>
 					{items?.map((item) => (
 						<PantryItem
 							key={item.id}
