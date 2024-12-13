@@ -1,8 +1,8 @@
 import React from "react";
-import PantryItem from "../PantryItem";
 import supabase from "../../config/supabaseClient";
-import { useToggleOnList } from "../../hooks/useToggleOnList";
-import SectionHeading from "../SectionHeading";
+
+import { useToggleOnList } from "bitesize-app/hooks";
+import { SectionHeading, PantryItem } from "bitesize-app/components";
 
 const PantryItemList = ({
 	pantryItems,

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import IconButton from "./buttons/IconButton";
+import { IconButton } from "bitesize-app/components";
 
 const SearchBar = ({ placeholder, id, setSearchQuery }) => {
 	const [input, setInput] = useState("");

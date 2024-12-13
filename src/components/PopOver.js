@@ -1,5 +1,5 @@
 import React from "react";
-import IconButton from "./buttons/IconButton";
+import { IconButton } from "bitesize-app/components";
 
 const PopOver = ({ setPopoverIsOpen, children, setEditing, editing }) => {
 	const closePopOver = () => {

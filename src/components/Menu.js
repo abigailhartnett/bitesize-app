@@ -1,6 +1,7 @@
 import React from "react";
-import IconButton from "./buttons/IconButton";
 import { useNavigate, useLocation } from "react-router-dom";
+
+import { IconButton } from "bitesize-app/components";
 
 const Menu = () => {
 	const navigate = useNavigate();

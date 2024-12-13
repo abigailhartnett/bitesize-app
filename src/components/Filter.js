@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Tag from "./Tag";
+import { Tag } from "bitesize-app/components";
 
 const Filter = ({ filter, setFilter }) => {
 	const [originalFilter] = useState(filter);

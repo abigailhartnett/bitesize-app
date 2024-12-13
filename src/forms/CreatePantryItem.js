@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import supabase from "../config/supabaseClient";
-import Form from "../components/Form";
-import TextInput from "../components/inputs/TextInput";
-import Select from "../components/inputs/Select";
-import Checkbox from "../components/inputs/Checkbox";
-import Button from "../components/buttons/Button";
+
+import {
+	Form,
+	TextInput,
+	Select,
+	Checkbox,
+	Button,
+} from "bitesize-app/components";
 
 const CreatePantryItem = ({ pantryItems }) => {
 	const [name, setName] = useState("");

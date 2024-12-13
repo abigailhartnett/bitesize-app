@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import supabase from "../config/supabaseClient";
-import Form from "../components/Form";
-import TextInput from "../components/inputs/TextInput";
-import Select from "../components/inputs/Select";
-import Button from "../components/buttons/Button";
-import TextButton from "../components/buttons/TextButton";
-import PopOver from "../components/PopOver";
+
+import {
+	Form,
+	TextInput,
+	Select,
+	Button,
+	TextButton,
+	PopOver,
+} from "bitesize-app/components";
 
 const EditPantryItem = ({
 	currentItem,

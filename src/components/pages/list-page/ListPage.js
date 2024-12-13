@@ -1,10 +1,8 @@
 import React from "react";
-import Sort from "../../Sort";
-import Filter from "../../Filter";
-// import Popover from "../../components/Popover";
-// Import list
-import SearchBar from "../../SearchBar";
-import { useFilter } from "../../../hooks/useFilter";
+
+import { Sort, Filter, SearchBar } from "bitesize-app/components";
+
+import { useFilter } from "bitesize-app/hooks";
 
 const ListPage = ({
 	pantryItems,

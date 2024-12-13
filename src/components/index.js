@@ -28,10 +28,8 @@ export { default as PantryItemList } from "./calculations/PantryItemList";
 export { default as Checkbox } from "./inputs/Checkbox";
 export { default as LongTextInput } from "./inputs/LongTextInput";
 export { default as Number } from "./inputs/Number";
-export { default as NumberInput } from "./inputs/NumberInput";
 export { default as Select } from "./inputs/Select";
 export { default as TextInput } from "./inputs/TextInput";
 
 // Pages
-export { default as ListItem } from "./pages/list-page/ListItem";
 export { default as ListPage } from "./pages/list-page/ListPage";

@@ -1,7 +1,6 @@
 import React from "react";
-import StatusButton from "./buttons/StatusButton";
-import IconButton from "./buttons/IconButton";
-import Checkbox from "./inputs/Checkbox";
+
+import { StatusButton, IconButton, Checkbox } from "bitesize-app/components";
 
 const PantryItem = ({
 	item,
