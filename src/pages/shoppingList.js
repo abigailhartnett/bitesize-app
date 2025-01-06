@@ -86,7 +86,6 @@ const ShoppingListPage = () => {
 								<EditPantryItem
 									currentItem={currentItem}
 									setCurrentItem={setCurrentItem}
-									pantryItems={pantryItems}
 									setEditing={setEditing}
 									editing={setEditing}
 									setPopoverIsOpen={setPopoverIsOpen}
@@ -109,8 +108,6 @@ const ShoppingListPage = () => {
 				)}
 				{shoppingListItems?.length > 0 ? (
 					<PantryItemList
-						pantryItems={pantryItems}
-						setPantryItems={setPantryItems}
 						filteredPantryItems={shoppingListItems}
 						openPopover={openPopover}
 						currentPage={currentPage}

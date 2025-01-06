@@ -1,14 +1,11 @@
 import React from "react";
 import supabase from "../../config/supabaseClient";
-
+import { usePantry } from "../../contexts/PantryContext";
 import { useListFunctions } from "bitesize-app/hooks";
 import { SectionHeading, PantryItem } from "bitesize-app/components";
-
 import { AISLES } from "../../constants";
 
 const PantryItemList = ({
-	pantryItems,
-	setPantryItems,
 	filteredPantryItems,
 	showShoppingList,
 	openPopover,
@@ -19,6 +16,7 @@ const PantryItemList = ({
 	checkbox,
 	ingredient,
 }) => {
+	const { pantryItems, setPantryItems } = usePantry();
 	const { toggleOnList } = useListFunctions(pantryItems, setPantryItems);
 
 	const aisleNames = AISLES.map((aisle) => aisle.name);

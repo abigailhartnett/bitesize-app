@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import supabase from "../config/supabaseClient";
-
+import { usePantry } from "../contexts/PantryContext";
 import {
 	Form,
 	TextInput,
@@ -13,11 +13,12 @@ import {
 const EditPantryItem = ({
 	currentItem,
 	setCurrentItem,
-	pantryItems,
 	setEditing,
 	editing,
 	setPopoverIsOpen,
 }) => {
+	const { pantryItems } = usePantry();
+
 	const [name, setName] = useState(currentItem?.name);
 	const [aisle, setAisle] = useState(currentItem?.aisle);
 	const [status, setStatus] = useState(currentItem?.status);

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import supabase from "../config/supabaseClient";
-
+import { usePantry } from "../contexts/PantryContext";
 import {
 	Form,
 	TextInput,
@@ -9,7 +9,8 @@ import {
 	Button,
 } from "bitesize-app/components";
 
-const CreatePantryItem = ({ pantryItems }) => {
+const CreatePantryItem = () => {
+	const { pantryItems } = usePantry();
 	const [name, setName] = useState("");
 	const [aisle, setAisle] = useState("");
 	const [status, setStatus] = useState("");

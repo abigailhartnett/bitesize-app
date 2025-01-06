@@ -23,7 +23,7 @@ import PantryItemCard from "./PantryItemCard";
 import { PANTRY_FILTER_OPTIONS } from "../constants";
 
 const PantryPage = () => {
-	const { pantryItems, setPantryItems, fetchError } = usePantry();
+	const { pantryItems, fetchError } = usePantry();
 
 	const [editing, setEditing] = useState(false);
 
@@ -68,7 +68,6 @@ const PantryPage = () => {
 									<EditPantryItem
 										currentItem={currentItem}
 										setCurrentItem={setCurrentItem}
-										pantryItems={pantryItems}
 										editing={editing}
 										setEditing={setEditing}
 										setPopoverIsOpen={setPopoverIsOpen}
@@ -89,8 +88,6 @@ const PantryPage = () => {
 				)}
 				{filteredPantryItems.length > 0 ? (
 					<PantryItemList
-						pantryItems={pantryItems}
-						setPantryItems={setPantryItems}
 						filteredPantryItems={filteredPantryItems}
 						openPopover={openPopover}
 						status
@@ -104,7 +101,7 @@ const PantryPage = () => {
 							</h2>
 							<span>Try a different search term, or create a new item.</span>
 						</div>
-						<CreatePantryItem pantryItems={pantryItems} />
+						<CreatePantryItem />
 					</div>
 				)}
 			</ListView>
