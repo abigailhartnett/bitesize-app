@@ -51,6 +51,11 @@ const ShoppingListPage = () => {
 		filteredItems
 	);
 
+	const removeItem = (item) => {
+		removeItemFromList(item);
+		closePopover();
+	};
+
 	if (fetchError) {
 		return <div>{fetchError}</div>;
 	}
@@ -93,7 +98,7 @@ const ShoppingListPage = () => {
 							) : (
 								<PantryItemCard item={currentItem}>
 									<Button
-										onClick={() => removeItemFromList(currentItem?.id)}
+										onClick={() => removeItem(currentItem?.id)}
 										variant="primary"
 									>
 										Remove from List
