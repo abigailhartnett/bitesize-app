@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import supabase from "../config/supabaseClient";
-
+import { usePantry } from "../contexts/PantryContext";
 import {
 	ListView,
 	TopBar,
@@ -19,14 +19,15 @@ import { EditPantryItem } from "bitesize-app/forms";
 // todo: fix this import
 import EditRecipeForm from "../forms/EditRecipeItem";
 
-const CookRecipePage = ({ recipes, pantryItems, setPantryItems }) => {
+const CookRecipePage = () => {
+	const { recipes, pantryItems, setPantryItems } = usePantry();
 	const navigate = useNavigate();
 	const { slug } = useParams();
 	const [recipeIngredients, setRecipeIngredients] = useState(null);
 	const [ingredientsOpen, setIngredientsOpen] = useState(true);
 	const [fetchError, setFetchError] = useState(null);
 	const [currentRecipe, setCurrentRecipe] = useState(
-		recipes.find((recipe) => recipe.slug === slug)
+		recipes?.find((recipe) => recipe.slug === slug)
 	);
 	const [currentIngredient, setCurrentIngredient] = useState(null);
 	const [popoverIsOpen, setPopoverIsOpen] = useState(false);
@@ -39,7 +40,7 @@ const CookRecipePage = ({ recipes, pantryItems, setPantryItems }) => {
 	);
 
 	const findIngredientByName = (name) => {
-		const item = pantryItems.find((item) => item.name === name);
+		const item = pantryItems?.find((item) => item.name === name);
 		if (!item) {
 			console.log(`Item with id ${name} not found`);
 			return;

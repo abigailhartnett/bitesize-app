@@ -2,7 +2,6 @@ import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import supabase from "../config/supabaseClient";
 import { usePantry } from "../contexts/PantryContext";
-
 import {
 	ListView,
 	TopBar,
