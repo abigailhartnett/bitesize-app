@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import supabase from "../config/supabaseClient";
-
+import { usePantry } from "../contexts/PantryContext";
 import {
 	PopOver,
 	Button,
@@ -15,11 +15,12 @@ import {
 	LongTextInput,
 } from "bitesize-app/components";
 
-import { useSearch, useFindItem } from "bitesize-app/hooks";
+import { useSearch, useFindItem, usePopover } from "bitesize-app/hooks";
 
 import { CreatePantryItem } from "bitesize-app/forms";
 
-const EditRecipe = ({ pantryItems, recipe, recipeIngredientsList }) => {
+const EditRecipe = ({ recipe, recipeIngredientsList }) => {
+	const { pantryItems } = usePantry();
 	const [successMessage, setSuccessMessage] = useState("");
 	const [formError, setFormError] = useState(null);
 	const [titleError, setTitleError] = useState(null);
@@ -31,14 +32,15 @@ const EditRecipe = ({ pantryItems, recipe, recipeIngredientsList }) => {
 	const [instructions, setInstructions] = useState(recipe?.instructions || "");
 	const [notes, setNotes] = useState(recipe?.notes || "");
 	const [warningIsOpen, setWarningIsOpen] = useState(false);
-	const [popoverIsOpen, setPopoverIsOpen] = useState(false);
 
 	const location = useLocation();
 	const currentPage = location.pathname;
 	const [filteredItems, setSearchQuery] = useSearch(pantryItems, "name");
 
 	const navigate = useNavigate();
-	const { findItemById } = useFindItem(pantryItems);
+	const { findItemById, setCurrentItem } = useFindItem(pantryItems); //setCurrentItem isn't required for this page, but is required for the usePopover hook
+	const { popoverIsOpen, setPopoverIsOpen, openPopover, closePopover } =
+		usePopover(pantryItems, setCurrentItem);
 
 	const filteredPantryItems = pantryItems.filter(
 		(item) => item && filteredItems?.includes(item)
@@ -116,10 +118,6 @@ const EditRecipe = ({ pantryItems, recipe, recipeIngredientsList }) => {
 			return ingredient;
 		});
 		setIngredients(newIngredients);
-	};
-
-	const openPopover = () => {
-		setPopoverIsOpen(true);
 	};
 
 	const addToRecipe = (id) => {
@@ -289,7 +287,7 @@ const EditRecipe = ({ pantryItems, recipe, recipeIngredientsList }) => {
 			)}
 			<Form
 				successMessage={successMessage}
-				onSubmit={submitRecipe}
+				onSubmit={submitRecipe && closePopover}
 				formError={formError}
 				formTitle="Edit Recipe"
 			>
@@ -328,7 +326,7 @@ const EditRecipe = ({ pantryItems, recipe, recipeIngredientsList }) => {
 					className="bg-pepper/10 self-end"
 				/>
 				{popoverIsOpen && (
-					<PopOver setPopoverIsOpen={setPopoverIsOpen}>
+					<PopOver closePopover={closePopover}>
 						{/* Note: make this into a component (shared with Create Recipe page, at least) */}
 						<div className="h-3/4 overflow-y-auto overflow-x-visible">
 							{filteredPantryItems.length > 0 ? (

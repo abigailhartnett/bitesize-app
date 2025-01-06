@@ -12,14 +12,14 @@ import {
 	IconButton,
 	RecipeItemList,
 } from "bitesize-app/components";
-
+import { usePopover, useFindItem } from "bitesize-app/hooks";
 import { EditPantryItem } from "bitesize-app/forms";
 
 // todo: fix this import
 import EditRecipeForm from "../forms/EditRecipeItem";
 
 const RecipePage = () => {
-	const { recipes, pantryItems, setPantryItems } = usePantry();
+	const { recipes, pantryItems } = usePantry();
 	const navigate = useNavigate();
 	const { slug } = useParams();
 	const [recipeIngredients, setRecipeIngredients] = useState(null);
@@ -28,8 +28,7 @@ const RecipePage = () => {
 	const [currentRecipe, setCurrentRecipe] = useState(
 		recipes?.find((recipe) => recipe.slug === slug)
 	);
-	const [currentIngredient, setCurrentIngredient] = useState(null);
-	const [popoverIsOpen, setPopoverIsOpen] = useState(false);
+	const { currentItem, setCurrentItem } = useFindItem(pantryItems);
 	const [editing, setEditing] = useState(false);
 
 	const recipe = recipes?.find((recipe) => recipe.slug === slug);
@@ -38,21 +37,8 @@ const RecipePage = () => {
 		(item) => item.recipe_slug === slug
 	);
 
-	const findIngredientByName = (name) => {
-		const item = pantryItems?.find((item) => item.name === name);
-		if (!item) {
-			console.log(`Item with id ${name} not found`);
-			return;
-		}
-		setCurrentIngredient(item);
-		return item;
-	};
-
-	const openPopover = (name) => {
-		setPopoverIsOpen(true);
-		const item = findIngredientByName(name);
-		setCurrentIngredient(item);
-	};
+	const { popoverIsOpen, setPopoverIsOpen, openPopover, closePopover } =
+		usePopover(pantryItems, setCurrentItem);
 
 	const editRecipe = (recipe) => {
 		setPopoverIsOpen(true);
@@ -137,22 +123,14 @@ const RecipePage = () => {
 			</TopBar>
 			<ListView>
 				{popoverIsOpen && (
-					<PopOver
-						setPopoverIsOpen={setPopoverIsOpen}
-						currentIngredient={currentIngredient}
-						setEditing={setEditing}
-						editing={editing}
-					>
-						{currentIngredient && (
+					<PopOver closePopover={closePopover}>
+						{currentItem && (
 							<>
 								{editing ? (
 									<EditPantryItem
-										currentIngredient={currentIngredient}
-										setCurrentIngredient={setCurrentIngredient}
-										pantryItems={pantryItems}
+										editing={editing}
 										setEditing={setEditing}
 										setPopoverIsOpen={setPopoverIsOpen}
-										editing={editing}
 									/>
 								) : (
 									<div className="my-4 font-semibold">
@@ -164,10 +142,8 @@ const RecipePage = () => {
 						)}
 						{recipe && (
 							<EditRecipeForm
-								pantryItems={pantryItems}
 								recipe={recipe}
 								recipeIngredientsList={recipeIngredientsList}
-								// setPopoverIsOpen={setPopoverIsOpen}
 							/>
 						)}
 					</PopOver>
@@ -185,8 +161,6 @@ const RecipePage = () => {
 					<div className="ml-3">
 						{ingredientsOpen && (
 							<RecipeItemList
-								pantryItems={pantryItems}
-								setPantryItems={setPantryItems}
 								openPopover={openPopover}
 								recipeIngredients={recipeIngredients}
 								setRecipeIngredients={setRecipeIngredients}
