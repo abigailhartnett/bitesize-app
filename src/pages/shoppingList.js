@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
-
+import { usePantry } from "../contexts/PantryContext";
 import {
 	Filter,
 	PopOver,
@@ -23,10 +23,11 @@ import {
 } from "bitesize-app/hooks";
 import { EditPantryItem } from "bitesize-app/forms";
 import PantryItemCard from "./PantryItemCard";
-
 import { PANTRY_FILTER_OPTIONS } from "../constants";
 
-const ShoppingListPage = ({ pantryItems, setPantryItems }) => {
+const ShoppingListPage = () => {
+	const { pantryItems, setPantryItems, fetchError } = usePantry();
+
 	const location = useLocation();
 	const currentPage = location.pathname;
 
@@ -49,6 +50,14 @@ const ShoppingListPage = ({ pantryItems, setPantryItems }) => {
 		filter,
 		filteredItems
 	);
+
+	if (fetchError) {
+		return <div>{fetchError}</div>;
+	}
+
+	if (!pantryItems) {
+		return <div>Loading...</div>;
+	}
 
 	return (
 		<Container>

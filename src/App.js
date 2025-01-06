@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import {
 	BrowserRouter as Router,
 	Routes,
@@ -6,7 +6,6 @@ import {
 	Navigate,
 } from "react-router-dom";
 import "./icons";
-import supabase from "./config/supabaseClient";
 import PantryPage from "./pages/pantry";
 import RecipeBoxPage from "./pages/recipeBox";
 import RecipePage from "./pages/recipe";
@@ -15,116 +14,25 @@ import ListPage from "./components/pages/list-page/ListPage";
 import ShoppingListPage from "./pages/shoppingList";
 import MealPlanPage from "./pages/mealPlan";
 import CookRecipePage from "./pages/cookrecipe";
+import { PantryProvider } from "./contexts/PantryContext";
 
 function App() {
-	//Supabase
-	const [fetchError, setFetchError] = useState(null);
-	const [pantryItems, setPantryItems] = useState(null);
-	const [recipes, setRecipes] = useState(null);
-
-	const [sort, setSort] = useState(null);
-
-	useEffect(() => {
-		const fetchPantryItems = async () => {
-			const { data, error } = await supabase.from("pantry").select();
-
-			if (error) {
-				setFetchError("Could not fetch pantry items");
-				setPantryItems(null);
-				console.log(fetchError, error);
-			}
-			if (data) {
-				setPantryItems(data);
-				setFetchError(null);
-			}
-		};
-		fetchPantryItems();
-
-		const fetchRecipes = async () => {
-			const { data, error } = await supabase.from("recipes").select();
-
-			if (error) {
-				setFetchError("Could not fetch recipes");
-				setRecipes(null);
-				console.log(fetchError, error);
-			}
-			if (data) {
-				setRecipes(data);
-				setFetchError(null);
-			}
-		};
-		fetchRecipes();
-	}, [fetchError, setFetchError]);
-
-	if (!pantryItems || !recipes) {
-		return <div>Loading...</div>;
-	}
-
 	return (
-		<div>
+		<PantryProvider>
 			<Router>
 				<Routes>
 					<Route path="/" element={<Navigate to="/pantry" />} />
-					<Route
-						path="/pantry"
-						element={
-							<PantryPage
-								pantryItems={pantryItems}
-								setPantryItems={setPantryItems}
-								sort={sort}
-								setSort={setSort}
-							/>
-						}
-					/>
-					<Route
-						path="/recipes"
-						element={<RecipeBoxPage recipes={recipes} />}
-					/>
-					<Route
-						path="/recipes/:slug"
-						element={
-							<RecipePage
-								recipes={recipes}
-								pantryItems={pantryItems}
-								setPantryItems={setPantryItems}
-							/>
-						}
-					/>
-					<Route
-						path="/cook-recipe/:slug"
-						element={
-							<CookRecipePage
-								recipes={recipes}
-								pantryItems={pantryItems}
-								setPantryItems={setPantryItems}
-							/>
-						}
-					/>
-					<Route
-						path="create-recipe"
-						element={<CreateRecipePage pantryItems={pantryItems} />}
-					/>
-					<Route
-						path="/list-page"
-						element={<ListPage pantryItems={pantryItems} setSort={setSort} />}
-					/>
-					<Route
-						path="/shopping-list"
-						element={
-							<ShoppingListPage
-								pantryItems={pantryItems}
-								setSort={setSort}
-								setPantryItems={setPantryItems}
-							/>
-						}
-					/>
-					<Route
-						path="/meal-plan"
-						element={<MealPlanPage recipes={recipes} />}
-					/>
+					<Route path="/pantry" element={<PantryPage />} />
+					<Route path="/recipes" element={<RecipeBoxPage />} />
+					<Route path="/recipes/:slug" element={<RecipePage />} />
+					<Route path="/cook-recipe/:slug" element={<CookRecipePage />} />
+					<Route path="create-recipe" element={<CreateRecipePage />} />
+					<Route path="/list-page" element={<ListPage />} />
+					<Route path="/shopping-list" element={<ShoppingListPage />} />
+					<Route path="/meal-plan" element={<MealPlanPage />} />
 				</Routes>
 			</Router>
-		</div>
+		</PantryProvider>
 	);
 }
 

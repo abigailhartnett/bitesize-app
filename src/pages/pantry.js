@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { usePantry } from "../contexts/PantryContext";
 import {
 	useSearch,
 	useFilter,
@@ -6,7 +7,6 @@ import {
 	usePopover,
 	usePantryItems,
 } from "bitesize-app/hooks";
-
 import {
 	Filter,
 	SearchBar,
@@ -20,10 +20,11 @@ import {
 } from "bitesize-app/components";
 import { EditPantryItem, CreatePantryItem } from "bitesize-app/forms";
 import PantryItemCard from "./PantryItemCard";
-
 import { PANTRY_FILTER_OPTIONS } from "../constants";
 
-const PantryPage = ({ pantryItems, setPantryItems }) => {
+const PantryPage = () => {
+	const { pantryItems, setPantryItems, fetchError } = usePantry();
+
 	const [editing, setEditing] = useState(false);
 
 	const { currentItem, setCurrentItem } = useFindItem();
@@ -38,6 +39,14 @@ const PantryPage = ({ pantryItems, setPantryItems }) => {
 		filter,
 		filteredItems
 	);
+
+	if (fetchError) {
+		return <div>{fetchError}</div>;
+	}
+
+	if (!pantryItems) {
+		return <div>Loading...</div>;
+	}
 
 	return (
 		<Container>
