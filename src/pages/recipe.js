@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import supabase from "../config/supabaseClient";
 import { usePantry } from "../contexts/PantryContext";
 import {
 	ListView,
@@ -12,84 +11,49 @@ import {
 	IconButton,
 	RecipeItemList,
 } from "bitesize-app/components";
-import { usePopover, useFindItem } from "bitesize-app/hooks";
+import {
+	usePopover,
+	useFindItem,
+	useToggle,
+	useFormattedText,
+} from "bitesize-app/hooks";
 import { EditPantryItem } from "bitesize-app/forms";
 
 // todo: fix this import
 import EditRecipeForm from "../forms/EditRecipeItem";
 
 const RecipePage = () => {
-	const { recipes, pantryItems } = usePantry();
+	const { recipes, pantryItems, recipeIngredients, setRecipeIngredients } =
+		usePantry();
+	const { currentItem, setCurrentItem } = useFindItem(pantryItems); // I think this is only here because it's needed for the popover hook
+	const { popoverIsOpen, setPopoverIsOpen, openPopover, closePopover } =
+		usePopover(pantryItems, setCurrentItem);
+	const { formattedText } = useFormattedText();
+
 	const navigate = useNavigate();
 	const { slug } = useParams();
-	const [recipeIngredients, setRecipeIngredients] = useState(null);
+
 	const [ingredientsOpen, setIngredientsOpen] = useState(true);
-	const [fetchError, setFetchError] = useState(null);
-	const [currentRecipe, setCurrentRecipe] = useState(
-		recipes?.find((recipe) => recipe.slug === slug)
-	);
-	const { currentItem, setCurrentItem } = useFindItem(pantryItems);
+	const [currentRecipe, setCurrentRecipe] = useState(null);
 	const [editing, setEditing] = useState(false);
 
-	const recipe = recipes?.find((recipe) => recipe.slug === slug);
+	useEffect(() => {
+		if (recipes) {
+			const recipe = recipes.find((recipe) => recipe.slug === slug);
+			setCurrentRecipe(recipe);
+		}
+	}, [recipes, slug]);
+
+	const { togglePlanned } = useToggle(currentRecipe, setCurrentRecipe, slug);
 
 	const recipeIngredientsList = recipeIngredients?.filter(
 		(item) => item.recipe_slug === slug
 	);
 
-	const { popoverIsOpen, setPopoverIsOpen, openPopover, closePopover } =
-		usePopover(pantryItems, setCurrentItem);
-
 	const editRecipe = (recipe) => {
 		setPopoverIsOpen(true);
 		setCurrentRecipe(recipe);
 	};
-
-	useEffect(() => {
-		const fetchRecipeIngredients = async () => {
-			const { data, error } = await supabase.from("recipeIngredients").select();
-
-			if (error) {
-				setFetchError("Could not fetch pantry recipe ingredients");
-				setRecipeIngredients(null);
-				console.log(fetchError, error);
-			}
-			if (data) {
-				setRecipeIngredients(data);
-				setFetchError(null);
-			}
-		};
-		fetchRecipeIngredients();
-	}, [fetchError, setFetchError]);
-
-	const togglePlanned = async () => {
-		const newStatus =
-			currentRecipe.status === "planned" ? "not planned" : "planned";
-		setCurrentRecipe((prevItem) => ({ ...prevItem, status: newStatus }));
-
-		try {
-			await supabase
-				.from("recipes")
-				.update({ status: newStatus })
-				.eq("slug", slug);
-		} catch (error) {
-			console.error("Error adding recipe to meal plan:", error);
-			setCurrentRecipe((prevItem) => ({
-				...prevItem,
-				status: currentRecipe.status,
-			}));
-		}
-	};
-
-	const formattedText = useCallback((text) => {
-		const paragraphs = text?.split("\n")?.filter((text) => text.trim() !== "");
-		return paragraphs?.map((text, index) => (
-			<div key={index}>
-				<p>{text}</p>
-				<br />
-			</div>
-		));
-	}, []);
 
 	if (!recipeIngredients) {
 		return <div>Loading...</div>;
@@ -97,7 +61,7 @@ const RecipePage = () => {
 
 	return (
 		<Container>
-			<TopBar pageTitle={recipe?.title}>
+			<TopBar pageTitle={currentRecipe?.title}>
 				{currentRecipe && currentRecipe?.status === "planned" ? (
 					<div className="flex items-center">
 						<IconButton onClick={() => togglePlanned()}>
@@ -140,9 +104,9 @@ const RecipePage = () => {
 								)}
 							</>
 						)}
-						{recipe && (
+						{currentRecipe && (
 							<EditRecipeForm
-								recipe={recipe}
+								recipe={currentRecipe}
 								recipeIngredientsList={recipeIngredientsList}
 							/>
 						)}
@@ -174,11 +138,11 @@ const RecipePage = () => {
 				</div>
 				<div className="my-4 bg-white border border-solid border-pepper/20 rounded-2xl p-4">
 					<h2 className="text-lg font-bold">Instructions</h2>
-					<div>{formattedText(recipe?.instructions)}</div>
+					<div>{formattedText(currentRecipe?.instructions)}</div>
 				</div>
 				<div className="my-4 bg-white border border-solid border-pepper/20 rounded-2xl p-4">
 					<h2 className="text-lg font-bold">Notes</h2>
-					<div>{formattedText(recipe?.notes)}</div>
+					<div>{formattedText(currentRecipe?.notes)}</div>
 				</div>
 				<Button
 					onClick={() => navigate(`/cook-recipe/${slug}`)}
@@ -188,7 +152,7 @@ const RecipePage = () => {
 					Cook Recipe
 				</Button>
 				<Button
-					onClick={() => editRecipe(recipe)}
+					onClick={() => editRecipe(currentRecipe)}
 					variant="secondary"
 					className="mb-4"
 				>

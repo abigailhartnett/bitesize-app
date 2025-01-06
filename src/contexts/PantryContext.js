@@ -7,6 +7,7 @@ export const PantryProvider = ({ children }) => {
 	const [fetchError, setFetchError] = useState(null);
 	const [pantryItems, setPantryItems] = useState(null);
 	const [recipes, setRecipes] = useState(null);
+	const [recipeIngredients, setRecipeIngredients] = useState(null);
 
 	const [sort, setSort] = useState(null);
 
@@ -40,7 +41,22 @@ export const PantryProvider = ({ children }) => {
 			}
 		};
 		fetchRecipes();
-	}, []);
+
+		const fetchRecipeIngredients = async () => {
+			const { data, error } = await supabase.from("recipeIngredients").select();
+
+			if (error) {
+				setFetchError("Could not fetch pantry recipe ingredients");
+				setRecipeIngredients(null);
+				console.log(fetchError, error);
+			}
+			if (data) {
+				setRecipeIngredients(data);
+				setFetchError(null);
+			}
+		};
+		fetchRecipeIngredients();
+	}, [fetchError]);
 
 	return (
 		<PantryContext.Provider
@@ -50,6 +66,8 @@ export const PantryProvider = ({ children }) => {
 				recipes,
 				setRecipes,
 				sort,
+				recipeIngredients,
+				setRecipeIngredients,
 				setSort,
 				fetchError,
 			}}

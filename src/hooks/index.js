@@ -5,3 +5,5 @@ export { useWindowSize } from "./useWindowSize";
 export { useFindItem } from "./useFindItem";
 export { useListFunctions } from "./useListFunctions";
 export { usePantryItems } from "./usePantryItems";
+export { useToggle } from "./useToggle";
+export { useFormattedText } from "./useFormattedText";
