@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-
+import { usePantry } from "../contexts/PantryContext";
 import {
 	SearchBar,
 	RecipeItem,
@@ -16,15 +16,16 @@ import { useSearch, useFilter } from "bitesize-app/hooks";
 
 import { RECIPE_FILTER_OPTIONS } from "bitesize-app/constants";
 
-const RecipeBoxPage = ({ recipes }) => {
+const RecipeBoxPage = () => {
+	const { recipes } = usePantry();
 	const navigate = useNavigate();
 	const [filteredItems, setSearchQuery] = useSearch(recipes, "title");
 
 	const [filter, setFilter] = useFilter(RECIPE_FILTER_OPTIONS);
 
-	const filteredRecipes = recipes.filter(
+	const filteredRecipes = recipes?.filter(
 		(item) =>
-			item && filter?.includes(item.status) && filteredItems.includes(item)
+			item && filter?.includes(item.status) && filteredItems?.includes(item)
 	);
 
 	return (
@@ -51,7 +52,7 @@ const RecipeBoxPage = ({ recipes }) => {
 				</div>
 			</TopBar>
 			<ListView grid>
-				{filteredRecipes.length > 0 ? (
+				{filteredRecipes?.length > 0 ? (
 					filteredRecipes.map((item) => (
 						<RecipeItem item={item} slug={item.slug} recipes={recipes} grid />
 					))
