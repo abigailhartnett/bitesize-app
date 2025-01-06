@@ -6,22 +6,22 @@ import { STATUSES } from "../../constants";
 
 const StatusButton = ({ pantryItems, setPantryItems, item }) => {
 	const icon =
-		item.status === "out"
+		item?.status === "out"
 			? "fa-circle-dashed"
-			: item.status === "low"
+			: item?.status === "low"
 				? "fa-duotone fa-circle-quarter-stroke"
 				: "fa-duotone fa-circle-notch";
 
 	const statusColor =
-		item.status === "out"
+		item?.status === "out"
 			? "text-pepper/20"
-			: item.status === "low"
+			: item?.status === "low"
 				? "text-carrot"
 				: "text-broccoli";
 
 	const toggleStatus = async (id) => {
 		// Find the item
-		const item = pantryItems.find((item) => item.id === id);
+		const item = pantryItems?.find((item) => item.id === id);
 		if (!item) {
 			console.log(`Item with id ${id} not found`);
 			return;
@@ -40,8 +40,8 @@ const StatusButton = ({ pantryItems, setPantryItems, item }) => {
 		// Toggle the onList property
 		const updatedItem = {
 			...item,
-			status: getNextStatus(item.status),
-			prevStatus: getNextStatus(item.status),
+			status: getNextStatus(item?.status),
+			prevStatus: getNextStatus(item?.status),
 		};
 
 		// Update the item in the state
@@ -53,7 +53,7 @@ const StatusButton = ({ pantryItems, setPantryItems, item }) => {
 		const { error } = await supabase
 			.from("pantry")
 			.update({
-				status: updatedItem.status,
+				status: updatedItem?.status,
 				prevStatus: updatedItem.prevStatus,
 			})
 			.eq("id", id);
@@ -63,8 +63,8 @@ const StatusButton = ({ pantryItems, setPantryItems, item }) => {
 		}
 	};
 
-	return item.status === "in stock" ? (
-		<IconButton onClick={() => toggleStatus(item.id)} className={statusColor}>
+	return item?.status === "in stock" ? (
+		<IconButton onClick={() => toggleStatus(item?.id)} className={statusColor}>
 			<i class="fas fa-circle fa-stack-1x fa-md"></i>
 			<i class="fa-duotone fa-circle-notch fa-xl"></i>
 		</IconButton>
@@ -73,7 +73,7 @@ const StatusButton = ({ pantryItems, setPantryItems, item }) => {
 			icon={icon}
 			onClick={() => toggleStatus(item.id)}
 			className={statusColor}
-			faStyle={item.status === "out" ? "fa-regular" : "fa-solid"}
+			faStyle={item?.status === "out" ? "fa-regular" : "fa-solid"}
 			size="xl"
 		/>
 	);

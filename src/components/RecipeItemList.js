@@ -1,11 +1,9 @@
 import React from "react";
 import supabase from "../config/supabaseClient";
-
+import { usePantry } from "../contexts/PantryContext";
 import { PantryItem } from "bitesize-app/components";
 
 const RecipeItemList = ({
-	pantryItems,
-	setPantryItems,
 	recipeIngredientsList,
 	// filteredPantryItems,
 	// showShoppingList,
@@ -20,18 +18,20 @@ const RecipeItemList = ({
 	status,
 	ingredient,
 }) => {
+	const { pantryItems } = usePantry();
+
 	return recipeIngredientsList?.map((recipeIngredient) => {
-		const pantryItem = pantryItems.find(
+		const pantryItem = pantryItems?.find(
 			(item) => item.name === recipeIngredient.name
 		);
 
-		const recipeItem = recipeIngredients.find(
+		const recipeItem = recipeIngredients?.find(
 			(item) => item.id === recipeIngredient.id
 		);
 
 		const checkOffItem = async (isChecked, id) => {
 			// Find Item
-			const recipeItemToUpdate = recipeIngredients.find(
+			const recipeItemToUpdate = recipeIngredients?.find(
 				(item) => item.id === id
 			);
 

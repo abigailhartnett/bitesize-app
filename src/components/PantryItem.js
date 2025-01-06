@@ -22,7 +22,7 @@ const PantryItem = ({
 	ingredient,
 }) => {
 	const recipeIcon = "fa-circle-plus";
-	const shoppingIcon = item.onList ? "fa-circle-minus" : "fa-circle-plus";
+	const shoppingIcon = item?.onList ? "fa-circle-minus" : "fa-circle-plus";
 
 	return (
 		<div className={`grid grid-cols-[auto_1fr_auto] items-center`}>
@@ -55,7 +55,7 @@ const PantryItem = ({
 					checkbox && (
 						<Checkbox
 							onChange={onChange}
-							checked={item.checked && true}
+							checked={item?.checked && true}
 							ariaLabel="Check off item"
 						/>
 					)
@@ -64,14 +64,14 @@ const PantryItem = ({
 
 			<div
 				className={`hover:font-medium ${currentPage !== "/create-recipe" && "cursor-pointer"}`}
-				onClick={() => !ingredient && openPopover(item.id)}
+				onClick={() => !ingredient && openPopover(item?.id)}
 			>
 				{/* ITEM NAME */}
 				<div
-					className={`flex items-center gap-2 ${item.checked && item.onList ? "line-through text-pepper/50" : ""}`}
+					className={`flex items-center gap-2 ${item?.checked && item?.onList ? "line-through text-pepper/50" : ""}`}
 				>
-					<span className="capitalize">{item.name}</span>
-					{aisle && <span className="text-xs capitalize">{item.aisle}</span>}
+					<span className="capitalize">{item?.name}</span>
+					{aisle && <span className="text-xs capitalize">{item?.aisle}</span>}
 					{
 						<span className="text-xs">
 							{amount} {unit}
