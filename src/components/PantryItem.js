@@ -12,8 +12,6 @@ const PantryItem = ({
 	checkbox,
 	currentPage,
 	addToRecipe,
-	pantryItems,
-	setPantryItems,
 	aisle,
 	status,
 	toggleButton,
@@ -80,12 +78,7 @@ const PantryItem = ({
 				</div>
 			</div>
 			{status && (
-				<StatusButton
-					pantryItems={pantryItems}
-					setPantryItems={setPantryItems}
-					item={item}
-					showShoppingList={showShoppingList}
-				/>
+				<StatusButton item={item} showShoppingList={showShoppingList} />
 			)}
 		</div>
 	);

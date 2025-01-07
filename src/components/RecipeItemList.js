@@ -11,14 +11,12 @@ const RecipeItemList = ({
 	// addToRecipe,
 	// status,
 	// toggleButton,
-	recipeIngredients,
-	setRecipeIngredients,
 	checkbox,
 	// slug,
 	status,
 	ingredient,
 }) => {
-	const { pantryItems } = usePantry();
+	const { pantryItems, recipeIngredients, setRecipeIngredients } = usePantry();
 
 	return recipeIngredientsList?.map((recipeIngredient) => {
 		const pantryItem = pantryItems?.find(
@@ -69,8 +67,6 @@ const RecipeItemList = ({
 				// showShoppingList={showShoppingList}
 				openPopover={() => openPopover(recipeIngredient.id)}
 				onChange={(e) => checkOffItem(e.target.checked, recipeIngredient?.id)}
-				// pantryItems={pantryItems}
-				// setPantryItems={setPantryItems}
 				status={status}
 				// toggleButton={toggleButton}
 				amount={recipeIngredient.amount}

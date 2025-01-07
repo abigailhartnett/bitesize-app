@@ -23,11 +23,12 @@ import { EditPantryItem } from "bitesize-app/forms";
 import EditRecipeForm from "../forms/EditRecipeItem";
 
 const RecipePage = () => {
-	const { recipes, pantryItems, recipeIngredients, setRecipeIngredients } =
-		usePantry();
+	const { recipes, pantryItems, recipeIngredients } = usePantry();
 	const { currentItem, setCurrentItem } = useFindItem(pantryItems); // I think this is only here because it's needed for the popover hook
-	const { popoverIsOpen, setPopoverIsOpen, openPopover, closePopover } =
-		usePopover(pantryItems, setCurrentItem);
+	const { popoverIsOpen, setPopoverIsOpen, closePopover } = usePopover(
+		pantryItems,
+		setCurrentItem
+	);
 	const { formattedText } = useFormattedText();
 
 	const navigate = useNavigate();
@@ -125,9 +126,6 @@ const RecipePage = () => {
 					<div className="ml-3">
 						{ingredientsOpen && (
 							<RecipeItemList
-								openPopover={openPopover}
-								recipeIngredients={recipeIngredients}
-								setRecipeIngredients={setRecipeIngredients}
 								slug={slug}
 								recipeIngredientsList={recipeIngredientsList}
 								status

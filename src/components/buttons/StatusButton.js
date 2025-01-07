@@ -1,10 +1,12 @@
 import React from "react";
 import supabase from "../../config/supabaseClient";
 import { IconButton } from "bitesize-app/components";
-
+import { usePantry } from "../../contexts/PantryContext";
 import { STATUSES } from "../../constants";
 
-const StatusButton = ({ pantryItems, setPantryItems, item }) => {
+const StatusButton = ({ item }) => {
+	const { pantryItems, setPantryItems } = usePantry();
+
 	const icon =
 		item?.status === "out"
 			? "fa-circle-dashed"
