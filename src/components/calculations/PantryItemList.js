@@ -17,7 +17,7 @@ const PantryItemList = ({
 	ingredient,
 }) => {
 	const { pantryItems, setPantryItems } = usePantry();
-	const { toggleOnList } = useListFunctions(pantryItems, setPantryItems);
+	const { toggleOnList } = useListFunctions();
 
 	const aisleNames = AISLES.map((aisle) => aisle.name);
 	const aisleIcons = AISLES.reduce((acc, aisle) => {

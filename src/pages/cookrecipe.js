@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import supabase from "../config/supabaseClient";
 import { usePantry } from "../contexts/PantryContext";
 import {
 	ListView,
@@ -13,7 +12,12 @@ import {
 	TextButton,
 	RecipeItemList,
 } from "bitesize-app/components";
-import { usePopover, useFindItem, useFormattedText } from "bitesize-app/hooks";
+import {
+	usePopover,
+	useFindItem,
+	useFormattedText,
+	useListFunctions,
+} from "bitesize-app/hooks";
 import { EditPantryItem } from "bitesize-app/forms";
 
 // todo: fix this import
@@ -32,6 +36,7 @@ const CookRecipePage = () => {
 		pantryItems,
 		setCurrentItem
 	);
+	const { clearCheckedIngredients } = useListFunctions();
 
 	const { formattedText } = useFormattedText();
 
@@ -59,30 +64,6 @@ const CookRecipePage = () => {
 	};
 
 	//todo: move this into a hook
-	const clearCheckedIngredients = async () => {
-		const checkedIngredients = recipeIngredientsList.filter(
-			(item) => item.ingredient_checked === true
-		);
-
-		checkedIngredients.forEach(async (ingredient) => {
-			const { error } = await supabase
-				.from("recipeIngredients")
-				.update({ ingredient_checked: false })
-				.eq("id", ingredient.id);
-
-			if (error) {
-				console.error("Error updating ingredient:", error);
-			}
-
-			const updatedIngredients = recipeIngredientsList.map((item) =>
-				item.id === ingredient.id
-					? { ...item, ingredient_checked: false }
-					: item
-			);
-
-			setRecipeIngredients(updatedIngredients);
-		});
-	};
 
 	if (!recipeIngredients) {
 		return <div>Loading...</div>;
@@ -160,7 +141,7 @@ const CookRecipePage = () => {
 					</div>
 				</div>
 				<Button
-					onClick={() => clearCheckedIngredients()}
+					onClick={() => clearCheckedIngredients(slug)}
 					variant="primary"
 					className="mb-4"
 				>

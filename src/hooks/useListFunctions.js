@@ -1,7 +1,14 @@
 import supabase from "../config/supabaseClient";
+import { usePantry } from "../contexts/PantryContext";
 import { usePopover } from "bitesize-app/hooks";
 
-export const useListFunctions = (pantryItems, setPantryItems, currentItem) => {
+export const useListFunctions = (currentItem) => {
+	const {
+		pantryItems,
+		setPantryItems,
+		recipeIngredients,
+		setRecipeIngredients,
+	} = usePantry();
 	const { setPopoverIsOpen } = usePopover(pantryItems);
 
 	const toggleOnList = async (name) => {
@@ -70,5 +77,39 @@ export const useListFunctions = (pantryItems, setPantryItems, currentItem) => {
 		setPopoverIsOpen(false);
 	};
 
-	return { toggleOnList, removeItemFromList, clearCheckedItems };
+	const clearCheckedIngredients = async (slug) => {
+		const recipeIngredientsList = recipeIngredients?.filter(
+			(item) => item.recipe_slug === slug
+		);
+
+		const checkedIngredients = recipeIngredientsList.filter(
+			(item) => item.ingredient_checked === true
+		);
+
+		checkedIngredients.forEach(async (ingredient) => {
+			const { error } = await supabase
+				.from("recipeIngredients")
+				.update({ ingredient_checked: false })
+				.eq("id", ingredient.id);
+
+			if (error) {
+				console.error("Error updating ingredient:", error);
+			}
+
+			const updatedIngredients = recipeIngredientsList.map((item) =>
+				item.id === ingredient.id
+					? { ...item, ingredient_checked: false }
+					: item
+			);
+
+			setRecipeIngredients(updatedIngredients);
+		});
+	};
+
+	return {
+		toggleOnList,
+		removeItemFromList,
+		clearCheckedItems,
+		clearCheckedIngredients,
+	};
 };

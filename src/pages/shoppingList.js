@@ -26,7 +26,7 @@ import PantryItemCard from "./PantryItemCard";
 import { PANTRY_FILTER_OPTIONS } from "../constants";
 
 const ShoppingListPage = () => {
-	const { pantryItems, setPantryItems, fetchError } = usePantry();
+	const { pantryItems, fetchError } = usePantry();
 
 	const location = useLocation();
 	const currentPage = location.pathname;
@@ -37,11 +37,8 @@ const ShoppingListPage = () => {
 	const [filteredItems, setSearchQuery] = useSearch(pantryItems, "name");
 	const [filter, setFilter] = useFilter(PANTRY_FILTER_OPTIONS);
 
-	const { removeItemFromList, clearCheckedItems } = useListFunctions(
-		pantryItems,
-		setPantryItems,
-		currentItem
-	);
+	const { removeItemFromList, clearCheckedItems } =
+		useListFunctions(currentItem);
 	const { popoverIsOpen, setPopoverIsOpen, openPopover, closePopover } =
 		usePopover(pantryItems, setCurrentItem);
 
