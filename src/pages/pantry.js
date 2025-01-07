@@ -27,18 +27,14 @@ const PantryPage = () => {
 
 	const [editing, setEditing] = useState(false);
 
-	const { currentItem, setCurrentItem } = useFindItem();
+	const { currentItem, setCurrentItem } = useFindItem(pantryItems);
 	const [filteredItems, setSearchQuery] = useSearch(pantryItems, "name");
 	const [filter, setFilter] = useFilter(PANTRY_FILTER_OPTIONS);
 
 	const { popoverIsOpen, setPopoverIsOpen, openPopover, closePopover } =
-		usePopover(pantryItems, setCurrentItem);
+		usePopover(setCurrentItem);
 
-	const { filteredPantryItems } = usePantryItems(
-		pantryItems,
-		filter,
-		filteredItems
-	);
+	const { filteredPantryItems } = usePantryItems(filter, filteredItems);
 
 	if (fetchError) {
 		return <div>{fetchError}</div>;

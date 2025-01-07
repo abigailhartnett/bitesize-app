@@ -32,10 +32,8 @@ const CookRecipePage = () => {
 		setRecipeIngredients,
 	} = usePantry();
 	const { currentItem, setCurrentItem } = useFindItem(pantryItems); // I think this is only here because it's needed for the popover hook
-	const { popoverIsOpen, setPopoverIsOpen, closePopover } = usePopover(
-		pantryItems,
-		setCurrentItem
-	);
+	const { popoverIsOpen, setPopoverIsOpen, closePopover } =
+		usePopover(setCurrentItem);
 	const { clearCheckedIngredients } = useListFunctions();
 
 	const { formattedText } = useFormattedText();

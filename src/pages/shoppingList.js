@@ -40,13 +40,9 @@ const ShoppingListPage = () => {
 	const { removeItemFromList, clearCheckedItems } =
 		useListFunctions(currentItem);
 	const { popoverIsOpen, setPopoverIsOpen, openPopover, closePopover } =
-		usePopover(pantryItems, setCurrentItem);
+		usePopover(setCurrentItem);
 
-	const { shoppingListItems } = usePantryItems(
-		pantryItems,
-		filter,
-		filteredItems
-	);
+	const { shoppingListItems } = usePantryItems(filter, filteredItems);
 
 	const removeItem = (item) => {
 		removeItemFromList(item);

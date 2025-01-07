@@ -9,7 +9,7 @@ export const useListFunctions = (currentItem) => {
 		recipeIngredients,
 		setRecipeIngredients,
 	} = usePantry();
-	const { setPopoverIsOpen } = usePopover(pantryItems);
+	const { setPopoverIsOpen } = usePopover();
 
 	const toggleOnList = async (name) => {
 		// Find the item

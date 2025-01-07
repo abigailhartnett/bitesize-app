@@ -40,7 +40,7 @@ const EditRecipe = ({ recipe, recipeIngredientsList }) => {
 	const navigate = useNavigate();
 	const { findItemById, setCurrentItem } = useFindItem(pantryItems); //setCurrentItem isn't required for this page, but is required for the usePopover hook
 	const { popoverIsOpen, setPopoverIsOpen, openPopover, closePopover } =
-		usePopover(pantryItems, setCurrentItem);
+		usePopover(setCurrentItem);
 
 	const filteredPantryItems = pantryItems.filter(
 		(item) => item && filteredItems?.includes(item)

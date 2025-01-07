@@ -1,4 +1,8 @@
-export const usePantryItems = (pantryItems, filter, filteredItems) => {
+import { usePantry } from "../contexts/PantryContext";
+
+export const usePantryItems = (filter, filteredItems) => {
+	const { pantryItems } = usePantry();
+
 	const filteredPantryItems = pantryItems?.filter(
 		(item) =>
 			item &&

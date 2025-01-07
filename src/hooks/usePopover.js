@@ -1,7 +1,9 @@
 import { useState } from "react";
+import { usePantry } from "../contexts/PantryContext";
 import { useFindItem } from "bitesize-app/hooks";
 
-export const usePopover = (pantryItems, setCurrentItem) => {
+export const usePopover = (setCurrentItem) => {
+	const { pantryItems } = usePantry();
 	const [popoverIsOpen, setPopoverIsOpen] = useState(false);
 
 	// todo: update this away from "pantryItems" to make it more generic
