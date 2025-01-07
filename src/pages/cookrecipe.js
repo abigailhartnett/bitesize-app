@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import supabase from "../config/supabaseClient";
 import { usePantry } from "../contexts/PantryContext";
@@ -13,80 +13,52 @@ import {
 	TextButton,
 	RecipeItemList,
 } from "bitesize-app/components";
-
+import { usePopover, useFindItem, useFormattedText } from "bitesize-app/hooks";
 import { EditPantryItem } from "bitesize-app/forms";
 
 // todo: fix this import
 import EditRecipeForm from "../forms/EditRecipeItem";
 
 const CookRecipePage = () => {
-	const { recipes, pantryItems, setPantryItems } = usePantry();
+	const {
+		recipes,
+		pantryItems,
+		setPantryItems,
+		recipeIngredients,
+		setRecipeIngredients,
+	} = usePantry();
+	const { currentItem, setCurrentItem } = useFindItem(pantryItems); // I think this is only here because it's needed for the popover hook
+	const { popoverIsOpen, setPopoverIsOpen, closePopover } = usePopover(
+		pantryItems,
+		setCurrentItem
+	);
+
+	const { formattedText } = useFormattedText();
+
 	const navigate = useNavigate();
 	const { slug } = useParams();
-	const [recipeIngredients, setRecipeIngredients] = useState(null);
+
 	const [ingredientsOpen, setIngredientsOpen] = useState(true);
-	const [fetchError, setFetchError] = useState(null);
-	const [currentRecipe, setCurrentRecipe] = useState(
-		recipes?.find((recipe) => recipe.slug === slug)
-	);
-	const [currentIngredient, setCurrentIngredient] = useState(null);
-	const [popoverIsOpen, setPopoverIsOpen] = useState(false);
+	const [currentRecipe, setCurrentRecipe] = useState(null);
 	const [editing, setEditing] = useState(false);
 
-	const recipe = recipes?.find((recipe) => recipe.slug === slug);
+	useEffect(() => {
+		if (recipes) {
+			const recipe = recipes.find((recipe) => recipe.slug === slug);
+			setCurrentRecipe(recipe);
+		}
+	}, [recipes, slug]);
 
 	const recipeIngredientsList = recipeIngredients?.filter(
 		(item) => item.recipe_slug === slug
 	);
-
-	const findIngredientByName = (name) => {
-		const item = pantryItems?.find((item) => item.name === name);
-		if (!item) {
-			console.log(`Item with id ${name} not found`);
-			return;
-		}
-		setCurrentIngredient(item);
-		return item;
-	};
-
-	const openPopover = (name) => {
-		setPopoverIsOpen(true);
-		const item = findIngredientByName(name);
-		setCurrentIngredient(item);
-	};
 
 	const editRecipe = (recipe) => {
 		setPopoverIsOpen(true);
 		setCurrentRecipe(recipe);
 	};
 
-	useEffect(() => {
-		const fetchRecipeIngredients = async () => {
-			const { data, error } = await supabase.from("recipeIngredients").select();
-
-			if (error) {
-				setFetchError("Could not fetch pantry recipe ingredients");
-				setRecipeIngredients(null);
-				console.log(fetchError, error);
-			}
-			if (data) {
-				setRecipeIngredients(data);
-				setFetchError(null);
-			}
-		};
-		fetchRecipeIngredients();
-	}, [fetchError, setFetchError]);
-
-	const formattedText = useCallback((text) => {
-		const paragraphs = text?.split("\n").filter((text) => text.trim() !== "");
-		return paragraphs?.map((text, index) => (
-			<div key={index}>
-				<p>{text}</p>
-				<br />
-			</div>
-		));
-	}, []);
-
+	//todo: move this into a hook
 	const clearCheckedIngredients = async () => {
 		const checkedIngredients = recipeIngredientsList.filter(
 			(item) => item.ingredient_checked === true
@@ -118,21 +90,21 @@ const CookRecipePage = () => {
 
 	return (
 		<Container>
-			<TopBar pageTitle={recipe?.title}></TopBar>
+			<TopBar pageTitle={currentRecipe?.title}></TopBar>
 			<ListView>
 				{popoverIsOpen && (
 					<PopOver
-						setPopoverIsOpen={setPopoverIsOpen}
-						currentIngredient={currentIngredient}
+						closePopover={closePopover}
+						currentIngredient={currentItem}
 						setEditing={setEditing}
 						editing={editing}
 					>
-						{currentIngredient && (
+						{currentItem && (
 							<>
 								{editing ? (
 									<EditPantryItem
-										currentIngredient={currentIngredient}
-										setCurrentIngredient={setCurrentIngredient}
+										currentIngredient={currentItem}
+										setCurrentIngredient={setCurrentItem}
 										pantryItems={pantryItems}
 										setEditing={setEditing}
 										setPopoverIsOpen={setPopoverIsOpen}
@@ -146,12 +118,11 @@ const CookRecipePage = () => {
 								)}
 							</>
 						)}
-						{recipe && (
+						{currentRecipe && (
 							<EditRecipeForm
 								pantryItems={pantryItems}
-								recipe={recipe}
+								recipe={currentRecipe}
 								recipeIngredientsList={recipeIngredientsList}
-								// setPopoverIsOpen={setPopoverIsOpen}
 							/>
 						)}
 					</PopOver>
@@ -172,12 +143,11 @@ const CookRecipePage = () => {
 						{ingredientsOpen && (
 							<div>
 								<div className="border-b border-solid border-pepper/20 m-4">
-									{formattedText(recipe?.instructions)}
+									{formattedText(currentRecipe?.instructions)}
 								</div>
 								<RecipeItemList
 									pantryItems={pantryItems}
 									setPantryItems={setPantryItems}
-									openPopover={openPopover}
 									recipeIngredients={recipeIngredients}
 									setRecipeIngredients={setRecipeIngredients}
 									slug={slug}
@@ -197,7 +167,7 @@ const CookRecipePage = () => {
 					Clear checked ingredients
 				</Button>
 				<Button
-					onClick={() => editRecipe(recipe)}
+					onClick={() => editRecipe(currentRecipe)}
 					variant="secondary"
 					className="mb-4"
 				>

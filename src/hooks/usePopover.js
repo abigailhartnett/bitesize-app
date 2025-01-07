@@ -9,6 +9,7 @@ export const usePopover = (pantryItems, setCurrentItem) => {
 
 	const openPopover = (id) => {
 		setPopoverIsOpen(true);
+		// todo: this code should all be removed from usePopover hook, probably. All popOver logic should be self contained.
 		const item = findItemById(id);
 		setCurrentItem(item);
 	};
