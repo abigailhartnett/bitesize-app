@@ -1,7 +1,7 @@
 import React from "react";
 import { AISLES } from "../constants";
 
-import { SectionHeading, ListView } from "bitesize-app/components";
+// import { SectionHeading, ListView } from "bitesize-app/components";
 
 const PantryItemRelatedRecipes = ({ item }) => {
 	// todo: this is repeat code
