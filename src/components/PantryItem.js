@@ -23,7 +23,9 @@ const PantryItem = ({
 	const shoppingIcon = item?.onList ? "fa-circle-minus" : "fa-circle-plus";
 
 	return (
-		<div className={`grid grid-cols-[auto_1fr_auto] items-center`}>
+		<div
+			className={`grid grid-cols-[auto_1fr_auto] items-center bg-white py-2 px-1 border-b border-egg/50 hover:bg-rose/10 hover:cursor-pointer text-pepper/95`}
+		>
 			<div>
 				{toggleButton && ingredient ? (
 					<IconButton
@@ -37,7 +39,7 @@ const PantryItem = ({
 						<IconButton
 							onClick={toggleOnList}
 							icon={shoppingIcon}
-							className={`${item.onList && "text-pepper/50"}`}
+							className={`focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-pomegranate ${item.onList && "text-raspberry"} `}
 							faStyle="fa-solid"
 							size="xl"
 						/>
@@ -61,15 +63,15 @@ const PantryItem = ({
 			</div>
 
 			<div
-				className={`hover:font-medium ${currentPage !== "/create-recipe" && "cursor-pointer"}`}
+				className={`${currentPage !== "/create-recipe" && "cursor-pointer"}`}
 				onClick={() => !ingredient && openPopover(item?.id)}
 			>
 				{/* ITEM NAME */}
 				<div
-					className={`flex items-center gap-2 ${item?.checked && item?.onList ? "line-through text-pepper/50" : ""}`}
+					className={`flex flex-col ${item?.checked && item?.onList ? "line-through text-pepper/50" : ""}`}
 				>
-					<span className="capitalize">{item?.name}</span>
-					{aisle && <span className="text-xs capitalize">{item?.aisle}</span>}
+					<span className="capitalize font-medium ml-2">{item?.name}</span>
+
 					{
 						<span className="text-xs">
 							{amount} {unit}
