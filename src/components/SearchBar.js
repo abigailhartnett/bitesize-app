@@ -15,7 +15,7 @@ const SearchBar = ({ placeholder, id, setSearchQuery }) => {
 	};
 
 	return (
-		<div className="py-2 w-full">
+		<div className="py-1 w-full">
 			<div className="flex items-center gap-2 p-1 bg-white shadow-sm shadow-pepper/20 rounded-2xl h-12 pl-4 focus-within:outline focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-pomegranate">
 				<i class="fa-solid fa-search text-pomegranate"></i>
 				<input
