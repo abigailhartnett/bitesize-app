@@ -26,7 +26,10 @@ const Filter = ({ filter, setFilter }) => {
 				type="close"
 				label={`${tag}`}
 				onClick={() => handleFilterChange(tag)}
-				className={`${selectedTag === tag && "bg-mint text-broccoli border-mint"}`}
+				color="transparent"
+				activeColor="white"
+				// className={`${selectedTag === tag && "bg-mint text-broccoli border-mint"}`}
+				isActive={selectedTag === tag}
 			>
 				{tag}
 			</Tag>
@@ -34,8 +37,8 @@ const Filter = ({ filter, setFilter }) => {
 	});
 
 	return (
-		<div className="flex gap-2 items-center overflow-x-scroll w-full max-w-[calc(100vw-2rem)]">
-			<div className="flex gap-2">{tagOptions}</div>
+		<div className="overflow-x-scroll w-full max-w-[calc(100vw-1rem)] py-1">
+			<div className="flex">{tagOptions}</div>
 		</div>
 	);
 };
