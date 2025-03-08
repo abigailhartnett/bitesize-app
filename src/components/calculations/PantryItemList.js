@@ -53,25 +53,27 @@ const PantryItemList = ({
 			{sortedAisles.map(([aisle, items]) => (
 				<div key={aisle}>
 					<SectionHeading icon={aisleIcons[aisle]}>{aisle}</SectionHeading>
-					{items?.map((item) => (
-						<PantryItem
-							key={item.id}
-							item={item}
-							toggleOnList={() => toggleOnList(item.name)}
-							addToRecipe={() => addToRecipe(item.id)}
-							checkbox={checkbox}
-							showShoppingList={showShoppingList}
-							openPopover={() => openPopover(item.id)}
-							onChange={(e) => checkOffItem(e.target.checked, item.id)}
-							currentPage={currentPage}
-							pantryItems={pantryItems}
-							setPantryItems={setPantryItems}
-							aisle={aisle}
-							status={status}
-							toggleButton={toggleButton}
-							ingredient={ingredient}
-						/>
-					))}
+					<div className="divide-y divide-egg/50">
+						{items?.map((item) => (
+							<PantryItem
+								key={item.id}
+								item={item}
+								toggleOnList={() => toggleOnList(item.name)}
+								addToRecipe={() => addToRecipe(item.id)}
+								checkbox={checkbox}
+								showShoppingList={showShoppingList}
+								openPopover={() => openPopover(item.id)}
+								onChange={(e) => checkOffItem(e.target.checked, item.id)}
+								currentPage={currentPage}
+								pantryItems={pantryItems}
+								setPantryItems={setPantryItems}
+								aisle={aisle}
+								status={status}
+								toggleButton={toggleButton}
+								ingredient={ingredient}
+							/>
+						))}
+					</div>
 				</div>
 			))}
 		</div>
