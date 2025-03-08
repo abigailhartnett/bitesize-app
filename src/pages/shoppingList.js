@@ -59,7 +59,7 @@ const ShoppingListPage = () => {
 
 	return (
 		<Container>
-			<TopBar pageTitle="Shopping list">
+			<TopBar>
 				<Filter filter={filter} setFilter={setFilter} />
 				<div className="flex items-center gap-2">
 					<SearchBar

@@ -30,7 +30,7 @@ const RecipeBoxPage = () => {
 
 	return (
 		<Container>
-			<TopBar pageTitle="Recipes">
+			<TopBar>
 				<Filter
 					filter={filter}
 					setFilter={setFilter}

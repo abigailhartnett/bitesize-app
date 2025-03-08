@@ -39,7 +39,7 @@ const PantryItem = ({
 						<IconButton
 							onClick={toggleOnList}
 							icon={shoppingIcon}
-							className={`focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-pomegranate ${item.onList && "text-raspberry"} `}
+							className={`${item.onList && "text-raspberry"} `}
 							faStyle="fa-solid"
 							size="xl"
 						/>

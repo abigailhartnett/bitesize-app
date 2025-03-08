@@ -46,7 +46,7 @@ const PantryPage = () => {
 
 	return (
 		<Container>
-			<TopBar pageTitle="Pantry">
+			<TopBar>
 				<Filter filter={filter} setFilter={setFilter} />
 				<SearchBar
 					id={"searchInput"}
