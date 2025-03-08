@@ -90,15 +90,20 @@ const ShoppingListPage = () => {
 								/>
 							) : (
 								<PantryItemCard item={currentItem}>
-									<Button
-										onClick={() => removeItem(currentItem?.id)}
-										variant="primary"
-									>
-										Remove from List
-									</Button>
-									<Button onClick={() => setEditing(true)} variant="secondary">
-										Edit Item
-									</Button>
+									<div className="flex gap-4">
+										<Button
+											onClick={() => setEditing(true)}
+											variant="secondary"
+										>
+											Edit Item
+										</Button>
+										<Button
+											onClick={() => removeItem(currentItem?.id)}
+											variant="danger"
+										>
+											Remove from List
+										</Button>
+									</div>
 								</PantryItemCard>
 							)}
 						</PopOver>

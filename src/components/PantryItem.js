@@ -63,7 +63,7 @@ const PantryItem = ({
 			</div>
 
 			<div
-				className={`${currentPage !== "/create-recipe" && "cursor-pointer"}`}
+				className={`${currentPage !== "/create-recipe" && "cursor-pointer"} h-full flex items-center`}
 				onClick={() => !ingredient && openPopover(item?.id)}
 			>
 				{/* ITEM NAME */}

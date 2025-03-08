@@ -20,6 +20,7 @@ const PantryItemList = ({
 	const { toggleOnList } = useListFunctions();
 
 	const aisleNames = AISLES.map((aisle) => aisle.name);
+	// todo: this is repeat code
 	const aisleIcons = AISLES.reduce((acc, aisle) => {
 		acc[aisle.name] = aisle.icon;
 		return acc;
