@@ -10,7 +10,7 @@ const Menu = () => {
 	const currentPage = location.pathname;
 
 	return (
-		<div className="bg-white mx-auto p-4 w-full border-t border-l-0 border-r-0 border-b-0 border-solid border-pepper/20">
+		<div className="bg-white mx-auto p-4 w-full border-t border-l-0 border-r-0 border-b-0 border-solid border-pepper/20 fixed bottom-0 z-50">
 			<div className="flex items-center justify-between gap-1">
 				<div className="flex flex-col items-center">
 					<IconButton

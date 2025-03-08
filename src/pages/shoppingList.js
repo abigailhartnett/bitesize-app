@@ -70,7 +70,7 @@ const ShoppingListPage = () => {
 					<IconButton
 						icon="fa-check-double"
 						onClick={() => clearCheckedItems()}
-						className="bg-[#e9e9e9] rounded-2xl"
+						className="bg-pomegranate text-white rounded-2xl"
 						faStyle="fa-solid"
 						size="lg"
 					/>

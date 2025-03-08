@@ -12,7 +12,7 @@ const IconButton = ({
 }) => {
 	const buttonVariant = {
 		primary: "bg-pepper text-salt",
-		secondary: "bg-[#e9e9e9] text-pepper",
+		secondary: "bg-pepper/10 text-pepper",
 	};
 
 	return (
