@@ -16,8 +16,8 @@ const SearchBar = ({ placeholder, id, setSearchQuery }) => {
 
 	return (
 		<div className="my-2 w-full">
-			<div className="flex items-center gap-2 p-1 bg-[#e9e9e9] rounded-2xl h-12 pl-4">
-				<i class="fa-solid fa-search"></i>
+			<div className="flex items-center gap-2 p-1 bg-white shadow-sm shadow-pepper/20 rounded-2xl h-12 pl-4 focus-within:outline focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-pomegranate">
+				<i class="fa-solid fa-search text-pomegranate"></i>
 				<input
 					id={id}
 					name="search"
@@ -25,9 +25,13 @@ const SearchBar = ({ placeholder, id, setSearchQuery }) => {
 					value={input}
 					placeholder={placeholder}
 					onChange={(e) => handleInputChange(e)}
-					className="w-full bg-[#e9e9e9]"
+					className="w-full focus:outline-none"
 				></input>
-				<IconButton icon={"fas fa-close"} onClick={clearSearch} />
+				<IconButton
+					icon={"fas fa-close text-pepper/50"}
+					onClick={clearSearch}
+					className={`focus-within:outline focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-pomegranate`}
+				/>
 			</div>
 		</div>
 	);
