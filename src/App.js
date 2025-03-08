@@ -14,6 +14,7 @@ import ListPage from "./components/pages/list-page/ListPage";
 import ShoppingListPage from "./pages/shoppingList";
 import MealPlanPage from "./pages/mealPlan";
 import CookRecipePage from "./pages/cookrecipe";
+import LoginPage from "./libs/auth/LoginPage";
 import { PantryProvider } from "./contexts/PantryContext";
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
 					<Route path="/list-page" element={<ListPage />} />
 					<Route path="/shopping-list" element={<ShoppingListPage />} />
 					<Route path="/meal-plan" element={<MealPlanPage />} />
+					<Route path="/login" element={<LoginPage />} />
 				</Routes>
 			</Router>
 		</PantryProvider>

@@ -61,8 +61,6 @@ const CookRecipePage = () => {
 		setCurrentRecipe(recipe);
 	};
 
-	//todo: move this into a hook
-
 	if (!recipeIngredients) {
 		return <div>Loading...</div>;
 	}
