@@ -18,6 +18,7 @@ module.exports = {
 				raspberry: "#F5A3A3",
 				tomato: "#C92C2C",
 				egg: "#F6E8CA",
+				eggwash: "#FFFCF5",
 				mustard: "#F5B431",
 				salt: "#FAFAFA",
 				pepper: "#292929",
