@@ -8,7 +8,7 @@ const TopBar = ({ children, pageTitle }) => {
 					{pageTitle}
 				</h1>
 			)}
-			<div className="flex flex-col">{children}</div>
+			<div className="flex flex-col gap-2 mb-2">{children}</div>
 		</>
 	);
 };

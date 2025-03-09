@@ -24,7 +24,7 @@ const PantryItem = ({
 
 	return (
 		<div
-			className={`grid grid-cols-[auto_1fr_auto] items-center bg-white py-2 px-1 hover:bg-rose/10 hover:cursor-pointer text-pepper/95 first:rounded-tl-xl first:rounded-tr-xl last:rounded-br-xl last:rounded-bl-xl`}
+			className={`grid grid-cols-[auto_1fr_auto] items-center bg-white py-2 px-1 hover:cursor-pointer text-pepper/95 first:rounded-tl-xl first:rounded-tr-xl last:rounded-br-xl last:rounded-bl-xl`}
 		>
 			<div>
 				{toggleButton && ingredient ? (
