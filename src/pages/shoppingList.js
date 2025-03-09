@@ -8,7 +8,6 @@ import {
 	Button,
 	TopBar,
 	ListView,
-	Container,
 	SearchBar,
 	IconButton,
 	Menu,
@@ -58,9 +57,8 @@ const ShoppingListPage = () => {
 	}
 
 	return (
-		<Container>
+		<>
 			<TopBar>
-				<Filter filter={filter} setFilter={setFilter} />
 				<div className="flex items-center gap-2">
 					<SearchBar
 						id={"searchInput"}
@@ -75,6 +73,7 @@ const ShoppingListPage = () => {
 						size="lg"
 					/>
 				</div>
+				<Filter filter={filter} setFilter={setFilter} />
 			</TopBar>
 			<ListView>
 				{popoverIsOpen && (
@@ -122,7 +121,7 @@ const ShoppingListPage = () => {
 				)}
 			</ListView>
 			<Menu />
-		</Container>
+		</>
 	);
 };
 

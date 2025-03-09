@@ -4,7 +4,6 @@ import { usePantry } from "../contexts/PantryContext";
 import {
 	ListView,
 	TopBar,
-	Container,
 	PopOver,
 	Button,
 	Menu,
@@ -59,7 +58,7 @@ const RecipePage = () => {
 	}
 
 	return (
-		<Container>
+		<>
 			<TopBar pageTitle={currentRecipe?.title}>
 				{currentRecipe && currentRecipe?.status === "planned" ? (
 					<div className="flex items-center">
@@ -156,7 +155,7 @@ const RecipePage = () => {
 				</Button>
 			</ListView>
 			<Menu />
-		</Container>
+		</>
 	);
 };
 

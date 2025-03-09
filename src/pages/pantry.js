@@ -14,7 +14,6 @@ import {
 	PantryItemList,
 	TopBar,
 	ListView,
-	Container,
 	Menu,
 	Button,
 } from "bitesize-app/components";
@@ -45,14 +44,14 @@ const PantryPage = () => {
 	}
 
 	return (
-		<Container>
+		<>
 			<TopBar>
-				<Filter filter={filter} setFilter={setFilter} />
 				<SearchBar
 					id={"searchInput"}
 					placeholder={"Search pantry..."}
 					setSearchQuery={setSearchQuery}
 				/>
+				<Filter filter={filter} setFilter={setFilter} />
 			</TopBar>
 
 			<ListView>
@@ -102,7 +101,7 @@ const PantryPage = () => {
 				)}
 			</ListView>
 			<Menu />
-		</Container>
+		</>
 	);
 };
 

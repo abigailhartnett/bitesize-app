@@ -8,7 +8,6 @@ import {
 	TopBar,
 	IconButton,
 	ListView,
-	Container,
 	PantryItemList,
 	SearchBar,
 	Menu,
@@ -180,7 +179,7 @@ const CreateRecipePage = ({ pantryItems }) => {
 	};
 
 	return (
-		<Container>
+		<>
 			<TopBar pageTitle="Create a recipe"></TopBar>
 			<ListView>
 				<div className="flex flex-col gap-4 w-full">
@@ -256,7 +255,7 @@ const CreateRecipePage = ({ pantryItems }) => {
 				</div>
 			</ListView>
 			<Menu />
-		</Container>
+		</>
 	);
 };
 

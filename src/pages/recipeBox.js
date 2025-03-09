@@ -7,7 +7,6 @@ import {
 	ListView,
 	IconButton,
 	TopBar,
-	Container,
 	Filter,
 	Menu,
 } from "bitesize-app/components";
@@ -29,13 +28,8 @@ const RecipeBoxPage = () => {
 	);
 
 	return (
-		<Container>
+		<>
 			<TopBar>
-				<Filter
-					filter={filter}
-					setFilter={setFilter}
-					options={["planned", "not planned"]}
-				/>
 				<div className="flex items-center gap-2">
 					<SearchBar
 						id={"searchInput"}
@@ -48,9 +42,16 @@ const RecipeBoxPage = () => {
 						variant="secondary"
 						faStyle="fa-solid"
 						size="lg"
+						className="bg-pomegranate text-white"
 					/>
 				</div>
+				<Filter
+					filter={filter}
+					setFilter={setFilter}
+					options={["planned", "not planned"]}
+				/>
 			</TopBar>
+
 			<ListView grid>
 				{filteredRecipes?.length > 0 ? (
 					filteredRecipes.map((item) => (
@@ -62,8 +63,9 @@ const RecipeBoxPage = () => {
 					</div>
 				)}
 			</ListView>
+
 			<Menu />
-		</Container>
+		</>
 	);
 };
 

@@ -1,5 +1,4 @@
 export { default as BottomBar } from "./BottomBar";
-export { default as Container } from "./Container";
 export { default as Filter } from "./Filter";
 export { default as Form } from "./Form";
 export { default as ListView } from "./ListView";

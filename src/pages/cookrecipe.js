@@ -4,7 +4,6 @@ import { usePantry } from "../contexts/PantryContext";
 import {
 	ListView,
 	TopBar,
-	Container,
 	PopOver,
 	Button,
 	Menu,
@@ -66,7 +65,7 @@ const CookRecipePage = () => {
 	}
 
 	return (
-		<Container>
+		<>
 			<TopBar pageTitle={currentRecipe?.title}></TopBar>
 			<ListView>
 				{popoverIsOpen && (
@@ -155,7 +154,7 @@ const CookRecipePage = () => {
 				</TextButton>
 			</ListView>
 			<Menu />
-		</Container>
+		</>
 	);
 };
 

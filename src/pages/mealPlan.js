@@ -5,7 +5,6 @@ import {
 	RecipeItem,
 	ListView,
 	TopBar,
-	Container,
 	Menu,
 } from "bitesize-app/components";
 
@@ -19,7 +18,7 @@ const MealPlanPage = ({ recipes }) => {
 	);
 
 	return (
-		<Container>
+		<>
 			<TopBar pageTitle="Meal Plan">
 				<SearchBar
 					id={"searchInput"}
@@ -38,7 +37,7 @@ const MealPlanPage = ({ recipes }) => {
 			</ListView>
 
 			<Menu />
-		</Container>
+		</>
 	);
 };
 
