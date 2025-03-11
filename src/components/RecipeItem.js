@@ -21,7 +21,7 @@ const RecipeItem = ({ item }) => {
 				/>
 				<img
 					src="https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM="
-					alt="recipe-image"
+					alt="final recipe"
 					className="h-40 overflow-hidden rounded-tl-2xl rounded-tr-2xl object-cover"
 				/>
 
